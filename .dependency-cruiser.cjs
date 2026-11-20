@@ -3,10 +3,12 @@ module.exports = {
   forbidden: [
     {
       name: 'screens-never-call-reader',
-      comment: 'Screens get DiveMeets data through parsers and scoring, never straight from the reader.',
+      comment:
+        'Screens get DiveMeets data through parsers and scoring, never from the reader, ' +
+        'directly or through another module.',
       severity: 'error',
       from: { path: '^src/app' },
-      to: { path: '^src/divemeets/reader' },
+      to: { path: '^src/divemeets/reader', reachable: true },
     },
   ],
   options: {

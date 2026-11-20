@@ -22,7 +22,7 @@
     "eslint-config-expo": "~58.0.4",
     "jest": "~30.5.2",
     "jest-expo": "~58.0.15",
-    "license-checker-rseidelsohn": "^5.0.1",
+    "license-checker-rseidelsohn": "^4.4.2",
     "react-dom": "19.3.0",
     "typescript": "~6.0.3"
   },
@@ -30,7 +30,7 @@
     "start": "expo start",
     "android": "expo start --android",
     "typecheck": "tsc --noEmit",
-    "lint": "expo lint",
+    "lint": "expo lint src scripts",
     "test": "jest",
     "check:layers": "depcruise src --config .dependency-cruiser.cjs",
     "check:licenses": "node scripts/check-licenses.mjs",

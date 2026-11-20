@@ -14,7 +14,7 @@
 
 ## Global Constraints
 
-- License GPL-3.0-only. Production dependencies are limited to: MIT, ISC, BSD-2-Clause, BSD-3-Clause, Apache-2.0, 0BSD, CC0-1.0, Unlicense, BlueOak-1.0.0, Python-2.0, LGPL-3.0, GPL-3.0, CC-BY-4.0, MPL-2.0 (the last two added 2026-11-20; see `docs/decisions/2026-11-20-license-list.md`).
+- License GPL-3.0-only. Production dependencies are limited to: MIT, ISC, BSD-2-Clause, BSD-3-Clause, Apache-2.0, 0BSD, CC0-1.0, Unlicense, BlueOak-1.0.0, Python-2.0, LGPL-3.0, GPL-3.0, CC-BY-4.0, MPL-2.0, GPL-3.0-only, GPL-3.0-or-later, LGPL-3.0-only, LGPL-3.0-or-later (CC-BY-4.0 and MPL-2.0 added 2026-11-20, and the four SPDX -only / -or-later names for GPL-3.0 and LGPL-3.0 the same day; see `docs/decisions/2026-11-20-license-list.md`).
 - $0: nothing that needs a paid account or service. No Expo EAS. Builds run only on GitHub Actions.
 - No analytics, crash reporting, ads or accounts. No dependency whose purpose is tracking.
 - Tests never touch the network. DiveMeets is read only from `fixtures/divemeets/`.
@@ -171,10 +171,10 @@ test('accepts a marked file with CRLF endings', () => {
 
 `release.yml` (signed APK on a version tag) is left to milestone 7, the first release.
 
-- [ ] **Step 1:** `ci.yml` runs on `pull_request` and on `push` to `main`. Job `checks` (ubuntu-latest, Node from `.nvmrc`, `npm ci`): `typecheck`, `lint`, `test`, `check:layers`, `check:licenses`, `check:fixtures`, `check:skills`. Job `android` (needs `checks`, Java 17 Temurin): `npx expo prebuild --platform android --no-install`, then `cd android && ./gradlew assembleDebug --no-daemon`; upload `android/app/build/outputs/apk/debug/*.apk` as artifact `divedata-debug-apk`.
+- [ ] **Step 1:** `ci.yml` runs on `pull_request` and on `push` to `main`. Job `checks` (ubuntu-latest, Node from `.nvmrc`, `npm ci`): `typecheck`, `lint`, `test`, `check:layers`, `check:licenses`, `check:fixtures`, `check:skills`. Job `android` (needs `checks`, Java 17 Temurin): `npx expo prebuild --platform android --no-install`, then `cd android && ./gradlew assembleRelease --no-daemon`; upload `android/app/build/outputs/apk/release/*.apk` as artifact `divedata-test-apk`. (Changed 2026-11-20 from `assembleDebug`: a debug APK has no JavaScript bundle and shows "Unable to load script" on a phone. Expo's template signs release builds with the debug keystore, so no secret is needed.)
 - [ ] **Step 2:** Commit `ci: add checks and Android debug build`.
 - [ ] **Step 3:** `gh repo create NCHILLC/divedata --public --source . --push --description "Follow your diver at DiveMeets meets. Free and open source."`
 - [ ] **Step 4:** Watch the run: `gh run watch`. Expected: both jobs green, with the APK artifact attached.
 - [ ] **Step 5:** Protect `main`: require the `checks` and `android` status checks before merging, and no force pushes (`gh api -X PUT repos/NCHILLC/divedata/branches/main/protection ...`).
-- [ ] **Step 6:** Download the debug APK and install it on the maintainer's Pixel. Expected: it opens to "DiveData / Find a meet to get started." The maintainer confirms on the phone.
+- [ ] **Step 6:** Download the `divedata-test-apk` artifact and install it on the maintainer's Pixel. Expected: it opens to "DiveData / Find a meet to get started." The maintainer confirms on the phone.
 - [ ] **Step 7:** Wrap-up: write the progress notes (STATE and log) in the maintainer's private notes. End the session at this milestone.

@@ -40,7 +40,7 @@ SDK releases: check the versioned docs at `https://docs.expo.dev/versions/` befo
 | `npm start` | Start the Expo dev server |
 | `npm run android` | Start the dev server and open the app on an Android device or emulator |
 | `npm run typecheck` | TypeScript, strict |
-| `npm run lint` | ESLint through `expo lint` |
+| `npm run lint` | ESLint through `expo lint`, over `src/` and `scripts/` |
 | `npm test` | Jest: app tests and script tests |
 | `npm run check:layers` | Fails when a screen imports the reader |
 | `npm run check:licenses` | Fails on a production dependency with a license not on the list |
@@ -48,8 +48,11 @@ SDK releases: check the versioned docs at `https://docs.expo.dev/versions/` befo
 | `npm run sync:skills` | Copies `.agents/skills` to `.claude/skills` |
 | `npm run check:skills` | Fails when `.claude/skills` differs from `.agents/skills` |
 
-The Android debug build runs in CI (`.github/workflows/ci.yml`): `npx expo prebuild --platform android`,
-then Gradle `assembleDebug`. The `android/` folder is generated and never committed.
+The Android test build runs in CI (`.github/workflows/ci.yml`): `npx expo prebuild --platform android`,
+then Gradle `assembleRelease`, uploaded as artifact `divedata-test-apk`. A release build carries the app's
+JavaScript, so it opens on a phone with no dev server; a debug build shows "Unable to load script". Expo's
+template signs it with the debug keystore, so it is for testing only. The `android/` folder is generated
+and never committed.
 
 ## Where things live
 
