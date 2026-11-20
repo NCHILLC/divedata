@@ -17,10 +17,12 @@
     "@testing-library/react-native": "^14.1.0",
     "@types/jest": "30.0.0",
     "@types/react": "~19.3.0",
+    "dependency-cruiser": "^18.8.0",
     "eslint": "^9.0.0",
     "eslint-config-expo": "~58.0.4",
     "jest": "~30.5.2",
     "jest-expo": "~58.0.15",
+    "license-checker-rseidelsohn": "^5.0.1",
     "react-dom": "19.3.0",
     "typescript": "~6.0.3"
   },
@@ -29,10 +31,10 @@
     "android": "expo start --android",
     "typecheck": "tsc --noEmit",
     "lint": "expo lint",
-    "test": "jest"
+    "test": "jest",
+    "check:layers": "depcruise src --config .dependency-cruiser.cjs",
+    "check:licenses": "node scripts/check-licenses.mjs"
   },
   "private": true,
-  "jest": {
-    "preset": "jest-expo"
-  }
+  "license": "GPL-3.0-only"
 }
