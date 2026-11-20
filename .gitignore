@@ -8,3 +8,14 @@ coverage/
 *.jks
 .env*
 .superpowers/
+expo-env.d.ts
+web-build/
+.kotlin/
+*.tsbuildinfo
+.metro-health-check*
+npm-debug.*
+.DS_Store
+*.p8
+*.p12
+*.key
+*.pem
