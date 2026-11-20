@@ -22,6 +22,12 @@ own published scores.
 | Event results (places, totals) | Event results (4) | `parseEventResults` |
 | Dive sheet (one diver in one event: dives, DD, judge awards, score) | Diver screen (4), what-they-need (6) | `parseDiveSheet` |
 | Diver profile (the diver's meets and results) | Follow my diver (4) | `parseDiverProfile` |
+| Diver search by first and last name (`memberlist.php`) | Follow my diver: find them by name (4) | `parseDiverSearch` |
+
+Page addresses and the profile's table shape were cross-checked against the public, unlicensed
+`tnelli4/SafeDiveMeet` scraper (read 2026-11-20). Only facts about DiveMeets' pages are used; none of
+its code, and none of its saved data, which names a real diver. Its approach (a scraper posing as a
+browser) is the kind DiveData never uses. **[my call]**
 
 The live event page (who is diving now, the order) moves to milestone 5: it needs a meet that is
 running, and live mode is milestone 5's job. **[my call]**

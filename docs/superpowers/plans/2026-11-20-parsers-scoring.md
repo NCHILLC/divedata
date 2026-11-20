@@ -37,7 +37,7 @@
 
 - [ ] **Step 1:** The maintainer opens the browser pane at `https://secure.meetcontrol.com/divemeets/system/` and passes the check. Wait for his "done".
 - [ ] **Step 2:** Start a small relay on `127.0.0.1` (a Node script in the scratchpad, outside the repo) that writes a POSTed body to `divemeets-raw/<name>.html` and answers CORS and private-network preflights. In each page, run `fetch('http://127.0.0.1:<port>/<name>', { method: 'POST', body: document.documentElement.outerHTML })`. This saves what the phone's hidden browser will see.
-- [ ] **Step 3:** Open and save, at least one minute apart: `meet-list` (home), `meet-search` (results for a name search), then for one finished meet with a 5-judge event: `meet-info`, `event-results-5`, `dive-sheet-5`; a finished 3-judge event: `event-results-3`, `dive-sheet-3`; a 7-judge event (a national championship): `dive-sheet-7`; an event with prelims and finals: `event-results-cut`; `diver-profile` for one diver from those results. Prefer adult (college or senior) events where they cover the case. Note each page's address pattern for `docs/divemeets.md`.
+- [ ] **Step 3:** Open and save, at least one minute apart: `meet-list` (home), `meet-search` (results for a name search), then for one finished meet with a 5-judge event: `meet-info`, `event-results-5`, `dive-sheet-5`; a finished 3-judge event: `event-results-3`, `dive-sheet-3`; a 7-judge event (a national championship): `dive-sheet-7`; an event with prelims and finals: `event-results-cut`; `diver-profile` for one diver from those results; `diver-search` (the "find a diver" form at `memberlist.php`, searched by typing an adult diver's first and last name in the pane). Prefer adult (college or senior) events where they cover the case. Note each page's address pattern for `docs/divemeets.md`.
 - [ ] **Step 4:** If a page shows the check again, stop and ask the maintainer to pass it. Stop the relay when done.
 
 ### Task 2: Anonymizer covers every person, then the fixtures
@@ -109,7 +109,7 @@ function averageAwardNeeded(input: { total: number; remainingDDs: number[]; targ
 
 ```ts
 class PageChangedError extends Error { constructor(page: PageType, detail: string) }
-type PageType = 'meet-list' | 'meet-info' | 'event-results' | 'dive-sheet' | 'diver-profile';
+type PageType = 'meet-list' | 'meet-info' | 'event-results' | 'dive-sheet' | 'diver-profile' | 'diver-search';
 function load(html: string): HTMLElement;            // node-html-parser root
 function cleanText(el: HTMLElement | undefined): string; // entities decoded, nbsp to space, trimmed
 function checked<T>(page: PageType, schema: z.ZodType<T>, value: unknown): T; // Zod parse or PageChangedError
@@ -161,13 +161,13 @@ function parseDiveSheet(html: string): DiveSheet;
 - [ ] **Step 2:** Run, fail. **Step 3:** Implement. **Step 4:** Run, pass.
 - [ ] **Step 5:** Commit: `feat(parsers): dive sheet, checked against published scores`.
 
-### Task 8: Diver profile
+### Task 8: Diver profile and diver search
 
 **Files:** Create `src/divemeets/parsers/diver-profile.ts`, `__tests__/diver-profile.test.ts`.
 
-**Interfaces:** Produces `type DiverProfile = { diver: DiverRef; meets: { meetNumber: number; name: string; startDate?: string; events: { name: string; place?: number; total?: number; diveSheetPath?: string }[] }[] }` and `parseDiverProfile(html: string): DiverProfile`. Personal details on the page (city, school, coach) are not read.
+**Interfaces:** Produces `type DiverProfile = { diver: DiverRef; meets: { meetNumber: number; name: string; startDate?: string; events: { name: string; place?: number; total?: number; diveSheetPath?: string }[] }[] }` and `parseDiverProfile(html: string): DiverProfile`. Personal details on the page (city, school, coach) are not read. Expected shape (from `tnelli4/SafeDiveMeet`, to confirm): a full-width results table where a row with one 3-column cell in bold is a meet name, and each following 3-cell row is event, place, and score linking to `divesheetresultsext.php?meetnum=…&eventnum=…&dvrnum=…&eventtype=…`. Also `parseDiverSearch(html: string): DiverRef[]` from `diver-search.html` (the profile links on the results page), in `diver-search.ts`.
 
-- [ ] **Step 1:** Failing test with values read off the fixture, plus wrong page throws. **Steps 2-4:** fail, implement, pass.
+- [ ] **Step 1:** Failing tests with values read off both fixtures, plus wrong page throws for each. **Steps 2-4:** fail, implement, pass.
 - [ ] **Step 5:** Commit: `feat(parsers): diver profile`.
 
 ### Task 9: Docs, checks, pull request
