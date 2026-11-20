@@ -43,7 +43,7 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
-          cache: gradle
+          # No Gradle cache: android/ only exists after expo prebuild, so setup-java finds no Gradle files.
       - run: npm ci
       - run: npx expo prebuild --platform android --no-install
       - run: ./gradlew assembleDebug --no-daemon
