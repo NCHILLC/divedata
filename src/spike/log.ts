@@ -4,7 +4,7 @@
 export type ReadResult = 'page' | 'check' | 'error' | 'busy';
 
 export type LogEntry =
-  | { kind: 'tick'; seq: number; nativeAt: number; jsAt: number }
+  | { kind: 'tick'; seq: number; nativeAt: number }
   | {
       kind: 'read';
       seq: number;
@@ -94,7 +94,12 @@ export function summarize(
     longestGap = Math.max(longestGap, tick.nativeAt - previous);
     previous = tick.nativeAt;
   }
-  const maxJsDelay = ticks.reduce((max, t) => Math.max(max, t.jsAt - t.nativeAt), 0);
+  // How long the JavaScript side took to act on a tick; a frozen JavaScript thread shows up here.
+  const tickAt = new Map(ticks.map((t) => [t.seq, t.nativeAt]));
+  const maxJsDelay = reads.reduce((max, r) => {
+    const at = tickAt.get(r.seq);
+    return at === undefined ? max : Math.max(max, r.startedAt - at);
+  }, 0);
 
   let pageChanges = 0;
   let lastPrint: string | undefined;

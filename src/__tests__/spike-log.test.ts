@@ -29,7 +29,7 @@ function run(
   results.forEach((result, i) => {
     at += i === opts.gapAt ? 61_000 : STEP;
     const seq = i + 1;
-    entries.push({ kind: 'tick', seq, nativeAt: at, jsAt: at + 5 });
+    entries.push({ kind: 'tick', seq, nativeAt: at });
     entries.push({
       kind: 'read',
       seq,
@@ -49,7 +49,7 @@ test('parseLog skips lines that are not JSON', () => {
   const text = [
     JSON.stringify({ kind: 'stop', at: 1, reason: 'done' }),
     'not json',
-    JSON.stringify({ kind: 'tick', seq: 1, nativeAt: 1, jsAt: 2 }),
+    JSON.stringify({ kind: 'tick', seq: 1, nativeAt: 1 }),
     '',
   ].join('\n');
   expect(parseLog(text)).toHaveLength(2);
@@ -114,6 +114,13 @@ test('alerts off is reported but does not fail the run', () => {
   const s = summarize(run(pages(60), { alertsOn: false }));
   expect(s.reasons).toContain('Alerts were off');
   expect(s.pass).toBe(true);
+});
+
+test('a late JavaScript reaction shows as delay', () => {
+  const entries = run(pages(60));
+  const read = entries.find((e) => e.kind === 'read' && e.seq === 5);
+  if (read?.kind === 'read') read.startedAt += 12_000;
+  expect(summarize(entries).maxJsDelaySeconds).toBe(12);
 });
 
 test('a gap over 45 seconds fails the run', () => {

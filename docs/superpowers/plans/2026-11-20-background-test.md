@@ -39,7 +39,7 @@
 
 **Interfaces:**
 - Produces:
-  - `type LogEntry = { kind: 'tick'; seq: number; nativeAt: number; jsAt: number } | { kind: 'read'; seq: number; startedAt: number; endedAt: number; result: 'page' | 'check' | 'error' | 'busy'; fingerprint?: string } | { kind: 'start'; at: number; url: string; alertsOn: boolean; batteryOptimized: boolean; powerSave: boolean } | { kind: 'stop'; at: number; reason: 'done' | 'stopped' | 'check' }`
+  - `type LogEntry = { kind: 'tick'; seq: number; nativeAt: number } | { kind: 'read'; seq: number; startedAt: number; endedAt: number; result: 'page' | 'check' | 'error' | 'busy'; fingerprint?: string } | { kind: 'start'; at: number; url: string; alertsOn: boolean; batteryOptimized: boolean; powerSave: boolean } | { kind: 'stop'; at: number; reason: 'done' | 'stopped' | 'check' }`
   - `parseLog(text: string): LogEntry[]` — one JSON object per line; skips lines that do not parse.
   - `classifyPage(page: { title: string; text: string }): 'page' | 'check'` — `check` when the title is "Just a moment..." or the text contains "Verify you are human" or "Checking your browser" (case-insensitive).
   - `fingerprint(text: string): string` — a stable short hash (djb2 to hex is fine).
@@ -68,7 +68,7 @@
 - Create with `npx create-expo-module@latest --local background-test`, then edit: `modules/background-test/index.ts`, `modules/background-test/expo-module.config.json` (Android only), `modules/background-test/android/src/main/AndroidManifest.xml`, `modules/background-test/android/src/main/java/org/divedata/backgroundtest/BackgroundTestModule.kt`, `.../BackgroundTestService.kt`. Delete the template's web and iOS files and its example view.
 
 **Interfaces:**
-- Consumes: the `LogEntry` line format from Task 1 (the module writes `tick` and `stop` lines itself as JSON, with `jsAt` filled in by JS — see below).
+- Consumes: the `LogEntry` line format from Task 1 (the module writes `tick` and `stop` lines itself as JSON).
 - Produces (TypeScript, `modules/background-test/index.ts`):
   - `start(intervalSeconds: number, minutes: number): void` — starts the foreground service.
   - `stop(): void` — stops it; the service writes `{kind:'stop', reason:'stopped'}`.
@@ -76,7 +76,7 @@
   - `notify(title: string, body: string): void` — an ordinary (not ongoing) notification.
   - `phoneState(): { batteryOptimized: boolean; powerSave: boolean; alertsOn: boolean }`.
   - Event `onTick: { seq: number; nativeAt: number }` and event `onFinished: { reason: 'done' | 'check' | 'stopped' }`.
-  - JS writes the `tick` line on receipt (`jsAt = Date.now()`), so a frozen JS thread shows as `jsAt - nativeAt`.
+  - The service writes `tick` lines itself, so ticks are logged even if JS is frozen; JS delay = a read's `startedAt` minus its tick's `nativeAt`.
 - Native requirements:
   - Manifest: permissions `FOREGROUND_SERVICE`, `FOREGROUND_SERVICE_SPECIAL_USE`, `POST_NOTIFICATIONS`, `WAKE_LOCK`; the service with `android:foregroundServiceType="specialUse"` and property `android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE` = `Re-reads one public results page every 30 seconds while the person follows a live event`.
   - Service: ongoing notification "DiveData background test" / "Reading every 30 seconds", with a Stop action; `PARTIAL_WAKE_LOCK` with a timeout of `minutes` + 1; a `Handler` on the main looper posts a tick every `intervalSeconds` (sending `onTick` through the module), then stops itself after `minutes` and writes `{kind:'stop', reason:'done'}`.
