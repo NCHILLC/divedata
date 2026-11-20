@@ -1,0 +1,1569 @@
+<!-- anonymized: divedata -->
+<html><head>
+<title>::::::::::: DiveMeets - Meets :::::::::::</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="refresh" content="900">
+<!-- Browser Icon -->
+<link rel="Meet Control" href="../../favicon.ico">
+
+<!-- Place External Style Links Here -->
+<link rel="stylesheet" type="text/css" href="style/divemeets.css">
+
+<!-- Place Internal Styles Here -->
+<style type="text/css">
+</style>
+
+<!-- Place Javascript Here -->
+	<script language="javascript" type="text/javascript" src="ajax.js">
+	</script>
+	<script type="text/javascript">
+	<!--
+	function toggleBox(szDivID, iState) // 1 visible, 0 hidden // Please wait for load blanket script
+		{
+		if(document.layers)	   //NN4+
+			{
+			document.layers[szDivID].visibility = iState ? "show" : "hide";
+			}
+		else if(document.getElementById)	  //gecko(NN6) + IE 5+
+			{
+			var obj = document.getElementById(szDivID);
+			obj.style.visibility = iState ? "visible" : "hidden";
+			}
+		else if(document.all)	// IE 4
+			{
+			document.all[szDivID].style.visibility = iState ? "visible" : "hidden";
+			}
+		}
+
+	function toggleAd(szDivID,iState,adNum) // 1 visible, 0 hidden // Advertising box script
+		{
+		if(document.layers)	   //NN4+
+			{
+			document.layers[szDivID].visibility = iState ? "show" : "hide";
+			}
+		else if(document.getElementById)	  //gecko(NN6) + IE 5+
+			{
+			var obj = document.getElementById(szDivID);
+			obj.style.visibility = iState ? "visible" : "hidden";
+			}
+		else if(document.all)	// IE 4
+			{
+			document.all[szDivID].style.visibility = iState ? "visible" : "hidden";
+			}
+		logAdPlay(adNum,0);
+		}
+	
+	function toggleAdOpenWindow(szDivID, iState,URLAddress,adNum) // 1 visible, 0 hidden // Advertising box script
+		{
+		if(document.layers)	   //NN4+
+			{
+			document.layers[szDivID].visibility = iState ? "show" : "hide";
+			}
+		else if(document.getElementById)	  //gecko(NN6) + IE 5+
+			{
+			var obj = document.getElementById(szDivID);
+			obj.style.visibility = iState ? "visible" : "hidden";
+			}
+		else if(document.all)	// IE 4
+			{
+			document.all[szDivID].style.visibility = iState ? "visible" : "hidden";
+			}
+		window.open(URLAddress);
+		logAdPlay(adNum,1);
+		}
+
+	function logAdPlay(adNum,addInfo) // Function to record adplay on Close of window
+		{
+		// assemble the PHP filename
+		filename = "logadplay.php?query=" + adNum + "&additional=" + addInfo;
+		// DisplayResults will handle the Ajax response
+		//ajaxCallback = DisplayEligibleEvents;//
+		// Send the Ajax request
+		ajaxRequest(filename);
+		}
+	
+	// -->
+	</script>
+
+
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20transform%3D%22translate(-.5%20-.5)%22%20fill%3D%22%23C6613F%22%20d%3D%22M2%201.5%2014.2%206.6a.7.7%200%200%201-.06%201.32L9.2%209.4a.7.7%200%200%200-.46.46l-1.5%204.9a.7.7%200%200%201-1.32.05z%22%2F%3E%3C%2Fsvg%3E"></head>
+<body>
+
+<div id="test" style="position: absolute; margin: auto; width: 100%; height: 100%; font-size: 16px; font-weight: bold; color: rgb(255, 255, 255); background: rgba(0, 0, 0, 0.75); z-index: 10000; text-align: center; visibility: hidden;">
+	<br><br><br><br><br><br><br>Please wait while this page loads.<br><br><img src="style/anim-button.gif"><br><br><br>
+</div>
+<div id="dm_top_bar">
+	<div id="dm_top_bar_box">
+		<img src="style/diver3.png" class="diver1"><img src="style/diver1.png" class="diver2"><a href="http://www.divemeets.com/"><img src="style/dm_logo_diver.jpg" class="dm_logo_diver"></a><a href="http://www.divemeets.com/"><img src="style/dm_logo.jpg" class="dm_logo"></a><div id="dm_top_bar_box_text_EN">Dive Sheets: 918,721&nbsp;&nbsp;Dive Scores: 6,144,453&nbsp;&nbsp;Judge Scores: 27,713,845 and counting!!!</div>
+	</div>
+</div>
+<div id="dm_menu_centered_background">
+<div id="dm_menu_centered">
+	<ul>
+		<li>
+			<a href="https://secure.meetcontrol.com/divemeets/system/aboutus.php">About Us</a>
+			<ul>
+				<li class="last">
+					<a href="https://secure.meetcontrol.com/divemeets/system/contactus_ex.php">Contact Us</a>
+				</li>
+			</ul>
+		</li>
+		<li>
+			<a href="#">Meets</a>
+			<ul>
+<li><a href="#">Upcoming</a><ul><li><a style="width: 315px" href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=upcoming&amp;association=Amateur Athletic Union (AAU)&amp;ye=2026">Amateur Athletic Union (AAU)</a></li><li><a style="width: 315px" href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=upcoming&amp;association=Georgia High School Association&amp;ye=2026">Georgia High School Association</a></li><li><a style="width: 315px" href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=upcoming&amp;association=Maui Interscholastic League&amp;ye=2026">Maui Interscholastic League</a></li><li><a style="width: 315px" href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=upcoming&amp;association=National Collegiate Athletic Association (NCAA)&amp;ye=2026">National Collegiate Athletic Association (NCAA)</a></li><li><a style="width: 315px" href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=upcoming&amp;association=North Carolina High School Athletic Association&amp;ye=2026">North Carolina High School Athletic Association</a></li><li><a style="width: 315px" href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=upcoming&amp;association=USA Diving&amp;ye=2026">USA Diving</a></li></ul></li><li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=current&amp;association=ALL&amp;ye=2026">Current</a></li><li class="last"><a href="#">Past Results &amp; Photos</a><ul><li><a href="#">2026</a><ul><li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Amateur Athletic Union (AAU)&amp;ye=2026">Amateur Athletic Union (AAU)</a></li><li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Big Island Interscholastic Federation&amp;ye=2026">Big Island Interscholastic Federation</a></li><li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=California Community College Athletic Association&amp;ye=2026">California Community College Athletic Association</a></li><li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Central&amp;ye=2026">CIF Central</a></li><li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Central Coast&amp;ye=2026">CIF Central Coast</a></li><li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF North Coast&amp;ye=2026">CIF North Coast</a></li><li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF San Diego&amp;ye=2026">CIF San Diego</a></li><li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Southern&amp;ye=2026">CIF Southern</a></li><li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Country Club Swim and Dive Association&amp;ye=2026">Country Club Swim and Dive Association</a></li><li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Florida High School Athletic Association&amp;ye=2026">Florida High School Athletic Association</a></li><li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Georgia High School Association&amp;ye=2026">Georgia High School Association</a></li><li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Greater Atlanta Diving League&amp;ye=2026">Greater Atlanta Diving League</a></li><li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Hawaii High School Athletic Association&amp;ye=2026">Hawaii High School Athletic Association</a></li><li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Illinois High School Association&amp;ye=2026">Illinois High School Association</a></li><li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Iowa Girls HighSchool Athletic Union&amp;ye=2026">Iowa Girls HighSchool Athletic Union</a></li><li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Kentucky HS Athletics Association&amp;ye=2026">Kentucky HS Athletics Association</a></li><li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Maryland Public Secondary Schools Athletic Association&amp;ye=2026">Maryland Public Secondary Schools Athletic Association</a></li><li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Maui Interscholastic League&amp;ye=2026">Maui Interscholastic League</a></li><li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Montgomery County Diving League&amp;ye=2026">Montgomery County Diving League</a></li><li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=NAIA&amp;ye=2026">NAIA</a></li><li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=National Collegiate Athletic Association (NCAA)&amp;ye=2026">National Collegiate Athletic Association (NCAA)</a></li><li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=North Carolina High School Athletic Association&amp;ye=2026">North Carolina High School Athletic Association</a></li><li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Northern Virginia Swimming League&amp;ye=2026">Northern Virginia Swimming League</a></li><li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Pennsylvania Interscholastic Athletic Association&amp;ye=2026">Pennsylvania Interscholastic Athletic Association</a></li><li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=USA Diving&amp;ye=2026">USA Diving</a></li><li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Virginia Independent Schools Athletic Association&amp;ye=2026">Virginia Independent Schools Athletic Association</a></li><li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Washington Metro Interscholastic Association&amp;ye=2026">Washington Metro Interscholastic Association</a></li><li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=World Aquatics&amp;ye=2026">World Aquatics</a></li><li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=YMCA&amp;ye=2026">YMCA</a></li>							</ul>
+						</li>
+
+
+
+
+
+<li><a href="#">2025</a><ul>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Amateur Athletic Union (AAU)&amp;ye=2025">Amateur Athletic Union (AAU)</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=California Community College Athletic Association&amp;ye=2025">California Community College Athletic Association</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Central&amp;ye=2025">CIF Central</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Central Coast&amp;ye=2025">CIF Central Coast</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF North Coast&amp;ye=2025">CIF North Coast</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Sac-Joaquin&amp;ye=2025">CIF Sac-Joaquin</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF San Diego&amp;ye=2025">CIF San Diego</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Southern&amp;ye=2025">CIF Southern</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Country Club Swim and Dive Association&amp;ye=2025">Country Club Swim and Dive Association</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=East Coast Master Diving&amp;ye=2025">East Coast Master Diving</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Florida High School Athletic Association&amp;ye=2025">Florida High School Athletic Association</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Georgia High School Association&amp;ye=2025">Georgia High School Association</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Greater Atlanta Diving League&amp;ye=2025">Greater Atlanta Diving League</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Hawaii High School Athletic Association&amp;ye=2025">Hawaii High School Athletic Association</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Illinois High School Association&amp;ye=2025">Illinois High School Association</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Iowa Girls HighSchool Athletic Union&amp;ye=2025">Iowa Girls HighSchool Athletic Union</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Kentucky HS Athletics Association&amp;ye=2025">Kentucky HS Athletics Association</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Knox-area Interscholastic Swim League (KISL)&amp;ye=2025">Knox-area Interscholastic Swim League (KISL)</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Maryland Public Secondary Schools Athletic Association&amp;ye=2025">Maryland Public Secondary Schools Athletic Association</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Maui Interscholastic League&amp;ye=2025">Maui Interscholastic League</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Montgomery County Diving League&amp;ye=2025">Montgomery County Diving League</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=NAIA&amp;ye=2025">NAIA</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=National Collegiate Athletic Association (NCAA)&amp;ye=2025">National Collegiate Athletic Association (NCAA)</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=National Junior College Athletic Association&amp;ye=2025">National Junior College Athletic Association</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=No Limits Tour Cliff Diving&amp;ye=2025">No Limits Tour Cliff Diving</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=North Carolina High School Athletic Association&amp;ye=2025">North Carolina High School Athletic Association</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Northern Virginia Swimming League&amp;ye=2025">Northern Virginia Swimming League</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Pennsylvania Interscholastic Athletic Association&amp;ye=2025">Pennsylvania Interscholastic Athletic Association</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Tennessee Interscholastic Swim Coaches Association&amp;ye=2025">Tennessee Interscholastic Swim Coaches Association</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=USA Diving&amp;ye=2025">USA Diving</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Virginia Independent Schools Athletic Association&amp;ye=2025">Virginia Independent Schools Athletic Association</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Washington Metro Interscholastic Association&amp;ye=2025">Washington Metro Interscholastic Association</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Washington Metropolitan Prep School&amp;ye=2025">Washington Metropolitan Prep School</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=World Aquatics&amp;ye=2025">World Aquatics</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=YMCA&amp;ye=2025">YMCA</a></li>
+</ul></li>
+
+
+
+
+
+
+
+
+
+
+<li><a href="#">2024</a><ul>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Amateur Athletic Union (AAU)&amp;ye=2024">Amateur Athletic Union (AAU)</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Big Island Interscholastic Federation&amp;ye=2024">Big Island Interscholastic Federation</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=California Community College Athletic Association&amp;ye=2024">California Community College Athletic Association</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Central&amp;ye=2024">CIF Central</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Central Coast&amp;ye=2024">CIF Central Coast</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF North Coast&amp;ye=2024">CIF North Coast</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Sac-Joaquin&amp;ye=2024">CIF Sac-Joaquin</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF San Diego&amp;ye=2024">CIF San Diego</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Southern&amp;ye=2024">CIF Southern</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Colorado High School Activities Assoc&amp;ye=2024">Colorado High School Activities Assoc</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Country Club Swim and Dive Association&amp;ye=2024">Country Club Swim and Dive Association</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=East Coast Master Diving&amp;ye=2024">East Coast Master Diving</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Florida High School Athletic Association&amp;ye=2024">Florida High School Athletic Association</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Georgia High School Association&amp;ye=2024">Georgia High School Association</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Greater Atlanta Diving League&amp;ye=2024">Greater Atlanta Diving League</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Hawaii High School Athletic Association&amp;ye=2024">Hawaii High School Athletic Association</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Illinois High School Association&amp;ye=2024">Illinois High School Association</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Kentucky HS Athletics Association&amp;ye=2024">Kentucky HS Athletics Association</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Knox-area Interscholastic Swim League (KISL)&amp;ye=2024">Knox-area Interscholastic Swim League (KISL)</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Maryland Public Secondary Schools Athletic Association&amp;ye=2024">Maryland Public Secondary Schools Athletic Association</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Maui Interscholastic League&amp;ye=2024">Maui Interscholastic League</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Montgomery County Diving League&amp;ye=2024">Montgomery County Diving League</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=NAIA&amp;ye=2024">NAIA</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=National Collegiate Athletic Association (NCAA)&amp;ye=2024">National Collegiate Athletic Association (NCAA)</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=North Carolina High School Athletic Association&amp;ye=2024">North Carolina High School Athletic Association</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Northern Virginia Swimming League&amp;ye=2024">Northern Virginia Swimming League</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Pennsylvania Interscholastic Athletic Association&amp;ye=2024">Pennsylvania Interscholastic Athletic Association</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=USA Diving&amp;ye=2024">USA Diving</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Virginia Independent Schools Athletic Association&amp;ye=2024">Virginia Independent Schools Athletic Association</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Washington Metro Interscholastic Association&amp;ye=2024">Washington Metro Interscholastic Association</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=World Aquatics&amp;ye=2024">World Aquatics</a></li>
+<li><a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=YMCA&amp;ye=2024">YMCA</a></li></ul></li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+						<li>
+							<a href="#">2023</a>
+							<ul>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Alabama High School Athletic Association&amp;ye=2023">Alabama High School Athletic Association</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Amateur Athletic Union (AAU)&amp;ye=2023">Amateur Athletic Union (AAU)</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Big Island Interscholastic Federation&amp;ye=2023">Big Island Interscholastic Federation</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=California Community College Athletic Association&amp;ye=2023">California Community College Athletic Association</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Central&amp;ye=2023">CIF Central</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Central Coast&amp;ye=2023">CIF Central Coast</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF North Coast&amp;ye=2023">CIF North Coast</a>
+							</li>
+                                                        <li>
+                                                        <a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Sac-Joaquin&amp;ye=2023">CIF Sac-Joaquin</a>
+                                                        </li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF San Diego&amp;ye=2023">CIF San Diego</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Southern&amp;ye=2023">CIF Southern</a>
+							</li>
+                                                        <li>
+                                                        <a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Country Club Swim and Dive Association&amp;ye=2023">Country Club Swim and Dive Association</a>
+                                                        </li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=East Coast Master Diving&amp;ye=2023">East Coast Master Diving</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Florida High School Athletic Association&amp;ye=2023">Florida High School Athletic Association</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Georgia High School Association&amp;ye=2023">Georgia High School Association</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Greater Atlanta Diving League&amp;ye=2023">Greater Atlanta Diving League</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Hawaii High School Athletic Association&amp;ye=2023">Hawaii High School Athletic Association</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Illinois High School Association&amp;ye=2023">Illinois High School Association</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Kentucky HS Athletics Association&amp;ye=2023">Kentucky HS Athletics Association</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Knox-area Interscholastic Swim League (KISL)&amp;ye=2023">Knox-area Interscholastic Swim League (KISL)</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Maui Interscholastic League&amp;ye=2023">Maui Interscholastic League</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Missouri State HS St.Activites Association&amp;ye=2023">Missouri State HS St.Activites Association</a>
+							</li>
+                                                        <li>
+                                                        <a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Montgomery County Diving League&amp;ye=2023">Montgomery County Diving League</a>
+                                                        </li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=NAIA&amp;ye=2023">NAIA</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=National Collegiate Athletic Association (NCAA)&amp;ye=2023">National Collegiate Athletic Association (NCAA)</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=North Carolina High School Athletic Association&amp;ye=2023">North Carolina High School Athletic Association</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Northern Virginia Swimming League&amp;ye=2023">Northern Virginia Swimming League</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Pennsylvania Interscholastic Athletic Association&amp;ye=2023">Pennsylvania Interscholastic Athletic Association</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=USA Diving&amp;ye=2023">USA Diving</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Washington Interscholastic Activities Association&amp;ye=2023">Washington Interscholastic Activities Association</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Washington Metro Interscholastic Association&amp;ye=2023">Washington Metro Interscholastic Association</a>
+							</li>
+                                                        <li>
+                                                        <a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=World Aquatics&amp;ye=2023">World Aquatics</a>
+                                                        </li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=YMCA&amp;ye=2023">YMCA</a>
+							</li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">2022</a>
+							<ul>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Alabama High School Athletic Association&amp;ye=2022">Alabama High School Athletic Association</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Amateur Athletic Union (AAU)&amp;ye=2022">Amateur Athletic Union (AAU)</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Big Island Interscholastic Federation&amp;ye=2022">Big Island Interscholastic Federation</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=California Community College Athletic Association&amp;ye=2022">California Community College Athletic Association</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Central&amp;ye=2022">CIF Central</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Central Coast&amp;ye=2022">CIF Central Coast</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF North Coast&amp;ye=2022">CIF North Coast</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF San Diego&amp;ye=2022">CIF San Diego</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Southern&amp;ye=2022">CIF Southern</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=East Coast Master Diving&amp;ye=2022">East Coast Master Diving</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Florida High School Athletic Association&amp;ye=2022">Florida High School Athletic Association</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Georgia High School Association&amp;ye=2022">Georgia High School Association</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Greater Atlanta Diving League&amp;ye=2022">Greater Atlanta Diving League</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Hawaii High School Athletic Association&amp;ye=2022">Hawaii High School Athletic Association</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Illinois High School Association&amp;ye=2022">Illinois High School Association</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Kentucky HS Athletics Association&amp;ye=2022">Kentucky HS Athletics Association</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Knox-area Interscholastic Swim League (KISL)&amp;ye=2022">Knox-area Interscholastic Swim League (KISL)</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Maui Interscholastic League&amp;ye=2022">Maui Interscholastic League</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Missouri State HS St.Activites Association&amp;ye=2022">Missouri State HS St.Activites Association</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=NAIA&amp;ye=2022">NAIA</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=National Collegiate Athletic Association (NCAA)&amp;ye=2022">National Collegiate Athletic Association (NCAA)</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=North Carolina High School Athletic Association&amp;ye=2022">North Carolina High School Athletic Association</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Northern Virginia Swimming League&amp;ye=2022">Northern Virginia Swimming League</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Pennsylvania Interscholastic Athletic Association&amp;ye=2022">Pennsylvania Interscholastic Athletic Association</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=USA Diving&amp;ye=2022">USA Diving</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Washington Interscholastic Activities Association&amp;ye=2022">Washington Interscholastic Activities Association</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Washington Metro Interscholastic Association&amp;ye=2022">Washington Metro Interscholastic Association</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=YMCA&amp;ye=2022">YMCA</a>
+							</li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">2021</a>
+							<ul>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Alabama High School Athletic Association&amp;ye=2021">Alabama High School Athletic Association</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Amateur Athletic Union (AAU)&amp;ye=2021">Amateur Athletic Union (AAU)</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Central Coast&amp;ye=2021">CIF Central Coast</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Southern&amp;ye=2021">CIF Southern</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=East Coast Master Diving&amp;ye=2021">East Coast Master Diving</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Florida High School Athletic Association&amp;ye=2021">Florida High School Athletic Association</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Georgia High School Association&amp;ye=2021">Georgia High School Association</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Greater Atlanta Diving League&amp;ye=2021">Greater Atlanta Diving League</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Kentucky HS Athletics Association&amp;ye=2021">Kentucky HS Athletics Association</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Missouri State HS St.Activites Association&amp;ye=2021">Missouri State HS St.Activites Association</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=National Collegiate Athletic Association (NCAA)&amp;ye=2021">National Collegiate Athletic Association (NCAA)</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=North Carolina High School Athletic Association&amp;ye=2021">North Carolina High School Athletic Association</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Northern Virginia Swimming League&amp;ye=2021">Northern Virginia Swimming League</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Union Americana de Natacion (Pan Am)&amp;ye=2021">Union Americana de Natacion (Pan Am)</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=USA Diving&amp;ye=2021">USA Diving</a>
+							</li>
+							<li>
+							<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Washington Interscholastic Activities Association&amp;ye=2021">Washington Interscholastic Activities Association</a>
+							</li>
+							</ul>
+						</li>
+
+
+
+
+
+						<li>
+							<a href="#">2020</a>
+							<ul>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Amateur Athletic Union (AAU)&amp;ye=2020">Amateur Athletic Union (AAU)</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Big Island Interscholastic Federation&amp;ye=2020">Big Island Interscholastic Federation</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF North Coast&amp;ye=2020">CIF North Coast</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Florida High School Athletic Association&amp;ye=2020">Florida High School Athletic Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Georgia High School Association&amp;ye=2020">Georgia High School Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Hawaii High School Athletic Association&amp;ye=2020">Hawaii High School Athletic Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Indiana High School Athletic Association&amp;ye=2020">Indiana High School Athletic Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Kentucky HS Athletics Association&amp;ye=2020">Kentucky HS Athletics Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Knox-area Interscholastic Swim League (KISL)&amp;ye=2020">Knox-area Interscholastic Swim League (KISL)</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Maui Interscholastic League&amp;ye=2020">Maui Interscholastic League</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Missouri State HS St.Activites Association&amp;ye=2020">Missouri State HS St.Activites Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=NAIA&amp;ye=2020">NAIA</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=National Collegiate Athletic Association (NCAA)&amp;ye=2020">National Collegiate Athletic Association (NCAA)</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=North Carolina High School Athletic Association&amp;ye=2020">North Carolina High School Athletic Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Tennessee Interscholastic Swim Coaches Association&amp;ye=2020">Tennessee Interscholastic Swim Coaches Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=USA Diving&amp;ye=2020">USA Diving</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Washington Interscholastic Activities Association&amp;ye=2020">Washington Interscholastic Activities Association</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">2019</a>
+							<ul>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Alabama High School Athletic Association&amp;ye=2019">Alabama High School Athletic Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Alaska High School Activities Association&amp;ye=2019">Alaska High School Activities Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Amateur Athletic Union (AAU)&amp;ye=2019">Amateur Athletic Union (AAU)</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Big Island Interscholastic Federation&amp;ye=2019">Big Island Interscholastic Federation</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Central&amp;ye=2019">CIF Central</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Central Coast&amp;ye=2019">CIF Central Coast</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Los Angeles City&amp;ye=2019">CIF Los Angeles City</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF North Coast&amp;ye=2019">CIF North Coast</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF San Diego&amp;ye=2019">CIF San Diego</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Southern&amp;ye=2019">CIF Southern</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Federation Internationale De Natation (FINA)&amp;ye=2019">Federation Internationale De Natation (FINA)</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Florida High School Athletic Association&amp;ye=2019">Florida High School Athletic Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Georgia High School Association&amp;ye=2019">Georgia High School Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Greater Atlanta Diving League&amp;ye=2019">Greater Atlanta Diving League</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Hawaii High School Athletic Association&amp;ye=2019">Hawaii High School Athletic Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Indiana High School Athletic Association&amp;ye=2019">Indiana High School Athletic Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Kentucky HS Athletics Association&amp;ye=2019">Kentucky HS Athletics Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Knox-area Interscholastic Swim League (KISL)&amp;ye=2019">Knox-area Interscholastic Swim League (KISL)</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Maui Interscholastic League&amp;ye=2019">Maui Interscholastic League</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Missouri State HS St.Activites Association&amp;ye=2019">Missouri State HS St.Activites Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Montgomery County Diving League&amp;ye=2019">Montgomery County Diving League</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=National Collegiate Athletic Association (NCAA)&amp;ye=2019">National Collegiate Athletic Association (NCAA)</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=North Carolina High School Athletic Association&amp;ye=2019">North Carolina High School Athletic Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Northern Virginia Swimming League&amp;ye=2019">Northern Virginia Swimming League</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Pennsylvania Interscholastic Athletic Association&amp;ye=2019">Pennsylvania Interscholastic Athletic Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=USA Diving&amp;ye=2019">USA Diving</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Washington Interscholastic Activities Association&amp;ye=2019">Washington Interscholastic Activities Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=YMCA&amp;ye=2019">YMCA</a>
+								</li>
+							</ul>
+
+						</li>
+						<li>
+							<a href="#">2018</a>
+							<ul>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Alabama High School Athletic Association&amp;ye=2018">Alabama High School Athletic Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Amateur Athletic Union (AAU)&amp;ye=2018">Amateur Athletic Union (AAU)</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Central&amp;ye=2018">CIF Central</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Central Coast&amp;ye=2018">CIF Central Coast</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Los Angeles City&amp;ye=2018">CIF Los  Angeles City</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF North Coast&amp;ye=2018">CIF North Coast		</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF San Diego&amp;ye=2018">CIF San Diego</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Southern&amp;ye=2018">CIF Southern</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=College Club Swimming and Diving&amp;ye=2018">College Club Swimming and Diving</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Colorado High School Activities Assoc&amp;ye=2018">Colorado High School Activities Assoc</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Florida High School Athletic Association&amp;ye=2018">Florida High School Athletic Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Georgia High School Association&amp;ye=2018">Georgia High School Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Greater Atlanta Diving League&amp;ye=2018">Greater Atlanta Diving League</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Hawaii High School Association&amp;ye=2018">Hawaii High School Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Hidden Hollow Swim Club&amp;ye=2018">Hidden Hollow Swim Club</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Knox-area Interscholastic Swim League (KISL)&amp;ye=2018">Knox-area Interscholastic Swim League (KISL)</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Maui Interscholastic League&amp;ye=2018">Maui Interscholastic League</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Missouri State HS St.Activites Association&amp;ye=2018">Missouri State HS St.Activites Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=National Collegiate Athletic Association (NCAA)&amp;ye=2018">National Collegiate Athletic Association (NCAA)</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=North Carolina High School Athletic Association&amp;ye=2018">North Carolina High School Athletic Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Northern Virginia Swimming League&amp;ye=2018">Northern Virginia Swimming League</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Pennsylvania Interscholastic Athletic Association&amp;ye=2018">Pennsylvania Interscholastic Athletic Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Tennessee Interscholastic Swim Coaches Association&amp;ye=2018">Tennessee Interscholastic Swim Coaches Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Union Americana de Natacion (Pan Am)&amp;ye=2018">Union Americana de Natacion (Pan Am)</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=USA Diving&amp;ye=2018">USA Diving</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Washington Interscholastic Activities Association&amp;ye=2018">Washington Interscholastic Activities Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=YMCA&amp;ye=2018">YMCA</a>
+								</li>
+							</ul>
+
+						</li>
+						<li>
+							<a href="#">2017</a>
+							<ul>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Alabama High School Athletic Association&amp;ye=2017">Alabama High School Athletic Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Amateur Athletic Union (AAU)&amp;ye=2017">Amateur Athletic Union (AAU)</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Central&amp;ye=2017">CIF Central</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Central Coast&amp;ye=2017">CIF Central Coast</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Los Angeles City&amp;ye=2017">CIF Los  Angeles City</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF North Coast&amp;ye=2017">CIF North Coast		</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF San Diego&amp;ye=2017">CIF San Diego</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Southern&amp;ye=2017">CIF Southern</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Colorado High School Activities Assoc&amp;ye=2017">Colorado High School Activities Assoc</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Federation Internationale De Natation (FINA)&amp;ye=2017">Federation Internationale De Natation (FINA)</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Florida High School Athletic Association&amp;ye=2017">Florida High School Athletic Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Georgia High School Association&amp;ye=2017">Georgia High School Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Greater Atlanta Diving League&amp;ye=2017">Greater Atlanta Diving League</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Hawaii High School Association &amp;ye=2017">Hawaii High School Association </a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Illinois High School Athletic Association&amp;ye=2017">Illinois High School Athletic Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Indiana High School Athletic Association&amp;ye=2017">Indiana High School Athletic Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Knox-area Interscholastic Swim League (KISL)&amp;ye=2017">Knox-area Interscholastic Swim League (KISL)</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Maui Interscholastic League&amp;ye=2017">Maui Interscholastic League</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=National Collegiate Athletic Association (NCAA)&amp;ye=2017">National Collegiate Athletic Association (NCAA)</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=New Jersey Interscholastic Athletic Association&amp;ye=2017">New Jersey Interscholastic Athletic Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=North Carolina High School Athletic Association&amp;ye=2017">North Carolina High School Athletic Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Northern Virginia Swimming League&amp;ye=2017">Northern Virginia Swimming League</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Pennsylvania Interscholastic Athletic Association&amp;ye=2017">Pennsylvania Interscholastic Athletic Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Tennessee Interscholastic Swim Coaches Association&amp;ye=2017">Tennessee Interscholastic Swim Coaches Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=US High Diving&amp;ye=2017">US High Diving</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=USA Diving&amp;ye=2017">USA Diving</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Washington Interscholastic Activities Association&amp;ye=2017">Washington Interscholastic Activities Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Wyoming High School Activities Association&amp;ye=2017">Wyoming High School Activities Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=YMCA&amp;ye=2017">YMCA</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">2016</a>
+							<ul>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Alabama High School Athletic Association&amp;ye=2016">Alabama High School Athletic Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Amateur Athletic Union (AAU)&amp;ye=2016">Amateur Athletic Union (AAU)</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Central&amp;ye=2016">CIF Central</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Central Coast&amp;ye=2016">CIF Central Coast</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF San Diego&amp;ye=2016">CIF San Diego</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Southern&amp;ye=2016">CIF Southern</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Colorado High School Activities Assoc&amp;ye=2016">Colorado High School Activities Assoc</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Confederacao Brasileira de Desportos Aquaticos&amp;ye=2016">Confederacao Brasileira de Desportos Aquaticos</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Federation Internationale De Natation (FINA)&amp;ye=2016">Federation Internationale De Natation (FINA)</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Florida High School Athletic Association&amp;ye=2016">Florida High School Athletic Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Georgia High School Association&amp;ye=2016">Georgia High School Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Greater Atlanta Diving League&amp;ye=2016">Greater Atlanta Diving League</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Hawaii High School Association &amp;ye=2016">Hawaii High School Association </a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Indiana High School Athletic Association&amp;ye=2016">Indiana High School Athletic Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Knox-area Interscholastic Swim League (KISL)&amp;ye=2016">Knox-area Interscholastic Swim League (KISL)</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Maui Interscholastic League&amp;ye=2016">Maui Interscholastic League</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=National Collegiate Athletic Association (NCAA)&amp;ye=2016">National Collegiate Athletic Association (NCAA)</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=North Carolina High School Athletic Association&amp;ye=2016">North Carolina High School Athletic Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Northern Virginia Swimming League&amp;ye=2016">Northern Virginia Swimming League</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Pennsylvania Interscholastic Athletic Association&amp;ye=2016">Pennsylvania Interscholastic Athletic Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=US High Diving&amp;ye=2016">US High Diving</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=USA Diving&amp;ye=2016">USA Diving</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Washington Interscholastic Activities Association&amp;ye=2016">Washington Interscholastic Activities Association</a>
+								</li>
+								<li>
+								<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=YMCA&amp;ye=2016">YMCA</a>
+
+
+							</li></ul>							
+						</li>
+						<li>
+							<a href="#">2015</a>
+							<ul>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Alabama High School Athletic Association&amp;ye=2015">Alabama High School Athletic Association</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Amateur Athletic Union (AAU)&amp;ye=2015">Amateur Athletic Union (AAU)</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Central&amp;ye=2015">CIF Central</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Central Coast&amp;ye=2015">CIF Central Coast</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Southern&amp;ye=2015">CIF Southern</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Colorado High School Activities Assoc&amp;ye=2015">Colorado High School Activities Assoc</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Confederacao Brasileira de Desportos Aquaticos&amp;ye=2015">Confederacao Brasileira de Desportos Aquaticos</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Federacion Mexicana de Natacion (FMN)&amp;ye=2015">Federacion Mexicana de Natacion (FMN)</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Federation Internationale De Natation (FINA)&amp;ye=2015">Federation Internationale De Natation (FINA)</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Florida High School Athletic Association&amp;ye=2015">Florida High School Athletic Association</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Georgia High School Association&amp;ye=2015">Georgia High School Association</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Greater Atlanta Diving League&amp;ye=2015">Greater Atlanta Diving League</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Hawaii High School Association &amp;ye=2015">Hawaii High School Association</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Indiana High School Athletic Association&amp;ye=2015">Indiana High School Athletic Association</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Knox-area Interscholastic Swim League (KISL)&amp;ye=2015">Knox-area Interscholastic Swim League (KISL)</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Maui Interscholastic League&amp;ye=2015">Maui Interscholastic League</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=National Collegiate Athletic Association (NCAA)&amp;ye=2015">National Collegiate Athletic Association (NCAA)</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=North Carolina High School Athletic Association&amp;ye=2015">North Carolina High School Athletic Association</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Northern Virginia Swimming League&amp;ye=2015">Northern Virginia Swimming League</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Ohio High School Athletic Association&amp;ye=2015">Ohio High School Athletic Association</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Pennsylvania Interscholastic Athletic Association&amp;ye=2015">Pennsylvania Interscholastic Athletic Association</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Tennessee Interscholastic Swim Coaches Association&amp;ye=2015">Tennessee Interscholastic Swim Coaches Association</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=USA Diving&amp;ye=2015">USA Diving</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Washington Interscholastic Activities Association&amp;ye=2015">Washington Interscholastic Activities Association</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=YMCA&amp;ye=2015">YMCA</a>
+								</li>
+							</ul>
+						</li>
+						<li>		
+								<a href="#">2014</a>
+							<ul>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Alabama High School Athletic Association&amp;ye=2014">Alabama High School Athletic Association         </a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Amateur Athletic Union (AAU)&amp;ye=2014">Amateur Athletic Union (AAU)                     </a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Central Illinois Country Club Association&amp;ye=2014">Central Illinois Country Club Association        </a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Central Coast&amp;ye=2014">CIF Central Coast                        </a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Southern&amp;ye=2014">CIF Southern</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Federacion Mexicana de Natacion (FMN)&amp;ye=2014">Federacion Mexicana de Natacion (FMN)            </a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Federation Internationale De Natation (FINA)&amp;ye=2014">Federation Internationale De Natation (FINA)     </a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Federation of Gay Games&amp;ye=2014">Federation of Gay Games                          </a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Florida High School Athletic Association&amp;ye=2014">Florida High School Athletic Association         </a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Georgia High School Association&amp;ye=2014">Georgia High School Association                  </a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Greater Atlanta Diving League&amp;ye=2014">Greater Atlanta Diving League                    </a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Hawaii High School Association&amp;ye=2014">Hawaii High School Association                   </a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Indiana High School Athletic Association&amp;ye=2014">Indiana High School Athletic Association         </a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Knox-area Interscholastic Swim League (KISL)&amp;ye=2014">Knox-area Interscholastic Swim League (KISL)     </a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Maui Interscholastic League&amp;ye=2014">Maui Interscholastic League                      </a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=NAIA&amp;ye=2014">NAIA</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=National Collegiate Athletic Association (NCAA)&amp;ye=2014">National Collegiate Athletic Association (NCAA)  </a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Nevada Interscholastic Athletics Association&amp;ye=2014">Nevada Interscholastic Athletics Association          </a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=New England Prep School Association&amp;ye=2014">New England Prep School Association              </a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=North Carolina High School Athletic Association&amp;ye=2014">North Carolina High School Athletic Association  </a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=North Dakota High School Activities Association&amp;ye=2014">North Dakota High School Activities Association             </a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Northern Virginia Swimming League&amp;ye=2014">Northern Virginia Swimming League                </a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Pennsylvania Interscholastic Athletic Association&amp;ye=2014">Pennsylvania Interscholastic Athletic Association</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Union Americana de Natacion (Pan Am)&amp;ye=2014">Union Americana de Natacion (Pan Am)             </a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=USA Diving&amp;ye=2014">USA Diving</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Washington Interscholastic Activities Association&amp;ye=2014">Washington Interscholastic Activities Association</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=YMCA&amp;ye=2014">YMCA</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">2013</a>
+							<ul>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Alabama High School Athletic Association&amp;ye=2013">Alabama High School Athletic Association</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Amateur Athletic Union (AAU)&amp;ye=2013">Amateur Athletic Union (AAU) </a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Central Coast&amp;ye=2013">CIF Central Coast</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Southern&amp;ye=2013">CIF Southern</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Federacion Mexicana de Natacion (FMN)&amp;ye=2013">Federacion Mexicana de Natacion (FMN)</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Federation Internationale De Natation (FINA)	&amp;ye=2013">Federation Internationale De Natation (FINA)	</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Florida High School Athletic Association&amp;ye=2013">Florida High School Athletic Association</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Georgia High School Association&amp;ye=2013">Georgia High School Association</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Greater Atlanta Diving League&amp;ye=2013">Greater Atlanta Diving League </a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Hawaii High School Association&amp;ye=2013">Hawaii High School Association</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Indiana High School Athletic Association&amp;ye=2013">Indiana High School Athletic Association</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Knox-area Interscholastic Swim League (KISL)	&amp;ye=2013">Knox-area Interscholastic Swim League (KISL)	</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Maui Interscholastic League&amp;ye=2013">Maui Interscholastic League</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=NAIA&amp;ye=2013">NAIA</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=National Collegiate Athletic Association (NCAA)	&amp;ye=2013">National Collegiate Athletic Association (NCAA)	</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=New Jersey State Interscholastic Athletic Association&amp;ye=2013">New Jersey State Interscholastic Athletic Association</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=North Carolina High School Athletic Association	&amp;ye=2013">North Carolina High School Athletic Association	</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Northern Virginia Swimming League&amp;ye=2013">Northern Virginia Swimming League</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Pennsylvania Interscholastic Athletic Association 	&amp;ye=2013">Pennsylvania Interscholastic Athletic Association 	</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Tennessee Interscholastic Swim Coaches Association&amp;ye=2013">Tennessee Interscholastic Swim Coaches Association</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Union Americana de Natacion (Pan Am)&amp;ye=2013">Union Americana de Natacion (Pan Am)</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=USA Diving&amp;ye=2013">USA Diving</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Washington Interscholastic Activities Association 	&amp;ye=2013">Washington Interscholastic Activities Association 	</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=YMCA&amp;ye=2013">YMCA</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">2012</a>
+							<ul>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Alabama High School Athletic Association&amp;ye=2012">Alabama High School Athletic Association</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Amateur Athletic Union (AAU)&amp;ye=2012">Amateur Athletic Union (AAU)</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Central Coast&amp;ye=2012">CIF Central Coast</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Southern&amp;ye=2012">CIF Southern</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Federacion Mexicana de Natacion (FMN)&amp;ye=2012">Federacion Mexicana de Natacion (FMN)</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Federation Internationale De Natation (FINA)&amp;ye=2012">Federation Internationale De Natation (FINA)</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Florida High School Athletic Association&amp;ye=2012">Florida High School Athletic Association</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Georgia High School Association&amp;ye=2012">Georgia High School Association</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Greater Atlanta Diving League&amp;ye=2012">Greater Atlanta Diving League</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Hawaii High School Association&amp;ye=2012">Hawaii High School Association</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Indiana High School Athletic Association&amp;ye=2012">Indiana High School Athletic Association</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Maui Interscholastic League&amp;ye=2012">Maui Interscholastic League</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=NAIA&amp;ye=2012">NAIA</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=National Collegiate Athletic Association (NCAA)&amp;ye=2012">National Collegiate Athletic Association (NCAA)</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=North Carolina High School Athletic Association&amp;ye=2012">North Carolina High School Athletic Association</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Northern Virginia Swimming League&amp;ye=2012">Northern Virginia Swimming League</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Pennsylvania Interscholastic Athletic Association&amp;ye=2012">Pennsylvania Interscholastic Athletic Association</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=USA Diving&amp;ye=2012">USA Diving</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Washington Interscholastic Activities Association&amp;ye=2012">Washington Interscholastic Activities Association</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=YMCA&amp;ye=2012">YMCA</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="#">2011</a>
+							<ul>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Alabama High School Athletic Association&amp;ye=2011">Alabama High School Athletic Association</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Amateur Athletic Union (AAU)&amp;ye=2011">Amateur Athletic Union (AAU)</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Central Coast&amp;ye=2011">CIF Central Coast</a>
+								</li>	
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Southern&amp;ye=2011">CIF Southern</a>
+								</li>	
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Federacion Mexicana de Natacion (FMN)&amp;ye=2011">Federacion Mexicana de Natacion (FMN)</a>
+								</li>										
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Federation Internationale De Natation (FINA)&amp;ye=2011">Federation Internationale De Natation (FINA)</a>
+								</li>										
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Florida High School Athletic Association&amp;ye=2011">Florida High School Athletic Association</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Georgia High School Association&amp;ye=2011">Georgia High School Association</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Greater Atlanta Diving League&amp;ye=2011">Greater Atlanta Diving League</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Indiana High School Athletic Association&amp;ye=2011">Indiana High School Athletic Association</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Knox-area Interscholastic Swim League (KISL)&amp;ye=2011">Knox-area Interscholastic Swim League (KISL)</a>
+								</li>									
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Maui Interscholastic League&amp;ye=2011">Maui Interscholastic League</a>
+								</li>									
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=National Collegiate Athletic Association (NCAA)&amp;ye=2011">National Collegiate Athletic Association (NCAA)</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Northern Virginia Swimming League&amp;ye=2011">Northern Virginia Swimming League</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Pennsylvania Interscholastic Athletic Association&amp;ye=2011">Pennsylvania Interscholastic Athletic Association</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Union Americana de Natacion (Pan Am)&amp;ye=2011">Union Americana de Natacion (Pan Am)</a>
+								</li>										
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=USA Diving&amp;ye=2011">USA Diving</a>
+								</li>
+								<li class="last">
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=YMCA&amp;ye=2011">YMCA</a>
+								</li>								
+							</ul>
+						</li>
+						<li>
+							<a href="#">2010</a>
+							<ul>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Alabama High School Athletic Association&amp;ye=2010">Alabama High School Athletic Association</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Amateur Athletic Union (AAU)&amp;ye=2010">Amateur Athletic Union (AAU)</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Central Coast&amp;ye=2010">CIF Central Coast</a>
+								</li>	
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Southern&amp;ye=2010">CIF Southern</a>
+								</li>	
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Federacion Mexicana de Natacion (FMN)&amp;ye=2010">Federacion Mexicana de Natacion (FMN)</a>
+								</li>										
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Federation Internationale De Natation (FINA)&amp;ye=2010">Federation Internationale De Natation (FINA)</a>
+								</li>										
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Florida High School Athletic Association&amp;ye=2010">Florida High School Athletic Association</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Knox-area Interscholastic Swim League (KISL)&amp;ye=2010">Knox-area Interscholastic Swim League (KISL)</a>
+								</li>									
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=National Collegiate Athletic Association (NCAA)&amp;ye=2010">National Collegiate Athletic Association (NCAA)</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Northern Virginia Swimming League&amp;ye=2010">Northern Virginia Swimming League</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Pennsylvania Interscholastic Athletic Association&amp;ye=2010">Pennsylvania Interscholastic Athletic Association</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=USA Diving&amp;ye=2010">USA Diving</a>
+								</li>
+								<li class="last">
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=YMCA&amp;ye=2010">YMCA</a>
+								</li>								
+							</ul>
+						</li>
+						<li>
+							<a href="#">2009</a>
+							<ul>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Amateur Athletic Union (AAU)&amp;ye=2009">Amateur Athletic Union (AAU)</a>
+								</li>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Central Coast&amp;ye=2009">CIF Central Coast</a>
+								</li>	
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Southern&amp;ye=2009">CIF Southern</a>
+								</li>	
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Federacion Mexicana de Natacion (FMN)&amp;ye=2009">Federacion Mexicana de Natacion (FMN)</a>
+								</li>										
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Federation Internationale De Natation (FINA)&amp;ye=2009">Federation Internationale De Natation (FINA)</a>
+								</li>										
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Florida High School Athletic Association&amp;ye=2009">Florida High School Athletic Association</a>
+								</li>										
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=National Collegiate Athletic Association (NCAA)&amp;ye=2009">National Collegiate Athletic Association (NCAA)</a>
+								</li>										
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=USA Diving&amp;ye=2009">USA Diving</a>
+								</li>
+								<li class="last">
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=YMCA&amp;ye=2009">YMCA</a>
+								</li>								
+							</ul>
+						</li>
+						<li>	
+							<a href="#">2008</a>
+							<ul>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Amateur Athletic Union (AAU)&amp;ye=2008">Amateur Athletic Union (AAU)</a>
+								</li>	
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=CIF Southern&amp;ye=2008">CIF Southern</a>
+								</li>	
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Federacion Mexicana de Natacion (FMN)&amp;ye=2008">Federacion Mexicana de Natacion (FMN)</a>
+								</li>										
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Federation Internationale De Natation (FINA)&amp;ye=2008">Federation Internationale De Natation (FINA)</a>
+								</li>										
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Florida High School Athletic Association&amp;ye=2008">Florida High School Athletic Association</a>
+								</li>										
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=National Collegiate Athletic Association (NCAA)&amp;ye=2008">National Collegiate Athletic Association (NCAA)</a>
+								</li>										
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Svensk Simidrott&amp;ye=2008">Svensk Simidrott</a>
+								</li>										
+								<li class="last">
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=USA Diving&amp;ye=2008">USA Diving</a>
+								</li>										
+							</ul>
+						</li>
+						<li>
+							<a href="#">2007</a>
+							<ul>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Amateur Athletic Union (AAU)&amp;ye=2007">Amateur Athletic Union (AAU)</a>
+								</li>	
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Arizona Interscholastic Association&amp;ye=2007">Arizona Interscholastic Association</a>
+								</li>	
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Federacion Mexicana de Natacion (FMN)&amp;ye=2007">Federacion Mexicana de Natacion (FMN)</a>
+								</li>										
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Federation Internationale De Natation (FINA)&amp;ye=2007">Federation Internationale De Natation (FINA)</a>
+								</li>										
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Florida High School Athletic Association&amp;ye=2007">Florida High School Athletic Association</a>
+								</li>										
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Michigan Interscholastic Swim Coach Association&amp;ye=2007">Michigan Interscholastic Swim Coach Association</a>
+								</li>										
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=National Collegiate Athletic Association (NCAA)&amp;ye=2007">National Collegiate Athletic Association (NCAA)</a>
+								</li>										
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Union Americana de Natacion (Pan Am)&amp;ye=2007">Union Americana de Natacion (Pan Am)</a>
+								</li>										
+								<li class="last">
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=USA Diving&amp;ye=2007">USA Diving</a>
+								</li>										
+							</ul>
+						</li>
+						<li>
+							<a href="#">2006</a>
+							<ul>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Amateur Athletic Union (AAU)&amp;ye=2006">Amateur Athletic Union (AAU)</a>
+								</li>	
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Federacion Mexicana de Natacion (FMN)&amp;ye=2006">Federacion Mexicana de Natacion (FMN)</a>
+								</li>										
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Federation Internationale De Natation (FINA)&amp;ye=2006">Federation Internationale De Natation (FINA)</a>
+								</li>										
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=FINA Masters&amp;ye=2006">FINA Master</a>
+								</li>										
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Florida High School Athletic Association&amp;ye=2006">Florida High School Athletic Association</a>
+								</li>										
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=National Collegiate Athletic Association (NCAA)&amp;ye=2006">National Collegiate Athletic Association (NCAA)</a>
+								</li>										
+								<li class="last">
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=USA Diving&amp;ye=2006">USA Diving</a>
+								</li>										
+							</ul>
+						</li>
+						<li>
+							<a href="#">2005</a>
+							<ul>
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Amateur Athletic Union (AAU)&amp;ye=2005">Amateur Athletic Union (AAU)</a>
+								</li>	
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Florida High School Athletic Association&amp;ye=2005">Florida High School Athletic Association</a>
+								</li>										
+								<li>
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=Union Americana de Natacion (Pan Am)&amp;ye=2005">Union Americana de Natacion (Pan Am)</a>
+								</li>										
+								<li class="last">
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=USA Diving&amp;ye=2005">USA Diving</a>
+								</li>										
+							</ul>
+						</li>
+						<li class="last">
+							<a href="#">2004</a>
+							<ul>
+								<li class="last">
+									<a href="https://secure.meetcontrol.com/divemeets/system/meets.php?show=past&amp;association=USA Diving&amp;ye=2004">USA Diving</a>
+								</li>										
+							</ul>
+						</li>										
+					</ul>
+				</li>
+			</ul>
+		</li>
+		<li>
+			<a href="#">Find</a>
+			<ul>
+				<li>
+					<a href="ddfinder.php" onclick="return popup(this,'ddfinder')">DD</a>
+				</li>
+				<li>	
+					<a href="divelist.php" onclick="return popup(this,'divelist')">Dive</a>
+				</li>
+				<li>
+					<a href="https://secure.meetcontrol.com/divemeets/system/memberlist.php">Diver, Coach, or Judge</a>
+				</li>
+				<li>
+					<a href="https://secure.meetcontrol.com/divemeets/system/teamlist.php">Team</a>
+				</li>
+				<li class="last">
+					<a href="https://secure.meetcontrol.com/divemeets/system/poollist.php">Pool</a>
+				</li>
+			</ul>
+		</li>
+		<li>
+			<a href="https://secure.meetcontrol.com/divemeets/system/rankings.php">DiveMeets Rankings</a>
+		</li>
+		<li>
+			<a href="https://secure.meetcontrol.com/divemeets/system/compare.php">Compare Divers</a>
+		</li>
+		<li>
+			<a href="https://secure.meetcontrol.com/divemeets/system/rss.php">RSS Feed</a>
+		</li>
+		<li>
+			<a href="http://www.divemeets.com/instant_demo/online_training_index.htm">Software</a>
+		</li>
+		<!--<li>
+			<a href="http://www.divemeets.com/live_video.html">Video</a>
+		</li>-->
+		<li>
+			<a href="http://www.divemeets.com/09/help_menu.html">Help &amp; FAQs</a>
+		</li>
+		<li>
+			<a href="https://secure.meetcontrol.com/divemeets/system/login.php">Login</a>
+			<ul class="last">
+				<li class="last">
+					<a href="https://secure.meetcontrol.com/divemeets/system/register.php?organization=DM">Get a DiveMeets ID</a>
+				</li>
+			</ul>
+		</li>
+	</ul>
+</div>
+
+
+</div>
+<div id="dm_content" style="overflow: auto">
+<div style="float:left"></div><div align="right"><a href="meets.php?show=past&amp;association=USA%20Diving&amp;ye=2025&amp;language=EN">English</a>&nbsp;|&nbsp;<a href="meets.php?show=past&amp;association=USA%20Diving&amp;ye=2025&amp;language=ES">Español</a></div><h1>Meets</h1><hr>	<script type="text/javascript">
+		<!--
+		function popup(mylink, windowname)
+			{
+			if (! window.focus)return true;
+				var href;
+			if (typeof(mylink) == 'string')
+				href=mylink;
+			else
+				href=mylink.href;
+			window.open(href, windowname, 'width=590,height=300,scrollbars=yes');
+			return false;
+			}
+		//-->
+	</script>
+	<a name="past"></a>	<script type="text/javascript">
+		<!--
+		// Before you reuse this script you may want to have your head examined
+		// 
+		// Copyright 1999 InsideDHTML.com, LLC.  
+
+		function doBlink()
+			{
+			// Blink, Blink, Blink...
+			var blink = document.getElementsByTagName("blink")
+			for (var i=0; i < blink.length; i++)
+				blink[i].style.visibility = blink[i].style.visibility == "" ? "hidden" : "" 
+			}
+
+		function startBlink() 
+			{
+			// Make sure it is IE4
+			if (document.getElementsByTagName("blink"))
+				setInterval("doBlink()",1000)
+			}
+		window.onload = startBlink;
+		//-->
+	</script>
+	<br><br><strong>Past Meets</strong>	<br><br>  <table width="100%" border="0" cellpadding="2" cellspacing="0"><tbody><tr><td valign="bottom" colspan="2">Sanctioning Body / Meet</td><td align="center" valign="bottom">Start</td><td align="center" valign="bottom">End</td><td align="center" colspan="3" valign="bottom">Location</td>	</tr>	<tr><td colspan="7"><hr></td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">2025 EVDC Winter Classic</div>&nbsp;&nbsp;88 Divers - 163 DiveSheets -  1067 Dives - 4015 Scores<br> <a href="meetresultsext.php?meetnum=12275" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">Dec 13, 2025</td><td valign="top" style="font-size: 9px">Dec 14, 2025</td><td valign="top" style="font-size: 9px">Mesa</td><td valign="top" style="font-size: 9px">AZ</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">2025 USA Diving Winter Nationals</div>&nbsp;&nbsp;139 Divers - 231 DiveSheets -  2252 Dives - 15193 Scores<br> <a href="meetresultsext.php?meetnum=12068" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">Dec 12, 2025</td><td valign="top" style="font-size: 9px">Dec 16, 2025</td><td valign="top" style="font-size: 9px">Midland</td><td valign="top" style="font-size: 9px">TX</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">2025 USA Diving Winter Nationals Qualifier</div>&nbsp;&nbsp;100 Divers - 166 DiveSheets -  908 Dives - 5838 Scores<br> <a href="meetresultsext.php?meetnum=12067" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">Dec 10, 2025</td><td valign="top" style="font-size: 9px">Dec 11, 2025</td><td valign="top" style="font-size: 9px">Midland</td><td valign="top" style="font-size: 9px">TX</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">2025 Chris Vonk JO Invitational</div>&nbsp;&nbsp;167 Divers - 360 DiveSheets -  2726 Dives - 11859 Scores<br> <a href="meetresultsext.php?meetnum=12246" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">Dec 5, 2025</td><td valign="top" style="font-size: 9px">Dec 7, 2025</td><td valign="top" style="font-size: 9px">Mission Viejo</td><td valign="top" style="font-size: 9px">CA</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">Turkey Dive on the Hill</div>&nbsp;&nbsp;121 Divers - 238 DiveSheets -  1596 Dives - 4587 Scores<br> <a href="meetresultsext.php?meetnum=12032" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">Nov 15, 2025</td><td valign="top" style="font-size: 9px">Nov 16, 2025</td><td valign="top" style="font-size: 9px">Chapel Hill</td><td valign="top" style="font-size: 9px">NC</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">CdS - Fall Novice Invite</div>&nbsp;&nbsp;51 Divers - 94 DiveSheets -  502 Dives - 1476 Scores<br> <a href="meetresultsext.php?meetnum=11705" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">Oct 4, 2025</td><td valign="top" style="font-size: 9px">Oct 4, 2025</td><td valign="top" style="font-size: 9px">Scottsdale</td><td valign="top" style="font-size: 9px">AZ</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">The Coastal Classic</div>&nbsp;&nbsp;24 Divers - 32 DiveSheets -  268 Dives - 540 Scores<br> <a href="meetresultsext.php?meetnum=11631" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">Aug 8, 2025</td><td valign="top" style="font-size: 9px">Aug 10, 2025</td><td valign="top" style="font-size: 9px">Ft Lauderdale</td><td valign="top" style="font-size: 9px">FL</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">2025 USA Diving Junior National Championships</div>&nbsp;&nbsp;577 Divers - 1297 DiveSheets -  14014 Dives - 69266 Scores<br> <a href="meetresultsext.php?meetnum=11609" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">Jul 25, 2025</td><td valign="top" style="font-size: 9px">Aug 3, 2025</td><td valign="top" style="font-size: 9px">Mission Viejo</td><td valign="top" style="font-size: 9px">CA</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">Superior High Dive Challenge</div>&nbsp;&nbsp;15 Divers - 15 DiveSheets -  50 Dives - 250 Scores<br> <a href="meetresultsext.php?meetnum=11628" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">Jul 11, 2025</td><td valign="top" style="font-size: 9px">Jul 12, 2025</td><td valign="top" style="font-size: 9px">Duluth</td><td valign="top" style="font-size: 9px">MN</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">2025 MASTERS DIVING SUMMER CHAMPIONSHIPS</div>&nbsp;&nbsp;52 Divers - 194 DiveSheets -  1386 Dives - 5750 Scores<br> <a href="meetresultsext.php?meetnum=11584" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">Jul 11, 2025</td><td valign="top" style="font-size: 9px">Jul 13, 2025</td><td valign="top" style="font-size: 9px">Buffalo</td><td valign="top" style="font-size: 9px">NY</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">CdS - Summer Novice Invite</div>&nbsp;&nbsp;36 Divers - 66 DiveSheets -  359 Dives - 1062 Scores<br> <a href="meetresultsext.php?meetnum=11600" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">Jun 28, 2025</td><td valign="top" style="font-size: 9px">Jun 28, 2025</td><td valign="top" style="font-size: 9px">Scottsdale</td><td valign="top" style="font-size: 9px">AZ</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">2025 USA Diving Zone C Championships</div>&nbsp;&nbsp;193 Divers - 390 DiveSheets -  3165 Dives - 17484 Scores<br> <a href="meetresultsext.php?meetnum=11574" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">Jun 27, 2025</td><td valign="top" style="font-size: 9px">Jun 29, 2025</td><td valign="top" style="font-size: 9px">Cleveland</td><td valign="top" style="font-size: 9px">OH</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">LEE BRENNAN Memorial Invitational</div>&nbsp;&nbsp;111 Divers - 173 DiveSheets -  1103 Dives - 2891 Scores<br> <a href="meetresultsext.php?meetnum=11582" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">Jun 27, 2025</td><td valign="top" style="font-size: 9px">Jun 29, 2025</td><td valign="top" style="font-size: 9px">Laguna Niguel</td><td valign="top" style="font-size: 9px">CA</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">2025 USA Diving Zone E Championships</div>&nbsp;&nbsp;211 Divers - 491 DiveSheets -  3955 Dives - 18885 Scores<br> <a href="meetresultsext.php?meetnum=11576" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">Jun 20, 2025</td><td valign="top" style="font-size: 9px">Jun 22, 2025</td><td valign="top" style="font-size: 9px">Novato</td><td valign="top" style="font-size: 9px">CA</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">2025 USA Diving Zone A Championships</div>&nbsp;&nbsp;241 Divers - 551 DiveSheets -  4314 Dives - 21425 Scores<br> <a href="meetresultsext.php?meetnum=11572" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">Jun 20, 2025</td><td valign="top" style="font-size: 9px">Jun 22, 2025</td><td valign="top" style="font-size: 9px">Huntersville</td><td valign="top" style="font-size: 9px">NC</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">2025 USA Diving Zone D Championships</div>&nbsp;&nbsp;138 Divers - 311 DiveSheets -  2553 Dives - 12480 Scores<br> <a href="meetresultsext.php?meetnum=11575" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">Jun 13, 2025</td><td valign="top" style="font-size: 9px">Jun 15, 2025</td><td valign="top" style="font-size: 9px">Minneapolis</td><td valign="top" style="font-size: 9px">MN</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">2025 USA Diving Zone F Championships</div>&nbsp;&nbsp;170 Divers - 406 DiveSheets -  3161 Dives - 15695 Scores<br> <a href="meetresultsext.php?meetnum=11578" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">Jun 13, 2025</td><td valign="top" style="font-size: 9px">Jun 15, 2025</td><td valign="top" style="font-size: 9px">Midland</td><td valign="top" style="font-size: 9px">TX</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">Rip Dives on the Hill 2025</div>&nbsp;&nbsp;66 Divers - 124 DiveSheets -  850 Dives - 2430 Scores<br> <a href="meetresultsext.php?meetnum=11581" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">Jun 7, 2025</td><td valign="top" style="font-size: 9px">Jun 8, 2025</td><td valign="top" style="font-size: 9px">Chapel Hill</td><td valign="top" style="font-size: 9px">NC</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">RipTide Open</div>&nbsp;&nbsp;5 Divers - 6 DiveSheets -  34 Dives - 102 Scores<br> <a href="meetresultsext.php?meetnum=11579" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">Jun 5, 2025</td><td valign="top" style="font-size: 9px">Jun 7, 2025</td><td valign="top" style="font-size: 9px">Tuscaloosa</td><td valign="top" style="font-size: 9px">AL</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">2025 USA Diving Zone B Championships</div>&nbsp;&nbsp;146 Divers - 348 DiveSheets -  2854 Dives - 13900 Scores<br> <a href="meetresultsext.php?meetnum=11573" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">Jun 5, 2025</td><td valign="top" style="font-size: 9px">Jun 8, 2025</td><td valign="top" style="font-size: 9px">Tuscaloosa</td><td valign="top" style="font-size: 9px">AL</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">2025 Arizona Association State Championships</div>&nbsp;&nbsp;102 Divers - 225 DiveSheets -  1602 Dives - 6862 Scores<br> <a href="meetresultsext.php?meetnum=11583" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">May 30, 2025</td><td valign="top" style="font-size: 9px">Jun 1, 2025</td><td valign="top" style="font-size: 9px">Flagstaff</td><td valign="top" style="font-size: 9px">AZ</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">2025 USA Diving National Championships</div>&nbsp;&nbsp;108 Divers - 196 DiveSheets -  2389 Dives - 17559 Scores<br> <a href="meetresultsext.php?meetnum=11547" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">May 9, 2025</td><td valign="top" style="font-size: 9px">May 16, 2025</td><td valign="top" style="font-size: 9px">Auburn</td><td valign="top" style="font-size: 9px">AL</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">2025 USA Diving National Championships Qualifier</div>&nbsp;&nbsp;55 Divers - 92 DiveSheets -  498 Dives - 3164 Scores<br> <a href="meetresultsext.php?meetnum=11546" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">May 8, 2025</td><td valign="top" style="font-size: 9px">May 10, 2025</td><td valign="top" style="font-size: 9px">Auburn</td><td valign="top" style="font-size: 9px">AL</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">NAz Diving Junior Platform Invite</div>&nbsp;&nbsp;25 Divers - 25 DiveSheets -  185 Dives - 740 Scores<br> <a href="meetresultsext.php?meetnum=11541" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">May 4, 2025</td><td valign="top" style="font-size: 9px">May 4, 2025</td><td valign="top" style="font-size: 9px">Flagstaff</td><td valign="top" style="font-size: 9px">AZ</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">2025 USA Diving Junior Region 6 Championships</div>&nbsp;&nbsp;134 Divers - 227 DiveSheets -  1918 Dives - 9325 Scores<br> <a href="meetresultsext.php?meetnum=11531" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">May 3, 2025</td><td valign="top" style="font-size: 9px">May 4, 2025</td><td valign="top" style="font-size: 9px">West Lafayette</td><td valign="top" style="font-size: 9px">IN</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">2025 USA Diving Junior Region 1 Championships</div>&nbsp;&nbsp;153 Divers - 277 DiveSheets -  2276 Dives - 10760 Scores<br> <a href="meetresultsext.php?meetnum=11526" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">May 3, 2025</td><td valign="top" style="font-size: 9px">May 4, 2025</td><td valign="top" style="font-size: 9px">New Canaan</td><td valign="top" style="font-size: 9px">CT</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">2025 USA Diving Junior Region 2 Championships</div>&nbsp;&nbsp;195 Divers - 363 DiveSheets -  2968 Dives - 14045 Scores<br> <a href="meetresultsext.php?meetnum=11527" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">May 3, 2025</td><td valign="top" style="font-size: 9px">May 4, 2025</td><td valign="top" style="font-size: 9px">Hampton</td><td valign="top" style="font-size: 9px">VA</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">2025 USA Diving Junior Region 8 Championships</div>&nbsp;&nbsp;96 Divers - 179 DiveSheets -  1494 Dives - 7280 Scores<br> <a href="meetresultsext.php?meetnum=11533" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">May 3, 2025</td><td valign="top" style="font-size: 9px">May 4, 2025</td><td valign="top" style="font-size: 9px">Minneapolis</td><td valign="top" style="font-size: 9px">MN</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">2025 USA Diving Junior Region 10 Championships</div>&nbsp;&nbsp;181 Divers - 339 DiveSheets -  2743 Dives - 13145 Scores<br> <a href="meetresultsext.php?meetnum=11535" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">May 3, 2025</td><td valign="top" style="font-size: 9px">May 4, 2025</td><td valign="top" style="font-size: 9px">Novato</td><td valign="top" style="font-size: 9px">CA</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">2025 USA Diving Junior Region 11 Championships</div>&nbsp;&nbsp;106 Divers - 197 DiveSheets -  1614 Dives - 6867 Scores<br> <a href="meetresultsext.php?meetnum=11536" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">May 2, 2025</td><td valign="top" style="font-size: 9px">May 3, 2025</td><td valign="top" style="font-size: 9px">Flagstaff</td><td valign="top" style="font-size: 9px">AZ</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">2025 North Star Diving Club Region 8 Platform Invitational</div>&nbsp;&nbsp;13 Divers - 13 DiveSheets -  99 Dives - 297 Scores<br> <a href="meetresultsext.php?meetnum=11538" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">May 2, 2025</td><td valign="top" style="font-size: 9px">May 2, 2025</td><td valign="top" style="font-size: 9px">Minneapolis</td><td valign="top" style="font-size: 9px">MN</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">Red White and Blue Platform and Synchro Invitational</div>&nbsp;&nbsp;31 Divers - 46 DiveSheets -  300 Dives - 1500 Scores<br> <a href="meetresultsext.php?meetnum=11559" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">May 2, 2025</td><td valign="top" style="font-size: 9px">May 2, 2025</td><td valign="top" style="font-size: 9px">West Lafayette</td><td valign="top" style="font-size: 9px">IN</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">2025 USA Diving Junior Region 7 Championships</div>&nbsp;&nbsp;90 Divers - 168 DiveSheets -  1459 Dives - 6684 Scores<br> <a href="meetresultsext.php?meetnum=11532" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">Apr 26, 2025</td><td valign="top" style="font-size: 9px">Apr 27, 2025</td><td valign="top" style="font-size: 9px">Evanston</td><td valign="top" style="font-size: 9px">IL</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">2025 USA Diving Junior Region 3 Championships</div>&nbsp;&nbsp;131 Divers - 242 DiveSheets -  2032 Dives - 8616 Scores<br> <a href="meetresultsext.php?meetnum=11528" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">Apr 26, 2025</td><td valign="top" style="font-size: 9px">Apr 27, 2025</td><td valign="top" style="font-size: 9px">Tallahassee</td><td valign="top" style="font-size: 9px">FL</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">2025 USA Diving Junior Region 9 Championships</div>&nbsp;&nbsp;116 Divers - 221 DiveSheets -  1932 Dives - 9424 Scores<br> <a href="meetresultsext.php?meetnum=11534" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">Apr 26, 2025</td><td valign="top" style="font-size: 9px">Apr 27, 2025</td><td valign="top" style="font-size: 9px">Cheyenne</td><td valign="top" style="font-size: 9px">WY</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">2025 USA Diving Junior Region 12 Championships</div>&nbsp;&nbsp;169 Divers - 311 DiveSheets -  2489 Dives - 12295 Scores<br> <a href="meetresultsext.php?meetnum=11537" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">Apr 25, 2025</td><td valign="top" style="font-size: 9px">Apr 26, 2025</td><td valign="top" style="font-size: 9px">Riverside</td><td valign="top" style="font-size: 9px">CA</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">Region 3 Tower Invite</div>&nbsp;&nbsp;25 Divers - 25 DiveSheets -  180 Dives - 492 Scores<br> <a href="meetresultsext.php?meetnum=11553" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">Apr 25, 2025</td><td valign="top" style="font-size: 9px">Apr 25, 2025</td><td valign="top" style="font-size: 9px">Tallahassee</td><td valign="top" style="font-size: 9px">FL</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">2025 USA Diving Junior Region 4 Championships</div>&nbsp;&nbsp;83 Divers - 193 DiveSheets -  1646 Dives - 7705 Scores<br> <a href="meetresultsext.php?meetnum=11529" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">Apr 25, 2025</td><td valign="top" style="font-size: 9px">Apr 27, 2025</td><td valign="top" style="font-size: 9px">Dallas</td><td valign="top" style="font-size: 9px">TX</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">2025 USA Diving Junior Region 5 Championships</div>&nbsp;&nbsp;169 Divers - 297 DiveSheets -  2505 Dives - 12115 Scores<br> <a href="meetresultsext.php?meetnum=11530" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">Apr 25, 2025</td><td valign="top" style="font-size: 9px">Apr 26, 2025</td><td valign="top" style="font-size: 9px">Akron</td><td valign="top" style="font-size: 9px">OH</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">2025 MASTERS DIVING SPRING CHAMPIONSHIPS</div>&nbsp;&nbsp;78 Divers - 279 DiveSheets -  1985 Dives - 9646 Scores<br> <a href="meetresultsext.php?meetnum=11393" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">Apr 11, 2025</td><td valign="top" style="font-size: 9px">Apr 13, 2025</td><td valign="top" style="font-size: 9px">Houston</td><td valign="top" style="font-size: 9px">TX</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">31th Annual Cactus Invitational</div>&nbsp;&nbsp;124 Divers - 228 DiveSheets -  1612 Dives - 6357 Scores<br> <a href="meetresultsext.php?meetnum=11539" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">Apr 5, 2025</td><td valign="top" style="font-size: 9px">Apr 6, 2025</td><td valign="top" style="font-size: 9px">Scottsdale</td><td valign="top" style="font-size: 9px">AZ</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">2025 David Nielsen Invitational</div>&nbsp;&nbsp;54 Divers - 93 DiveSheets -  645 Dives - 1905 Scores<br> <a href="meetresultsext.php?meetnum=11363" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">Mar 29, 2025</td><td valign="top" style="font-size: 9px">Mar 29, 2025</td><td valign="top" style="font-size: 9px">Ft Lauderdale</td><td valign="top" style="font-size: 9px">FL</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">2025 Ron OBrien JO Invitational</div>&nbsp;&nbsp;269 Divers - 606 DiveSheets -  4813 Dives - 23931 Scores<br> <a href="meetresultsext.php?meetnum=11379" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">Mar 28, 2025</td><td valign="top" style="font-size: 9px">Mar 30, 2025</td><td valign="top" style="font-size: 9px">Mission Viejo</td><td valign="top" style="font-size: 9px">CA</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">2025 The Carolina BIG DIVE</div>&nbsp;&nbsp;202 Divers - 475 DiveSheets -  3650 Dives - 10836 Scores<br> <a href="meetresultsext.php?meetnum=11508" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">Mar 27, 2025</td><td valign="top" style="font-size: 9px">Mar 30, 2025</td><td valign="top" style="font-size: 9px">Huntersville</td><td valign="top" style="font-size: 9px">NC</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">2025 Ron OBrien Novice Invitational</div>&nbsp;&nbsp;125 Divers - 228 DiveSheets -  1208 Dives - 3561 Scores<br> <a href="meetresultsext.php?meetnum=11381" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">Mar 22, 2025</td><td valign="top" style="font-size: 9px">Mar 23, 2025</td><td valign="top" style="font-size: 9px">Mission Viejo</td><td valign="top" style="font-size: 9px">CA</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">Wendy Wyland Memorial Invitational</div>&nbsp;&nbsp;195 Divers - 419 DiveSheets -  3367 Dives - 15780 Scores<br> <a href="meetresultsext.php?meetnum=11361" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">Mar 7, 2025</td><td valign="top" style="font-size: 9px">Mar 9, 2025</td><td valign="top" style="font-size: 9px">Ft Lauderdale</td><td valign="top" style="font-size: 9px">FL</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">2025 Moose Moss Invitational</div>&nbsp;&nbsp;61 Divers - 141 DiveSheets -  1105 Dives - 3264 Scores<br> <a href="meetresultsext.php?meetnum=11211" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">Feb 27, 2025</td><td valign="top" style="font-size: 9px">Mar 2, 2025</td><td valign="top" style="font-size: 9px">Moultrie</td><td valign="top" style="font-size: 9px">GA</td><td valign="top" style="font-size: 9px">US</td></tr><tr bgcolor="">	<td align="center" valign="top"><a href="http://www.usadiving.org" target="_usad"><img src="images/logousad.gif" border="0"></a>	</td><td valign="top" style="font-size: 9px"><div style=" font-size: 9px">Orlando All Star Invitational</div>&nbsp;&nbsp;74 Divers - 143 DiveSheets -  1196 Dives - 5042 Scores<br> <a href="meetresultsext.php?meetnum=11201" style="font-size: 9px" target="_top">Results</a></td><td valign="top" style="font-size: 9px">Feb 7, 2025</td><td valign="top" style="font-size: 9px">Feb 9, 2025</td><td valign="top" style="font-size: 9px">Orlando</td><td valign="top" style="font-size: 9px">FL</td><td valign="top" style="font-size: 9px">US</td></tr>	<tr><td colspan="7"><hr></td></tr>  </tbody></table><table width="100%"><tbody><tr><td align="left" width="50%"></td><td align="right" width="50%"></td></tr></tbody></table><img src="images/spacer.gif" onload="toggleBox('test',0);">
+</div>
+<div id="dm_menu_centered_background_footer">
+	<div id="dm_menu_centered" style="z-index: 0;">
+		<ul>
+			<li>
+				<a href="https://secure.meetcontrol.com/divemeets/system/privacy_ex.php">Privacy</a>
+			</li>
+			<li>
+				<a href="https://secure.meetcontrol.com/divemeets/system/contactus_ex.php">Contact Us</a>
+			</li>
+		</ul>
+	</div>
+</div>
+<div style="text-align: center">Copyright © 2004 - 2026 Meet Control LLC</div>
+
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;451af2bc3e464a8780d38a7be1d24d61&quot;,&quot;spa&quot;:2}" crossorigin="anonymous"></script>
+
+
+
+<div></div></body></html>

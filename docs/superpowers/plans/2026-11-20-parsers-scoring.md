@@ -35,10 +35,18 @@
 
 **Files:** none in the repo. Raw pages go to the scratchpad `divemeets-raw/` folder, which is never committed.
 
-- [ ] **Step 1:** The maintainer opens the browser pane at `https://secure.meetcontrol.com/divemeets/system/` and passes the check. Wait for his "done".
-- [ ] **Step 2:** Start a small relay on `127.0.0.1` (a Node script in the scratchpad, outside the repo) that writes a POSTed body to `divemeets-raw/<name>.html` and answers CORS and private-network preflights. In each page, run `fetch('http://127.0.0.1:<port>/<name>', { method: 'POST', body: document.documentElement.outerHTML })`. This saves what the phone's hidden browser will see.
-- [ ] **Step 3:** Open and save, at least one minute apart: `meet-list` (home), `meet-search` (results for a name search), then for one finished meet with a 5-judge event: `meet-info`, `event-results-5`, `dive-sheet-5`; a finished 3-judge event: `event-results-3`, `dive-sheet-3`; a 7-judge event (a national championship): `dive-sheet-7`; an event with prelims and finals: `event-results-cut`; `diver-profile` for one diver from those results; `diver-search` (the "find a diver" form at `memberlist.php`, searched by typing an adult diver's first and last name in the pane). Prefer adult (college or senior) events where they cover the case. Note each page's address pattern for `docs/divemeets.md`.
-- [ ] **Step 4:** If a page shows the check again, stop and ask the maintainer to pass it. Stop the relay when done.
+- [x] **Step 1:** The maintainer opens the browser pane at `https://secure.meetcontrol.com/divemeets/system/` and passes the check. Wait for his "done".
+- [x] **Step 2:** Start a small relay on `127.0.0.1` (a Node script in the scratchpad, outside the repo) that writes a POSTed body to `divemeets-raw/<name>.html` and answers CORS and private-network preflights. In each page, run `fetch('http://127.0.0.1:<port>/<name>', { method: 'POST', body: document.documentElement.outerHTML })`. This saves what the phone's hidden browser will see.
+- [x] **Step 3:** Open and save, at least one minute apart: `meet-list` (home), `meet-search` (results for a name search), then for one finished meet with a 5-judge event: `meet-info`, `event-results-5`, `dive-sheet-5`; a finished 3-judge event: `event-results-3`, `dive-sheet-3`; a 7-judge event (a national championship): `dive-sheet-7`; an event with prelims and finals: `event-results-cut`; `diver-profile` for one diver from those results; `diver-search` (the "find a diver" form at `memberlist.php`, searched by typing an adult diver's first and last name in the pane). Prefer adult (college or senior) events where they cover the case. Note each page's address pattern for `docs/divemeets.md`.
+- [x] **Step 4:** If a page shows the check again, stop and ask the maintainer to pass it. Stop the relay when done.
+
+
+**Saved 2026-11-20** (in the maintainer's Chrome, since the check never passed in the browser pane), as
+`fixtures/divemeets/<page-type>/`: `meet-list/{upcoming,past}`, `meet-info/finished`,
+`meet-results/{finished,in-progress}`, `event-results/{final,prelim,seven-judges}`, `dive-sheet/final`,
+`judge-scores/{five-judges,seven-judges}` (a judge's scores sit on their own page per dive),
+`live/{finished,in-progress}` (the live board; in-progress is a 3-judge event), `diver-profile/adult`,
+`diver-search/results`.
 
 ### Task 2: Anonymizer covers every person, then the fixtures
 
@@ -46,11 +54,11 @@
 - Modify: `scripts/anonymize.mjs`, `scripts/__tests__/anonymize.test.mjs`
 - Create: `fixtures/divemeets/<page-type>/<name>.html` for each page from Task 1
 
-- [ ] **Step 1:** Run `node scripts/anonymize.mjs` on each raw page into a scratch folder and read every output for names left (judges, referee, coaches, meet contact, diver names in headings or plain text).
-- [ ] **Step 2:** For each name pattern found, add a failing test with an invented name in the same HTML shape, e.g. `test('replaces judge names', ...)` asserting the invented name is gone and `Judge 1` is present; run `npx jest scripts/__tests__/anonymize.test.mjs`, see it fail.
-- [ ] **Step 3:** Extend `anonymize(html)` for that pattern (fake names `Judge N`, `Coach N`, `Official N`; a diver named in plain text gets the same `Diver N` as their profile link). Run the test, see it pass.
-- [ ] **Step 4:** Re-run on every page, read every output again, repeat Steps 2-3 until no real name is left. Copy the outputs into `fixtures/divemeets/<page-type>/`; run `npm run check:fixtures`, expect "All fixtures are anonymized."
-- [ ] **Step 5:** Commit: `test: anonymize judges and officials; add DiveMeets fixtures`.
+- [x] **Step 1:** Run `node scripts/anonymize.mjs` on each raw page into a scratch folder and read every output for names left (judges, referee, coaches, meet contact, diver names in headings or plain text).
+- [x] **Step 2:** For each name pattern found, add a failing test with an invented name in the same HTML shape, e.g. `test('replaces judge names', ...)` asserting the invented name is gone and `Judge 1` is present; run `npx jest scripts/__tests__/anonymize.test.mjs`, see it fail.
+- [x] **Step 3:** Extend `anonymize(html)` for that pattern (fake names `Judge N`, `Coach N`, `Official N`; a diver named in plain text gets the same `Diver N` as their profile link). Run the test, see it pass.
+- [x] **Step 4:** Re-run on every page, read every output again, repeat Steps 2-3 until no real name is left. Copy the outputs into `fixtures/divemeets/<page-type>/`; run `npm run check:fixtures`, expect "All fixtures are anonymized."
+- [x] **Step 5:** Commit: `test: anonymize judges and officials; add DiveMeets fixtures`.
 
 ### Task 3: Dive score, kept awards, running totals
 
