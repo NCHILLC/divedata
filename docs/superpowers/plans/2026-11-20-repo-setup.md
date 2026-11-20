@@ -14,7 +14,7 @@
 
 ## Global Constraints
 
-- License GPL-3.0-only. Production dependencies are limited to: MIT, ISC, BSD-2-Clause, BSD-3-Clause, Apache-2.0, 0BSD, CC0-1.0, Unlicense, BlueOak-1.0.0, Python-2.0, LGPL-3.0, GPL-3.0.
+- License GPL-3.0-only. Production dependencies are limited to: MIT, ISC, BSD-2-Clause, BSD-3-Clause, Apache-2.0, 0BSD, CC0-1.0, Unlicense, BlueOak-1.0.0, Python-2.0, LGPL-3.0, GPL-3.0, CC-BY-4.0, MPL-2.0 (the last two added 2026-11-20; see `docs/decisions/2026-11-20-license-list.md`).
 - $0: nothing that needs a paid account or service. No Expo EAS. Builds run only on GitHub Actions.
 - No analytics, crash reporting, ads or accounts. No dependency whose purpose is tracking.
 - Tests never touch the network. DiveMeets is read only from `fixtures/divemeets/`.
@@ -89,7 +89,7 @@ test('home screen names the app and says what to do first', () => {
 
 - [ ] **Step 1:** dependency-cruiser rule `screens-never-call-reader`: `from: { path: '^src/app' }`, `to: { path: '^src/divemeets/reader' }`, severity `error`. Script: `depcruise src --config .dependency-cruiser.cjs`.
 - [ ] **Step 2:** Verify it bites: add `import '../divemeets/reader';` to `src/app/index.tsx` and run `npm run check:layers`. Expected: FAIL naming `screens-never-call-reader`. Remove the import and run it again. Expected: PASS.
-- [ ] **Step 3:** `scripts/check-licenses.mjs` runs `license-checker-rseidelsohn --production --json`. It passes a package when its license, or every alternative in an `OR` expression, is in the Global Constraints list (Review Focus 4). It prints each failing package as `name@version: license` and exits 1.
+- [ ] **Step 3:** `scripts/check-licenses.mjs` runs `license-checker-rseidelsohn --production --json`. It passes a package when its license, or any one choice in an `OR` expression, is in the Global Constraints list (Review Focus 4). It prints each failing package as `name@version: license` and exits 1.
 - [ ] **Step 4:** Run `npm run check:licenses`. Expected: PASS. If an Expo package fails, stop and report it; don't widen the list.
 - [ ] **Step 5:** Commit `chore: add layer and license checks`.
 
