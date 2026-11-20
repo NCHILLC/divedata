@@ -7,6 +7,8 @@ export const ALLOWED = [
   'Unlicense', 'BlueOak-1.0.0', 'Python-2.0', 'LGPL-3.0', 'GPL-3.0',
   // Added 2026-11-20 for Expo's build tools; see docs/decisions/2026-11-20-license-list.md
   'CC-BY-4.0', 'MPL-2.0',
+  // The SPDX -only / -or-later names for GPL-3.0 and LGPL-3.0, added 2026-11-20; same decision note.
+  'GPL-3.0-only', 'GPL-3.0-or-later', 'LGPL-3.0-only', 'LGPL-3.0-or-later',
 ];
 
 // A plain license must be listed. In an SPDX expression, "OR" passes when any one choice passes

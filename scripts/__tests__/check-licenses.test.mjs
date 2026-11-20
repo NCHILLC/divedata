@@ -37,3 +37,20 @@ test('an AND expression passes only when every part is allowed', () => {
 test('a license with an exception is not on the list', () => {
   expect(isAllowed('GPL-2.0-only WITH Classpath-exception-2.0')).toBe(false);
 });
+
+// The SPDX -only / -or-later names for the GPL and LGPL 3.0 licenses already on the list.
+test('allows GPL-3.0-only', () => {
+  expect(isAllowed('GPL-3.0-only')).toBe(true);
+});
+
+test('allows GPL-3.0-or-later', () => {
+  expect(isAllowed('GPL-3.0-or-later')).toBe(true);
+});
+
+test('allows LGPL-3.0-only', () => {
+  expect(isAllowed('LGPL-3.0-only')).toBe(true);
+});
+
+test('allows LGPL-3.0-or-later', () => {
+  expect(isAllowed('LGPL-3.0-or-later')).toBe(true);
+});
