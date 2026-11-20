@@ -1,0 +1,10 @@
+node_modules/
+.expo/
+android/
+ios/
+dist/
+coverage/
+*.keystore
+*.jks
+.env*
+.superpowers/
