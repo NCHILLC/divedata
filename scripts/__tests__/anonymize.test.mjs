@@ -28,3 +28,18 @@ test('removes emails and phone numbers', () => {
 test('keeps scores', () => {
   expect(anonymize(sample)).toMatch(/218\.40/);
 });
+
+test('replaces the real diver number, the same way each time', () => {
+  const out = anonymize(sample);
+  expect(out).not.toMatch(/number=111|number=222/);
+  const fakes = [...out.matchAll(/number=(\d+)/g)].map((m) => m[1]);
+  expect(fakes).toHaveLength(3);
+  expect(fakes[0]).toBe(fakes[2]); // both links to diver 111
+  expect(fakes[0]).not.toBe(fakes[1]);
+});
+
+test('replaces a name wrapped in another tag inside the link', () => {
+  const out = anonymize('<a href="profile.php?number=111"><b>Real Kid</b></a>');
+  expect(out).not.toMatch(/Real Kid/);
+  expect(out).toMatch(/>Diver 1</);
+});

@@ -27,3 +27,13 @@ test('lists each failing package as name@version: license', () => {
   };
   expect(failures(report)).toEqual(['bad@2.0.0: SSPL-1.0', 'many@3.0.0: MIT, Commercial']);
 });
+
+test('an AND expression passes only when every part is allowed', () => {
+  expect(isAllowed('SSPL-1.0 AND (MIT OR Apache-2.0)')).toBe(false);
+  expect(isAllowed('(MIT OR Apache-2.0) AND GPL-2.0-only')).toBe(false);
+  expect(isAllowed('MIT AND (ISC OR SSPL-1.0)')).toBe(true);
+});
+
+test('a license with an exception is not on the list', () => {
+  expect(isAllowed('GPL-2.0-only WITH Classpath-exception-2.0')).toBe(false);
+});

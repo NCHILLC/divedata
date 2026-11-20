@@ -8,7 +8,7 @@ const MARKER = '<!-- anonymized: divedata -->';
 // Returns the paths of files (in any subfolder) whose first line is not the marker.
 export function checkFixtures(dir) {
   return fs.readdirSync(dir, { recursive: true, withFileTypes: true })
-    .filter((entry) => entry.isFile() && !entry.name.startsWith('.'))
+    .filter((entry) => entry.isFile() && entry.name !== '.gitkeep')
     .map((entry) => path.join(entry.parentPath, entry.name))
     .filter((file) => {
       const firstLine = fs.readFileSync(file, 'utf8').replace(/^﻿/, '').split(/\r?\n/)[0];

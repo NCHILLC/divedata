@@ -9,11 +9,40 @@ export const ALLOWED = [
   'CC-BY-4.0', 'MPL-2.0',
 ];
 
-// A plain license must be listed. An SPDX "OR" expression passes when any one choice is listed,
-// since the user of the package picks which license applies.
+// A plain license must be listed. In an SPDX expression, "OR" passes when any one choice passes
+// (the user of the package picks which license applies) and "AND" passes only when every part
+// passes. "AND" binds tighter than "OR", as SPDX says. A license with an exception ("WITH") is not
+// on the list, so it fails, and so does anything that does not parse.
 export function isAllowed(license) {
-  const choices = license.replace(/[()]/g, '').split(/\s+OR\s+/);
-  return choices.some((choice) => ALLOWED.includes(choice.trim()));
+  const tokens = license.match(/\(|\)|[^\s()]+/g) ?? [];
+  let i = 0;
+  const parseOr = () => {
+    let ok = parseAnd();
+    while (tokens[i] === 'OR') { i++; ok = parseAnd() || ok; }
+    return ok;
+  };
+  const parseAnd = () => {
+    let ok = parseAtom();
+    while (tokens[i] === 'AND') { i++; ok = parseAtom() && ok; }
+    return ok;
+  };
+  const parseAtom = () => {
+    const token = tokens[i++];
+    if (token === '(') {
+      const ok = parseOr();
+      if (tokens[i++] !== ')') throw new Error('unbalanced');
+      return ok;
+    }
+    if (token === undefined || ['OR', 'AND', 'WITH', ')'].includes(token)) throw new Error('bad');
+    if (tokens[i] === 'WITH') { i += 2; return false; }
+    return ALLOWED.includes(token);
+  };
+  try {
+    const ok = parseOr();
+    return i === tokens.length && ok;
+  } catch {
+    return false;
+  }
 }
 
 // report: license-checker's JSON, { "name@version": { licenses: string | string[] } }
