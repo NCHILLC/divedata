@@ -34,7 +34,9 @@
     "test": "jest",
     "check:layers": "depcruise src --config .dependency-cruiser.cjs",
     "check:licenses": "node scripts/check-licenses.mjs",
-    "check:fixtures": "node scripts/check-fixtures.mjs"
+    "check:fixtures": "node scripts/check-fixtures.mjs",
+    "sync:skills": "node scripts/sync-skills.mjs",
+    "check:skills": "node scripts/sync-skills.mjs --check"
   },
   "private": true,
   "license": "GPL-3.0-only"

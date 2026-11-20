@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(npx expo *)",
+      "Bash(node scripts/*)",
+      "Bash(git status)",
+      "Bash(git diff)"
+    ]
+  }
+}
