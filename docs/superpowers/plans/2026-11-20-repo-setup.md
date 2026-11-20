@@ -10,7 +10,7 @@
 
 **Tech Stack:** Node 22 LTS, Expo (latest stable SDK on the day, recorded in a decision note), React Native, TypeScript (strict), Expo Router, Jest via `jest-expo`, ESLint via `expo lint`, dependency-cruiser, license-checker-rseidelsohn, GitHub Actions.
 
-**Spec:** `docs/superpowers/specs/2026-11-20-divedata-design.md` (approved 2026-11-20; published at https://claude.ai/artifact/RNLA5p5v4QZc9RUkvsCoRj)
+**Spec:** `docs/superpowers/specs/2026-11-20-divedata-design.md` (approved 2026-11-20)
 
 ## Global Constraints
 
