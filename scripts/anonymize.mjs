@@ -1,26 +1,32 @@
 // Replaces real people in a saved DiveMeets page before it is committed as a test fixture.
 // Usage: node scripts/anonymize.mjs <in.html> <out.html>
 //
-// Today it handles diver profile links, emails and North American phone numbers.
+// Today it handles diver profile links (name and number), emails and North American phone numbers.
 // Judge names and other page types get added in milestone 3, once real pages are saved.
 import fs from 'node:fs';
 import path from 'node:path';
 
 export const MARKER = '<!-- anonymized: divedata -->';
 
-const PROFILE_LINK = /(<a\b[^>]*profile\.php\?number=(\d+)[^>]*>)[^<]*(<\/a>)/gi;
+// The whole link text is replaced, even when the name sits inside another tag such as <b>.
+const PROFILE_LINK = /(<a\b[^>]*profile\.php\?number=(\d+)[^>]*>)[\s\S]*?(<\/a>)/gi;
+// The real diver number opens the real profile, so it is swapped for a fake one too.
+const PROFILE_NUMBER = /(profile\.php\?number=)(\d+)/gi;
 const EMAIL = /[\w.+-]+@[\w-]+(?:\.[\w-]+)+/g;
 const PHONE = /(?:\+?1[\s.-]?)?\(?\b\d{3}\)?[\s.-]?\d{3}[\s.-]\d{4}\b/g;
 
 export function anonymize(html) {
-  const fakeNames = new Map(); // DiveMeets diver number -> "Diver N", in order of first appearance
+  // DiveMeets diver number -> fake number N, in order of first appearance. Diver N gets number N.
+  const fakes = new Map();
+  const fake = (number) => {
+    if (!fakes.has(number)) fakes.set(number, fakes.size + 1);
+    return fakes.get(number);
+  };
   const body = html
     .replace(/\r\n/g, '\n')
     .replace(new RegExp(`^${MARKER}\n?`), '')
-    .replace(PROFILE_LINK, (_, open, number, close) => {
-      if (!fakeNames.has(number)) fakeNames.set(number, `Diver ${fakeNames.size + 1}`);
-      return `${open}${fakeNames.get(number)}${close}`;
-    })
+    .replace(PROFILE_LINK, (_, open, number, close) => `${open}Diver ${fake(number)}${close}`)
+    .replace(PROFILE_NUMBER, (_, prefix, number) => `${prefix}${fake(number)}`)
     .replace(EMAIL, '[email removed]')
     .replace(PHONE, '[phone removed]');
   return `${MARKER}\n${body}`;

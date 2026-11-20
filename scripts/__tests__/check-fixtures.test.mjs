@@ -29,3 +29,10 @@ test('ignores .gitkeep', () => {
   fs.writeFileSync(path.join(dir, '.gitkeep'), '');
   expect(checkFixtures(dir)).toEqual([]);
 });
+
+test('checks a file whose name starts with a dot', () => {
+  const dir = tmpDir();
+  const hidden = path.join(dir, '.results.html');
+  fs.writeFileSync(hidden, '<p>Real Name</p>\n');
+  expect(checkFixtures(dir)).toEqual([hidden]);
+});
