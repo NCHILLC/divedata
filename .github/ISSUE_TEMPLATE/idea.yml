@@ -1,0 +1,14 @@
+name: Idea
+description: Suggest something DiveData could do.
+labels: [idea]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would you like DiveData to do?
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why would it help you at a meet?

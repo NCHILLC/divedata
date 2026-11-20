@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
     padding: 24,
     backgroundColor: '#0e1417',
   },
-  title: { color: '#e6edf0', fontSize: 32, fontWeight: '700', marginBottom: 8 },
-  body: { color: '#94a8b0', fontSize: 18 },
+  // Colors are tokens from docs/design.md: on-surface and on-surface-variant.
+  title: { color: '#dde3e7', fontSize: 30, fontWeight: '700', marginBottom: 8 },
+  body: { color: '#bacac5', fontSize: 16 },
 });
