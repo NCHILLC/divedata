@@ -43,13 +43,17 @@ jobs:
         with:
           distribution: temurin
           java-version: 17
-          # No Gradle cache: android/ only exists after expo prebuild, so setup-java finds no Gradle files.
       - run: npm ci
       - run: npx expo prebuild --platform android --no-install
+      # The Gradle cache goes after prebuild: android/ and its Gradle files only exist once prebuild has run.
+      # The basic provider is the open-source (MIT) one. Only main writes the cache; pull requests read it.
+      - uses: gradle/actions/setup-gradle@v6
+        with:
+          cache-provider: basic
       # A release build bundles the app's JavaScript, so the APK runs on a phone without a dev server.
       # Expo's template signs release builds with the debug keystore, so no secret is needed.
       # This is a test APK only; real releases are signed with the release key (see the release skill).
-      - run: ./gradlew assembleRelease --no-daemon
+      - run: ./gradlew assembleRelease --no-daemon --build-cache
         working-directory: android
       - uses: actions/upload-artifact@v4
         with:
