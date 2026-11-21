@@ -49,7 +49,7 @@ SDK releases: check the versioned docs at `https://docs.expo.dev/versions/` befo
 | `npm run check:skills` | Fails when `.claude/skills` differs from `.agents/skills` |
 
 The Android test build runs in CI (`.github/workflows/ci.yml`): `npx expo prebuild --platform android`,
-then Gradle `assembleRelease`, uploaded as artifact `divedata-test-apk`. A release build carries the app's
+then Gradle `assembleRelease` for arm64 phones only, uploaded as artifact `divedata-test-apk`. A release build carries the app's
 JavaScript, so it opens on a phone with no dev server; a debug build shows "Unable to load script". Expo's
 template signs it with the debug keystore, so it is for testing only. The `android/` folder is generated
 and never committed.

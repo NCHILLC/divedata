@@ -53,7 +53,9 @@ jobs:
       # A release build bundles the app's JavaScript, so the APK runs on a phone without a dev server.
       # Expo's template signs release builds with the debug keystore, so no secret is needed.
       # This is a test APK only; real releases are signed with the release key (see the release skill).
-      - run: ./gradlew assembleRelease --no-daemon --build-cache
+      # It is built for arm64 phones only, about a quarter of the native (C++) work of all four chip types.
+      # Real releases should build every chip type (docs/decisions/2026-11-21-arm64-test-apk.md).
+      - run: ./gradlew assembleRelease --no-daemon --build-cache -PreactNativeArchitectures=arm64-v8a
         working-directory: android
       - uses: actions/upload-artifact@v4
         with:
