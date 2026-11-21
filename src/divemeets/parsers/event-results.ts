@@ -1,11 +1,12 @@
 import type { HTMLElement } from 'node-html-parser';
-import { checked, cleanText, load, PageChangedError } from './common';
+import { checked, cleanText, load, numberFromHref, PageChangedError, toNumber } from './common';
 import { type EventResults, EventResultsSchema } from './types';
 
-/** "3", "3T" and "T-3" are all place 3; the T marks a tie. */
-function parsePlace(text: string): { place: number; tied: boolean } {
-  const m = /^(T-?)?(\d+)(T)?$/i.exec(text.replace(/\s/g, ''));
-  return { place: Number(m?.[2]), tied: Boolean(m?.[1] || m?.[3]) };
+/** "3", "3T" and "T-3" are all place 3; the T marks a tie. Blank (unfinished) is no place; anything else is NaN, which the schema rejects. */
+function parsePlace(text: string): { place?: number; tied: boolean } {
+  if (!text) return { tied: false };
+  const m = /^(T-?)?(\d+)(T)?$/i.exec(text);
+  return { place: m ? Number(m[2]) : NaN, tied: Boolean(m?.[1] || m?.[3]) };
 }
 
 function row(tr: HTMLElement): unknown {
@@ -13,14 +14,15 @@ function row(tr: HTMLElement): unknown {
   const diver = cells[0].querySelector('a[href*="profile.php?number="]');
   const sheet = cells[3].querySelector('a[href*="divesheetresultsext.php?"]');
   const team = cleanText(cells[1]);
+  const score = cleanText(cells[3]);
   return {
     ...parsePlace(cleanText(cells[2])),
     diver: {
-      diverNumber: Number(/number=(\d+)/.exec(diver?.getAttribute('href') ?? '')?.[1]),
+      diverNumber: numberFromHref(diver?.getAttribute('href'), 'number'),
       name: cleanText(diver),
     },
     ...(team ? { team } : {}),
-    total: Number(cleanText(cells[3])),
+    ...(score ? { total: toNumber(score) } : {}),
     ...(sheet ? { diveSheetPath: sheet.getAttribute('href') } : {}),
   };
 }
@@ -46,7 +48,7 @@ export function parseEventResults(html: string): EventResults {
     .map(row);
 
   return checked('event-results', EventResultsSchema, {
-    meetNumber: Number(/meetnum=(\d+)/.exec(meetLink.getAttribute('href') ?? '')?.[1]),
+    meetNumber: numberFromHref(meetLink.getAttribute('href'), 'meetnum'),
     eventName: cleanText(title),
     ...(stage ? { stage } : {}),
     rows,

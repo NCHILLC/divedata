@@ -1,4 +1,4 @@
-import { checked, cleanText, load, PageChangedError } from './common';
+import { checked, cleanText, load, numberFromHref, PageChangedError } from './common';
 import { type MeetResults, MeetResultsSchema } from './types';
 
 /** Meet results page: "Meet: <name>", then one row per finished event: results link, entries, date. */
@@ -22,7 +22,7 @@ export function parseMeetResults(html: string): MeetResults {
     return [
       {
         eventNumber: Number(eventNumber),
-        eventType: Number(/eventtype=(\d+)/.exec(href)?.[1]),
+        eventType: numberFromHref(href, 'eventtype'),
         name: cleanText(a),
         ...(/^\d{4}-\d{2}-\d{2}$/.test(date) ? { date } : {}),
         resultsPath: href,
@@ -31,7 +31,7 @@ export function parseMeetResults(html: string): MeetResults {
   });
 
   return checked('meet-results', MeetResultsSchema, {
-    meetNumber: Number(/meetnum=(\d+)/.exec(link.getAttribute('href') ?? '')?.[1]),
+    meetNumber: numberFromHref(link.getAttribute('href'), 'meetnum'),
     name,
     events,
   });

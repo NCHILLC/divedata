@@ -1,6 +1,6 @@
 import type { HTMLElement } from 'node-html-parser';
 import { z } from 'zod';
-import { checked, cleanText, load, PageChangedError } from './common';
+import { checked, cleanText, load, numberFromHref, PageChangedError } from './common';
 import { type MeetSummary, MeetSummarySchema } from './types';
 
 const MONTHS = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
@@ -31,7 +31,7 @@ function parseDay(text: string): string | undefined {
 }
 
 function meetNumber(a: HTMLElement | null): number {
-  return Number(/meetnum=(\d+)/.exec(a?.getAttribute('href') ?? '')?.[1]);
+  return numberFromHref(a?.getAttribute('href'), 'meetnum');
 }
 
 /** Splits "Houston, TX" into city and state; the state is upper-cased ("Ma" becomes "MA"). */

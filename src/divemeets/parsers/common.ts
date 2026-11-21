@@ -40,3 +40,13 @@ export function checked<T>(page: PageType, schema: z.ZodType<T>, value: unknown)
   }
   return result.data;
 }
+
+/** A plain decimal ("321.55", "-14.6"); anything else, blank included, is NaN so the schema fails loudly. */
+export function toNumber(text: string): number {
+  return /^-?\d+(\.\d+)?$/.test(text) ? Number(text) : NaN;
+}
+
+/** The number after `key=` in a link ("meetnum", "eventtype"); NaN when absent so the schema fails loudly. */
+export function numberFromHref(href: string | null | undefined, key: string): number {
+  return toNumber(new RegExp(`[?&]${key}=(\\d+)`).exec(href ?? '')?.[1] ?? '');
+}

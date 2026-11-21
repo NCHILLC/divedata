@@ -1,5 +1,5 @@
 import type { HTMLElement } from 'node-html-parser';
-import { checked, cleanText, load, PageChangedError } from './common';
+import { checked, cleanText, load, numberFromHref, PageChangedError } from './common';
 import { type Meet, MeetSchema } from './types';
 
 const MONTHS = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
@@ -45,8 +45,8 @@ export function parseMeetInfo(html: string): Meet {
     if (rule) {
       const href = rule.getAttribute('href') ?? '';
       events.push({
-        eventNumber: Number(/[?&]event=(\d+)/.exec(href)?.[1]),
-        eventType: Number(/eventtype=(\d+)/.exec(href)?.[1]),
+        eventNumber: numberFromHref(href, 'event'),
+        eventType: numberFromHref(href, 'eventtype'),
         name: cleanText(td.childNodes[0] as HTMLElement),
         ...(date ? { date } : {}),
       });
@@ -55,7 +55,7 @@ export function parseMeetInfo(html: string): Meet {
 
   const pool = field(root, 'Pool:');
   return checked('meet-info', MeetSchema, {
-    meetNumber: Number(/meetnum=(\d+)/.exec(link.getAttribute('href') ?? '')?.[1]),
+    meetNumber: numberFromHref(link.getAttribute('href'), 'meetnum'),
     name,
     startDate: cleanText(field(root, 'Start Date:')),
     endDate: cleanText(field(root, 'End date:')),

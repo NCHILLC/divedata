@@ -51,6 +51,29 @@ describe('parseEventResults', () => {
     expect(parseEventResults(html).rows).toEqual([]);
   });
 
+  it('reads a diver with no place or score yet', () => {
+    const html = fixture('event-results/final.html')
+      .replace(/(<td valign="top">)1(<\/td><td valign="top"><a href="divesheetresultsext[^>]*>)321\.55/, '$1&nbsp;$2&nbsp;');
+    const r = parseEventResults(html);
+    expect(r.rows[0]).toMatchObject({ tied: false, diver: { diverNumber: 1 } });
+    expect(r.rows[0].place).toBeUndefined();
+    expect(r.rows[0].total).toBeUndefined();
+    expect(r.rows[1].place).toBe(2);
+  });
+
+  it('throws PageChangedError on a score that is not a number', () => {
+    const html = fixture('event-results/final.html').replace('>321.55<', '>abc<');
+    expect(() => parseEventResults(html)).toThrow(expect.objectContaining({ page: 'event-results', name: 'PageChangedError' }));
+  });
+
+  it('throws PageChangedError on a place that is not a number', () => {
+    const html = fixture('event-results/final.html').replace(
+      /(<td valign="top">)1(<\/td><td valign="top"><a href="divesheetresultsext)/,
+      '$1abc$2',
+    );
+    expect(() => parseEventResults(html)).toThrow(expect.objectContaining({ page: 'event-results', name: 'PageChangedError' }));
+  });
+
   it('throws PageChangedError on a different page', () => {
     const run = () => parseEventResults(fixture('meet-list/past.html'));
     expect(run).toThrow(PageChangedError);

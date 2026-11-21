@@ -44,11 +44,13 @@ export const MeetResultsSchema = z.object({
 export type MeetResults = z.infer<typeof MeetResultsSchema>;
 
 export const ResultRowSchema = z.object({
-  place: z.number().int().positive(),
+  /** Undefined only while DiveMeets shows a blank place (event not finished). */
+  place: z.number().int().positive().optional(),
   tied: z.boolean(),
   diver: DiverRefSchema,
   team: z.string().min(1).optional(),
-  total: z.number(),
+  /** Undefined only while DiveMeets shows a blank score. */
+  total: z.number().optional(),
   /** DiveMeets-relative link to the diver's dive sheet for this event. */
   diveSheetPath: z.string().min(1).optional(),
 });
