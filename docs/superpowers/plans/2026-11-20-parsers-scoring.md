@@ -66,7 +66,7 @@
 
 **Interfaces:** Produces `keptAwards(awards: number[]): number[] | undefined`, `diveScore(awards: number[], dd: number): number | undefined`, `runningTotals(scores: number[]): number[]`.
 
-- [ ] **Step 1: Failing tests**
+- [x] **Step 1: Failing tests**
 
 ```ts
 test('5 judges drop highest and lowest', () => {
@@ -84,10 +84,10 @@ test('no floating-point drift', () => expect(diveScore([7.0, 7.0, 7.0], 2.3)).to
 test('running totals', () => expect(runningTotals([63.8, 37.05, 48.3])).toEqual([63.8, 100.85, 149.15]));
 ```
 
-- [ ] **Step 2:** `npx jest src/scoring` fails (module not found).
-- [ ] **Step 3:** Implement in `src/scoring/dive.ts`: work in whole numbers (awards × 2, DD × 10, totals × 100) and divide once at the end.
-- [ ] **Step 4:** `npx jest src/scoring` passes.
-- [ ] **Step 5:** Commit: `feat(scoring): dive score, kept awards and running totals`.
+- [x] **Step 2:** `npx jest src/scoring` fails (module not found).
+- [x] **Step 3:** Implement in `src/scoring/dive.ts`: work in whole numbers (awards × 2, DD × 10, totals × 100) and divide once at the end.
+- [x] **Step 4:** `npx jest src/scoring` passes.
+- [x] **Step 5:** Commit: `feat(scoring): dive score, kept awards and running totals`.
 
 ### Task 4: Average judge score needed
 
@@ -102,11 +102,13 @@ function averageAwardNeeded(input: { total: number; remainingDDs: number[]; targ
 
 `average` is the lowest half point (0, 0.5 … 10) such that `total + 3 × average × sum(remainingDDs) > target`, using the Task 3 whole-number math. Three kept awards per dive.
 
-- [ ] **Step 1: Failing tests:** already above (`total 300, target 299.95` → `already-above`); needs (`total 200, remainingDDs [2.0, 2.0], target 290` → 90 points over 12 DD-awards → 7.5 is exactly 290, not above, so `{ kind: 'needs', average: 8 }`); exact boundary at 7.5 when target is 289.95; out of reach (`total 0, remainingDDs [2.0], target 61` → 10 gives 60 → `out-of-reach`); a tie is not enough (`total 100, remainingDDs [], target 100` → `out-of-reach`).
-- [ ] **Step 2:** Run, see fail. **Step 3:** Implement. **Step 4:** Run, see pass.
-- [ ] **Step 5:** Commit: `feat(scoring): average judge score needed to pass a target`.
+- [x] **Step 1: Failing tests:** already above (`total 300, target 299.95` → `already-above`); needs (`total 200, remainingDDs [2.0, 2.0], target 290` → 90 points over 12 DD-awards → 7.5 is exactly 290, not above, so `{ kind: 'needs', average: 8 }`); exact boundary at 7.5 when target is 289.95; out of reach (`total 0, remainingDDs [2.0], target 61` → 10 gives 60 → `out-of-reach`); a tie is not enough (`total 100, remainingDDs [], target 100` → `out-of-reach`).
+- [x] **Step 2:** Run, see fail. **Step 3:** Implement. **Step 4:** Run, see pass.
+- [x] **Step 5:** Commit: `feat(scoring): average judge score needed to pass a target`.
 
 ### Task 5: Parser groundwork and the meet list
+
+_Shipped: `PageType` also has `'meet-results'` and `'judge-scores'`; one `parseMeetList` reads the home page (`upcoming.html`) and the past page (`past.html`); no meet-search page saved._
 
 **Files:**
 - Modify: `package.json`, `package-lock.json` (`npx expo install zod node-html-parser`)
@@ -127,12 +129,14 @@ type MeetSummary = { meetNumber: number; name: string; startDate: string /* YYYY
 function parseMeetList(html: string): MeetSummary[];
 ```
 
-- [ ] **Step 1:** `npx expo install zod node-html-parser`; `npm run check:licenses` passes (stop and ask if not).
-- [ ] **Step 2: Failing test:** `parseMeetList` on `fixtures/divemeets/meet-list/meet-list.html` returns the count and the first row's values read off the page; on `meet-search.html` likewise (if its table differs, give search its own function and fixture test); on the event results fixture it throws `PageChangedError` with `page: 'meet-list'`.
-- [ ] **Step 3:** Run, see fail. **Step 4:** Implement `common.ts`, `types.ts`, `meet-list.ts`. **Step 5:** Run, see pass; `npm run check:layers` passes.
-- [ ] **Step 6:** Commit: `feat(parsers): meet list with Zod checks`.
+- [x] **Step 1:** `npx expo install zod node-html-parser`; `npm run check:licenses` passes (stop and ask if not).
+- [x] **Step 2: Failing test:** `parseMeetList` on `fixtures/divemeets/meet-list/meet-list.html` returns the count and the first row's values read off the page; on `meet-search.html` likewise (if its table differs, give search its own function and fixture test); on the event results fixture it throws `PageChangedError` with `page: 'meet-list'`.
+- [x] **Step 3:** Run, see fail. **Step 4:** Implement `common.ts`, `types.ts`, `meet-list.ts`. **Step 5:** Run, see pass; `npm run check:layers` passes.
+- [x] **Step 6:** Commit: `feat(parsers): meet list with Zod checks`.
 
 ### Task 6: Meet info and event results
+
+_Shipped: `EventSummary` has required `eventType`; `parseMeetResults` added (event links live on the meet results page); `ResultRow.place` and `total` optional when blank._
 
 **Files:** Create `src/divemeets/parsers/meet-info.ts`, `event-results.ts` and their tests.
 
@@ -149,11 +153,13 @@ function parseEventResults(html: string): EventResults;
 
 Paths are DiveMeets-relative (`divesheetresultsext.php?...`, exact pattern from Task 1), so milestone 4's reader can open them.
 
-- [ ] **Step 1: Failing tests** with values read off the fixtures: event count and one event's name and number; result row count, place 1 (`Diver N`, total), the cut fixture's stage name; Review Focus 5 (entity and nbsp text, a tied place) using a row from the fixture or a small row built in the test; Review Focus 2 (results table with no rows parses to `rows: []`); wrong page throws `PageChangedError`.
-- [ ] **Step 2:** Run, fail. **Step 3:** Implement. **Step 4:** Run, pass.
-- [ ] **Step 5:** Commit: `feat(parsers): meet info and event results`.
+- [x] **Step 1: Failing tests** with values read off the fixtures: event count and one event's name and number; result row count, place 1 (`Diver N`, total), the cut fixture's stage name; Review Focus 5 (entity and nbsp text, a tied place) using a row from the fixture or a small row built in the test; Review Focus 2 (results table with no rows parses to `rows: []`); wrong page throws `PageChangedError`.
+- [x] **Step 2:** Run, fail. **Step 3:** Implement. **Step 4:** Run, pass.
+- [x] **Step 5:** Commit: `feat(parsers): meet info and event results`.
 
 ### Task 7: Dive sheet, checked against the scoring math
+
+_Shipped: `Dive` has `net` and `judgeScoresPath`, no awards or penalty; `parseJudgeScores` added; one dive sheet fixture plus two judge-score pages._
 
 **Files:** Create `src/divemeets/parsers/dive-sheet.ts`, `__tests__/dive-sheet.test.ts`.
 
@@ -165,24 +171,26 @@ type DiveSheet = { diver: DiverRef; eventName: string; dives: Dive[]; total: num
 function parseDiveSheet(html: string): DiveSheet;
 ```
 
-- [ ] **Step 1: Failing tests:** for `dive-sheet-3`, `-5` and `-7`: dive count, first dive's number, DD and awards read off the page; for every dive, `diveScore(awards, dd)` equals the published `score` (skip a dive with `penalty` set and say why in the test); the last running total equals `total`. Review Focus 1 (a failed dive keeps its published score) and 2 (a sheet with later rounds blank parses the dives done).
-- [ ] **Step 2:** Run, fail. **Step 3:** Implement. **Step 4:** Run, pass.
-- [ ] **Step 5:** Commit: `feat(parsers): dive sheet, checked against published scores`.
+- [x] **Step 1: Failing tests:** for `dive-sheet-3`, `-5` and `-7`: dive count, first dive's number, DD and awards read off the page; for every dive, `diveScore(awards, dd)` equals the published `score` (skip a dive with `penalty` set and say why in the test); the last running total equals `total`. Review Focus 1 (a failed dive keeps its published score) and 2 (a sheet with later rounds blank parses the dives done).
+- [x] **Step 2:** Run, fail. **Step 3:** Implement. **Step 4:** Run, pass.
+- [x] **Step 5:** Commit: `feat(parsers): dive sheet, checked against published scores`.
 
 ### Task 8: Diver profile and diver search
+
+_Shipped: `parseDiverSearch` added; no `startDate` on profile meets (the page shows none); `EXHB` place reads as none; commit is `feat(parsers): diver profile and diver search`._
 
 **Files:** Create `src/divemeets/parsers/diver-profile.ts`, `__tests__/diver-profile.test.ts`.
 
 **Interfaces:** Produces `type DiverProfile = { diver: DiverRef; meets: { meetNumber: number; name: string; startDate?: string; events: { name: string; place?: number; total?: number; diveSheetPath?: string }[] }[] }` and `parseDiverProfile(html: string): DiverProfile`. Personal details on the page (city, school, coach) are not read. Expected shape (from `tnelli4/SafeDiveMeet`, to confirm): a full-width results table where a row with one 3-column cell in bold is a meet name, and each following 3-cell row is event, place, and score linking to `divesheetresultsext.php?meetnum=…&eventnum=…&dvrnum=…&eventtype=…`. Also `parseDiverSearch(html: string): DiverRef[]` from `diver-search.html` (the profile links on the results page), in `diver-search.ts`.
 
-- [ ] **Step 1:** Failing tests with values read off both fixtures, plus wrong page throws for each. **Steps 2-4:** fail, implement, pass.
-- [ ] **Step 5:** Commit: `feat(parsers): diver profile`.
+- [x] **Step 1:** Failing tests with values read off both fixtures, plus wrong page throws for each. **Steps 2-4:** fail, implement, pass.
+- [x] **Step 5:** Commit: `feat(parsers): diver profile`.
 
 ### Task 9: Docs, checks, pull request
 
 **Files:** Modify `docs/divemeets.md` ("Page layouts": each page's address pattern and the tables and columns the parsers rely on), `docs/domain.md` (remove "unverified" only where a fixture confirmed it; note what the pages showed about penalties and panels), `.agents/skills/add-parser/SKILL.md` (the relay saving step) then `npm run sync:skills`. Create `docs/decisions/2026-11-20-html-parser.md` (node-html-parser and Zod), `docs/decisions/2026-11-20-fixture-people.md` (every person replaced; meet, place and club names kept), `docs/decisions/2026-11-20-needed-means-pass.md` ("needed" means finishing above the target; a tie is not a pass; what to assume about rivals is decided in milestone 6).
 
-- [ ] **Step 1:** `npm run lint`, `npm run check:layers`, `npm run check:licenses`, `npm run check:fixtures`, `npm run check:skills` pass locally.
+- [x] **Step 1:** `npm run lint`, `npm run check:layers`, `npm run check:licenses`, `npm run check:fixtures`, `npm run check:skills` pass locally.
 - [ ] **Step 2:** Commit, push, open the PR from `main` with the `pr` skill. CI `checks` and `android` green.
 - [ ] **Step 3:** A fresh reviewer on the whole branch; fix what it finds.
 - [ ] **Step 4:** Merge with `gh pr merge --squash` once checks pass. Update STATE and the log in `claude-memory/projects/divedata/`.
