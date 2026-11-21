@@ -1,8 +1,8 @@
 // Shared pieces for the screens. Colors, sizes and spacing are tokens from docs/design.md.
 import { Stack } from 'expo-router';
 import React from 'react';
-import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import type { PageState } from './divemeets/source';
+import { ActivityIndicator, Linking, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { RefusedError, type PageState } from './divemeets/source';
 
 export const color = {
   background: '#0e1417',
@@ -97,9 +97,13 @@ export function PageView<T>(props: { state: PageState<T>; reload: () => void; ch
       </View>
     );
   }
+  const { error } = state;
   return (
     <View style={styles.block}>
-      <Text style={styles.errorText}>{errorWords(state.error)}</Text>
+      <Text style={styles.errorText}>{errorWords(error)}</Text>
+      {error instanceof RefusedError && (
+        <Button label="Open DiveMeets in your browser" onPress={() => Linking.openURL(error.url)} />
+      )}
       <Button label="Try again" onPress={props.reload} />
     </View>
   );
@@ -108,6 +112,9 @@ export function PageView<T>(props: { state: PageState<T>; reload: () => void; ch
 function errorWords(error: Error): string {
   if (error.name === 'CheckNeededError') {
     return "DiveMeets wants to check you're a person before it shows this page. Tap Try again to see the check.";
+  }
+  if (error instanceof RefusedError) {
+    return "DiveMeets wouldn't send this page to DiveData. Open DiveMeets in your browser and tap through to it there.";
   }
   if (error.name === 'PageChangedError') {
     return "DiveMeets changed this page, so DiveData can't read it right now. A newer version of DiveData may fix it.";

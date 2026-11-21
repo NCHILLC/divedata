@@ -1,7 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { fireEvent, render, screen } from '@testing-library/react-native';
 import { router, useLocalSearchParams } from 'expo-router';
+import { Linking } from 'react-native';
 import Event from '../app/event';
+import { RefusedError } from '../divemeets/source';
 import { withPages } from './fixtures';
 
 jest.mock('expo-router', () => ({
@@ -31,6 +33,18 @@ test('marks a followed diver as My diver', async () => {
   await render(withPages(<Event />, { [path]: 'event-results/final.html' }));
   expect(await screen.findByText('My diver')).toBeTruthy();
   expect(screen.getByLabelText('My diver: Diver 1, place 1, total 321.55. Open their dives')).toBeTruthy();
+});
+
+test('when DiveMeets refuses the page, offers to open DiveMeets in the browser', async () => {
+  const open = jest.spyOn(Linking, 'openURL').mockResolvedValue();
+  const meet = 'https://secure.meetcontrol.com/divemeets/system/meetresultsext.php?meetnum=13501';
+  await render(withPages(<Event />, { [path]: new RefusedError('DiveMeets answered 403', meet) }));
+  expect(
+    await screen.findByText("DiveMeets wouldn't send this page to DiveData. Open DiveMeets in your browser and tap through to it there."),
+  ).toBeTruthy();
+  await fireEvent.press(screen.getByLabelText('Open DiveMeets in your browser'));
+  expect(open).toHaveBeenCalledWith(meet);
+  expect(screen.getByLabelText('Try again')).toBeTruthy();
 });
 
 test('names the stage of a prelim', async () => {

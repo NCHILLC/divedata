@@ -24,6 +24,7 @@ test('follows a page through the service browser every 30 seconds', () => {
   expect(native.start).toHaveBeenCalledWith(
     'https://secure.meetcontrol.com/divemeets/system/eventresultsext.php?eventnum=1',
     30,
+    '',
   );
 
   emit('onPage', page('<html>round 1</html>'));
@@ -61,6 +62,18 @@ test('reports refused pages, lost connections and pages that never come back', (
   emit('onTick'); // nothing came back since the last reload
   expect(errors).toEqual(['DiveMeets answered 500', 'No connection to DiveMeets', 'DiveMeets did not answer']);
   expect(native.reload).toHaveBeenCalledTimes(3);
+});
+
+test('sends the page the link came from as the Referer, and says when DiveMeets refuses the page', () => {
+  const { native, emit } = fakeNative();
+  const meet = 'https://secure.meetcontrol.com/divemeets/system/meetresultsext.php?meetnum=1';
+  const errors: Error[] = [];
+  createLive(native, () => meet)('eventresultsext.php?eventnum=1', (u) => 'error' in u && errors.push(u.error));
+  expect(native.start).toHaveBeenCalledWith(expect.any(String), 30, meet);
+
+  emit('onPage', page('', 'Webpage not available', 403));
+  expect(errors[0].name).toBe('RefusedError');
+  expect((errors[0] as Error & { url: string }).url).toBe(meet);
 });
 
 test('the person stopping it from the notification ends the follow', () => {

@@ -4,7 +4,7 @@ import { LiveSourceContext, PageSourceContext, type LoadPage } from '../../sourc
 import { ReaderProvider } from '../ReaderProvider';
 
 type WebProps = {
-  source: { uri: string };
+  source: { uri: string; headers?: Record<string, string> };
   onLoadEnd: () => void;
   onMessage: (e: { nativeEvent: { data: string } }) => void;
   onHttpError: (e: { nativeEvent: { statusCode: number } }) => void;
@@ -78,6 +78,27 @@ test('a page DiveMeets refuses without a check fails', async () => {
   await act(async () => mockWeb.props!.onHttpError({ nativeEvent: { statusCode: 500 } }));
   await page('Error', '<html>oops</html>');
   expect(error?.name).toBe('NotReachedError');
+});
+
+const HOME = 'https://secure.meetcontrol.com/divemeets/system/index.php';
+
+test('sends the DiveMeets page it loaded last as the Referer, as a browser does when you tap a link', async () => {
+  await act(async () => void load('index.php'));
+  expect(mockWeb.props?.source.headers).toBeUndefined(); // the first page comes from nowhere
+  await page('DiveMeets', '<html>meets</html>');
+  await act(async () => void load('meetresultsext.php?meetnum=1'));
+  expect(mockWeb.props?.source.headers).toEqual({ Referer: HOME });
+});
+
+test('a page DiveMeets refuses offers the page the link came from, to open in the browser', async () => {
+  let error: (Error & { url?: string }) | undefined;
+  await act(async () => void load('index.php'));
+  await page('DiveMeets', '<html>meets</html>');
+  await act(async () => void load('eventresultsext.php?meetnum=1').catch((e: Error) => (error = e)));
+  await act(async () => mockWeb.props!.onHttpError({ nativeEvent: { statusCode: 403 } }));
+  await page('Webpage not available', '<html></html>');
+  expect(error?.name).toBe('RefusedError');
+  expect(error?.url).toBe(HOME);
 });
 
 test('gives screens live mode too, which says so where the Android module is missing', async () => {

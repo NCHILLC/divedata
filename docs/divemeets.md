@@ -12,6 +12,13 @@ automated reader. So each phone reads DiveMeets itself through a hidden in-app b
 person's browser would. If the check appears, the app shows it to the person, who passes it
 themselves. The app never solves it, never works around it, and never uses a server in between.
 
+## The Referer rule
+
+Separate from the check: on 2026-11-21 DiveMeets answered event results and dive sheet pages with 403 and an
+empty page when the request had no Referer, and with the page when the Referer was any DiveMeets page. A
+browser sends one when you tap a link, so the reader sends the DiveMeets page it got last
+(docs/decisions/2026-11-21-referer.md). Opening a results address straight in a browser sends no Referer, so it is refused too.
+
 ## Polite use
 
 The reader (`src/divemeets/reader/`) keeps these rules: one page at a time, each page cached for a minute.

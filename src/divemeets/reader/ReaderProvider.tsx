@@ -26,7 +26,7 @@ export function ReaderProvider({ children }: { children: React.ReactNode }) {
   const [current, setCurrent] = useState<Request | undefined>();
   const [checking, setChecking] = useState(false);
   const [reader] = useState(() => createQueue(setCurrent, setChecking));
-  const [follow] = useState(() => createLive(LiveReader));
+  const [follow] = useState(() => createLive(LiveReader, reader.lastPage));
   const web = useRef<WebHandle>(null);
 
   return (
@@ -52,7 +52,7 @@ export function ReaderProvider({ children }: { children: React.ReactNode }) {
           <Web
             key={current.id}
             ref={web}
-            source={{ uri: pageUrl(current.path) }}
+            source={{ uri: pageUrl(current.path), headers: current.from ? { Referer: current.from } : undefined }}
             onLoadEnd={() => web.current?.injectJavaScript(READ_PAGE_JS)}
             onHttpError={(e) => reader.httpError(e.nativeEvent.statusCode)}
             onError={reader.failed}

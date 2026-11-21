@@ -1,4 +1,12 @@
+import { NotReachedError, RefusedError } from '../source';
+
 export const DIVEMEETS = 'https://secure.meetcontrol.com/divemeets/system/';
+
+/** The error for a page DiveMeets answered with `status` (400 or more). `from` is the page the link came from. */
+export function answered(status: number, from: string | undefined): Error {
+  const message = `DiveMeets answered ${status}`;
+  return status < 500 ? new RefusedError(message, from ?? pageUrl('index.php')) : new NotReachedError(message);
+}
 
 /** The full address of a DiveMeets page name such as `profile.php?number=1`. Refuses anything else. */
 export function pageUrl(path: string): string {

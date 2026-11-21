@@ -17,6 +17,20 @@ export class NotReachedError extends Error {
   name = 'NotReachedError';
 }
 
+/**
+ * DiveMeets answered but would not send the page (a 4xx that is not its check). `url` is a DiveMeets page the
+ * person can open in their phone's browser and tap through from, since opening the page itself there is refused too.
+ */
+export class RefusedError extends Error {
+  name = 'RefusedError';
+  constructor(
+    message: string,
+    readonly url: string,
+  ) {
+    super(message);
+  }
+}
+
 /** Live mode stopped: the person tapped Stop in its notification, or it ran out of time. */
 export class LiveStoppedError extends Error {
   name = 'LiveStoppedError';
