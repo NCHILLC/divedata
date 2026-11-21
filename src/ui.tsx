@@ -2,7 +2,7 @@
 import { Stack } from 'expo-router';
 import React from 'react';
 import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import type { PageState } from './divemeets/source';
+import { debugSteps, type PageState } from './divemeets/source';
 
 export const color = {
   background: '#0e1417',
@@ -101,6 +101,11 @@ export function PageView<T>(props: { state: PageState<T>; reload: () => void; ch
     <View style={styles.block}>
       <Text style={styles.errorText}>{errorWords(state.error)}</Text>
       <Button label="Try again" onPress={props.reload} />
+      {/* DEBUG BUILD ONLY: the real error and the reader's last steps. */}
+      <Body muted>{`${state.error.name}: ${state.error.message}`}</Body>
+      <Text style={{ color: color.text, fontSize: 11 }} selectable>
+        {debugSteps().join('\n')}
+      </Text>
     </View>
   );
 }

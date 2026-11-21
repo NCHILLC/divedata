@@ -7,6 +7,17 @@ export type LoadPage = (path: string) => Promise<string>;
 
 export const PageSourceContext = createContext<LoadPage | null>(null);
 
+// DEBUG BUILD ONLY (branch debug/results-unreachable, never merged): the reader's steps, to logcat and on screen.
+const steps: string[] = [];
+const t0 = Date.now();
+export function debugStep(...parts: unknown[]) {
+  const line = `+${((Date.now() - t0) / 1000).toFixed(2)}s ${parts.map((p) => (typeof p === 'string' ? p : JSON.stringify(p))).join(' ')}`;
+  steps.push(line);
+  if (steps.length > 40) steps.shift();
+  console.log('[reader]', line);
+}
+export const debugSteps = () => steps.slice();
+
 /** The person closed DiveMeets' check without finishing it. */
 export class CheckNeededError extends Error {
   name = 'CheckNeededError';
@@ -75,9 +86,18 @@ export function usePage<T>(path: string | undefined, parse: (html: string) => T)
   useEffect(() => {
     if (!path) return;
     let live = true;
+    debugStep('usePage asks', path);
     load(path)
-      .then((html) => live && setResult({ key, state: { status: 'ready', data: parse(html) } }))
-      .catch((error: Error) => live && setResult({ key, state: { status: 'error', error } }));
+      .then((html) => {
+        debugStep('usePage got html', html.length, 'chars; parsing with', parse.name);
+        const data = parse(html);
+        debugStep('usePage parsed ok', path);
+        if (live) setResult({ key, state: { status: 'ready', data } });
+      })
+      .catch((error: Error) => {
+        debugStep('usePage error', error?.name, error?.message, 'live', live);
+        if (live) setResult({ key, state: { status: 'error', error } });
+      });
     return () => {
       live = false;
     };

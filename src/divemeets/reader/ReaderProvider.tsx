@@ -1,8 +1,8 @@
-import React, { useRef, useState } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { AppState, Pressable, StyleSheet, Text, View } from 'react-native';
 import { WebView, type WebViewProps } from 'react-native-webview';
 import LiveReader from '../../../modules/live-reader';
-import { LiveSourceContext, PageSourceContext } from '../source';
+import { debugStep, LiveSourceContext, PageSourceContext } from '../source';
 import { createLive } from './live';
 import { pageUrl } from './page';
 import { createQueue, type Request } from './queue';
@@ -28,6 +28,11 @@ export function ReaderProvider({ children }: { children: React.ReactNode }) {
   const [reader] = useState(() => createQueue(setCurrent, setChecking));
   const [follow] = useState(() => createLive(LiveReader));
   const web = useRef<WebHandle>(null);
+  useEffect(() => {
+    debugStep('app state', AppState.currentState);
+    const sub = AppState.addEventListener('change', (s) => debugStep('app state', s));
+    return () => sub.remove();
+  }, []);
 
   return (
     <PageSourceContext.Provider value={reader.load}>
@@ -53,9 +58,14 @@ export function ReaderProvider({ children }: { children: React.ReactNode }) {
             key={current.id}
             ref={web}
             source={{ uri: pageUrl(current.path) }}
-            onLoadEnd={() => web.current?.injectJavaScript(READ_PAGE_JS)}
+            onLoadStart={(e) => debugStep('web loadStart', `#${current.id}`, e?.nativeEvent?.url)}
+            onLoadEnd={(e) => {
+              debugStep('web loadEnd', `#${current.id}`, e?.nativeEvent?.url, 'loading', e?.nativeEvent?.loading);
+              web.current?.injectJavaScript(READ_PAGE_JS);
+            }}
             onHttpError={(e) => reader.httpError(e.nativeEvent.statusCode)}
-            onError={reader.failed}
+            onError={(e) => reader.failed({ code: e.nativeEvent.code, description: e.nativeEvent.description, url: e.nativeEvent.url })}
+            onRenderProcessGone={(e) => debugStep('web renderProcessGone', e.nativeEvent.didCrash)}
             onMessage={(e) => reader.read(e.nativeEvent.data)}
           />
         </View>
