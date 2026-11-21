@@ -70,17 +70,22 @@ docs/install.md        the parent-friendly install guide
 fixtures/divemeets/    saved DiveMeets pages, names replaced
 mockups/               design mockups, for reference only
 scripts/               repo checks and the anonymizer (run with node on Windows and Linux)
+index.js, src/root.tsx the app's entry: Expo Router's app with the reader around it
 src/app/               screens (Expo Router); every file here is a route, so tests go in src/__tests__/
+src/divemeets/source.ts how screens ask for a page (usePage) without importing the reader
 src/divemeets/reader/  loads DiveMeets pages in a hidden browser view, with a cache
 src/divemeets/parsers/ pure functions from saved HTML to typed data
 src/scoring/           pure scoring math
+src/follows.tsx        followed divers, kept on the phone
+src/ui.tsx             shared screen pieces built from docs/design.md
 ```
 
 ## Layers
 
 reader → parsers → scoring → screens. Each layer only uses the ones before it. Screens never import
-the reader (`npm run check:layers` enforces it). Parsers and scoring are pure functions, so they are
-tested without a phone or a network.
+the reader (`npm run check:layers` enforces it): the reader wraps the app at its entry (`src/root.tsx`)
+and screens load pages with `usePage` from `src/divemeets/source.ts`. Parsers and scoring are pure
+functions, so they are tested without a phone or a network.
 
 ## Done means
 

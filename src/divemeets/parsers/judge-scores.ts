@@ -1,4 +1,4 @@
-import { checked, cleanText, load, numberFromHref, PageChangedError, toNumber } from './common';
+import { boardHeight, checked, cleanText, load, numberFromHref, PageChangedError, toNumber } from './common';
 import { type JudgeScores, JudgeScoresSchema } from './types';
 
 /** The text after a "Label:" row, e.g. the bold part of "Dive: <strong>...</strong>". */
@@ -32,7 +32,7 @@ export function parseJudgeScores(html: string): JudgeScores {
     eventName: cleanText(title),
     ...(diver ? { diverName: diver } : {}),
     description: m ? m[1] : dive,
-    ...(m ? { height: m[2] } : {}),
+    ...(m ? { height: boardHeight(m[2]) } : {}),
     ...(order ? { diveOrder: numberFromHref(order.getAttribute('href'), 'divord') } : {}),
     awards: awardRows.map((c) => toNumber(cleanText(c[2]))),
     total: toNumber(cleanText(totalRow[1])),

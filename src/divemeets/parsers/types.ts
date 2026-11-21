@@ -72,7 +72,7 @@ export const DiveSchema = z.object({
   round: z.number().int().positive(),
   /** DiveMeets dive number with position letter, e.g. `5253B`. */
   diveNumber: z.string().min(1),
-  /** Board, as the sheet writes it, e.g. `3M`. */
+  /** Board, e.g. `3 m` (the sheet writes `3M`; see boardHeight). */
   height: z.string().min(1).optional(),
   description: z.string().min(1).optional(),
   /** The "Net Score" column: what the kept awards add up to. */
@@ -105,7 +105,7 @@ export const JudgeScoresSchema = z.object({
   /** Plain text after "Diver:" up to the first " - " (the team follows); the page gives no profile link. */
   diverName: z.string().min(1).optional(),
   description: z.string().min(1),
-  /** The board in the page's words, e.g. `3 Meter`. */
+  /** Board, e.g. `3 m` (the page writes `3 Meter`; see boardHeight). */
   height: z.string().min(1).optional(),
   /** `divord` in the page's own links: which dive of the sheet this is. */
   diveOrder: z.number().int().positive().optional(),
