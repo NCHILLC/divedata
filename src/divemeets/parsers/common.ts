@@ -62,6 +62,12 @@ export function parsePlace(text: string): { place?: number; tied: boolean; exhib
   return m ? { place: Number(m[2] ?? m[3]), tied: Boolean(m[1] ?? m[4]) } : { place: NaN, tied: false };
 }
 
+/** The board: "3M" (dive sheet) and "3 Meter" (judge page) both become "3 m"; anything else is kept as written. */
+export function boardHeight(text: string): string {
+  const m = /^(\d+(?:\.\d+)?)\s*m(?:eters?)?$/i.exec(text.trim());
+  return m ? `${m[1]} m` : text;
+}
+
 const MONTHS = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
 
 /** 1 to 12 from a month name or its first three letters ("Nov", "November"); 0 when it is not a month. */

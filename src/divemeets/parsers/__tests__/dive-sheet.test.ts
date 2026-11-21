@@ -16,7 +16,7 @@ describe('parseDiveSheet', () => {
     expect(sheet.dives[0]).toEqual({
       round: 1,
       diveNumber: '105B',
-      height: '3M',
+      height: '3 m',
       description: 'Forward 2 1/2 Somersault Pike',
       net: 21,
       dd: 2.4,
@@ -111,7 +111,7 @@ describe('parseJudgeScores', () => {
     expect(j.eventName).toBe('Women 3m Championship (6 Dives)');
     expect(j.diverName).toBe('Diver 1');
     expect(j.description).toBe('Forward 2 1/2 Somersault Pike');
-    expect(j.height).toBe('3 Meter');
+    expect(j.height).toBe('3 m');
     expect(j.diveOrder).toBe(1);
     expect(j.awards).toEqual([7, 7, 6.5, 7, 7]);
     // The page's Total is the kept awards (the high and low are dropped), not all five.

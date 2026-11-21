@@ -1,4 +1,15 @@
-import { cleanText, load, parsePlace } from '../common';
+import { boardHeight, cleanText, load, parsePlace } from '../common';
+
+describe('boardHeight', () => {
+  it('writes the dive sheet and judge page spellings the same way', () => {
+    for (const text of ['3M', '3 Meter', '3 meters', '3m']) expect(boardHeight(text)).toBe('3 m');
+    expect(boardHeight('7.5M')).toBe('7.5 m');
+    expect(boardHeight('10 Meter')).toBe('10 m');
+  });
+  it('keeps anything else as written', () => {
+    expect(boardHeight('Platform')).toBe('Platform');
+  });
+});
 
 describe('cleanText', () => {
   it('decodes entities, turns nbsp into spaces and trims', () => {
