@@ -63,3 +63,48 @@ export const EventResultsSchema = z.object({
   rows: z.array(ResultRowSchema),
 });
 export type EventResults = z.infer<typeof EventResultsSchema>;
+
+export const DiveSchema = z.object({
+  round: z.number().int().positive(),
+  /** DiveMeets dive number with position letter, e.g. `5253B`. */
+  diveNumber: z.string().min(1),
+  /** Board, as the sheet writes it, e.g. `3M`. */
+  height: z.string().min(1).optional(),
+  description: z.string().min(1).optional(),
+  /** The "Net Score" column: what the kept awards add up to. */
+  net: z.number(),
+  dd: z.number().positive(),
+  /** Published dive score (net x DD). */
+  score: z.number(),
+  /** Place after this round; undefined while blank. */
+  roundPlace: z.number().int().positive().optional(),
+  /** DiveMeets-relative link to the judges' awards for this dive. */
+  judgeScoresPath: z.string().min(1).optional(),
+});
+export type Dive = z.infer<typeof DiveSchema>;
+
+export const DiveSheetSchema = z.object({
+  diver: DiverRefSchema,
+  eventName: z.string().min(1),
+  /** Only dives that have a score; rounds not yet dived are left out. */
+  dives: z.array(DiveSchema),
+  /** Undefined while the Totals row is blank (event not finished). */
+  total: z.number().optional(),
+});
+export type DiveSheet = z.infer<typeof DiveSheetSchema>;
+
+/** One dive's awards page. Judge names are never read. */
+export const JudgeScoresSchema = z.object({
+  eventName: z.string().min(1),
+  /** Plain text after "Diver:" up to the first " - " (the team follows); the page gives no profile link. */
+  diverName: z.string().min(1).optional(),
+  description: z.string().min(1),
+  /** The board in the page's words, e.g. `3 Meter`. */
+  height: z.string().min(1).optional(),
+  /** `divord` in the page's own links: which dive of the sheet this is. */
+  diveOrder: z.number().int().positive().optional(),
+  awards: z.array(z.number()).min(1),
+  /** The page's Total: the awards that count (high and low dropped), before DD. */
+  total: z.number(),
+});
+export type JudgeScores = z.infer<typeof JudgeScoresSchema>;
