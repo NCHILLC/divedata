@@ -108,3 +108,28 @@ export const JudgeScoresSchema = z.object({
   total: z.number(),
 });
 export type JudgeScores = z.infer<typeof JudgeScoresSchema>;
+
+/** One event a diver entered at a meet, from the profile's results history. */
+export const DiverEventSchema = z.object({
+  name: z.string().min(1),
+  /** Undefined while the place is blank, and for exhibition entries (DiveMeets shows EXHB). */
+  place: z.number().int().positive().optional(),
+  /** Undefined only while DiveMeets shows a blank score. */
+  total: z.number().optional(),
+  /** DiveMeets-relative link to the diver's dive sheet for this event. */
+  diveSheetPath: z.string().min(1).optional(),
+});
+export type DiverEvent = z.infer<typeof DiverEventSchema>;
+
+/** A diver's profile: who they are and every meet in their results history. Personal details are never read. */
+export const DiverProfileSchema = z.object({
+  diver: DiverRefSchema,
+  meets: z.array(
+    z.object({
+      meetNumber: z.number().int().positive(),
+      name: z.string().min(1),
+      events: z.array(DiverEventSchema).min(1),
+    }),
+  ),
+});
+export type DiverProfile = z.infer<typeof DiverProfileSchema>;
