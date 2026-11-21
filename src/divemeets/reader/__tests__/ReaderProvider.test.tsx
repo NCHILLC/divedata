@@ -1,6 +1,6 @@
 import { act, fireEvent, renderHook, screen } from '@testing-library/react-native';
 import { useContext } from 'react';
-import { PageSourceContext, type LoadPage } from '../../source';
+import { LiveSourceContext, PageSourceContext, type LoadPage } from '../../source';
 import { ReaderProvider } from '../ReaderProvider';
 
 type WebProps = {
@@ -78,4 +78,11 @@ test('a page DiveMeets refuses without a check fails', async () => {
   await act(async () => mockWeb.props!.onHttpError({ nativeEvent: { statusCode: 500 } }));
   await page('Error', '<html>oops</html>');
   expect(error?.name).toBe('NotReachedError');
+});
+
+test('gives screens live mode too, which says so where the Android module is missing', async () => {
+  const { result } = await renderHook(() => useContext(LiveSourceContext), { wrapper: ReaderProvider });
+  const updates: { html?: string; error?: Error }[] = [];
+  result.current!('index.php', (u) => updates.push(u));
+  expect(updates[0].error?.message).toBe('Live mode needs the Android app');
 });

@@ -73,7 +73,8 @@ scripts/               repo checks and the anonymizer (run with node on Windows 
 index.js, src/root.tsx the app's entry: Expo Router's app with the reader around it
 src/app/               screens (Expo Router); every file here is a route, so tests go in src/__tests__/
 src/divemeets/source.ts how screens ask for a page (usePage) without importing the reader
-src/divemeets/reader/  loads DiveMeets pages in a hidden browser view, with a cache
+src/divemeets/reader/  loads DiveMeets pages in a hidden browser view, with a cache; live.ts is live mode
+modules/live-reader/   live mode's Android service: its own browser re-reads a page with the screen off
 src/divemeets/parsers/ pure functions from saved HTML to typed data
 src/scoring/           pure scoring math
 src/follows.tsx        followed divers, kept on the phone

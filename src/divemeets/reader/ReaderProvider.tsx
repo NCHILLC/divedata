@@ -1,7 +1,9 @@
 import React, { useRef, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { WebView, type WebViewProps } from 'react-native-webview';
-import { PageSourceContext } from '../source';
+import LiveReader from '../../../modules/live-reader';
+import { LiveSourceContext, PageSourceContext } from '../source';
+import { createLive } from './live';
 import { pageUrl } from './page';
 import { createQueue, type Request } from './queue';
 
@@ -18,17 +20,18 @@ const READ_PAGE_JS = `window.ReactNativeWebView.postMessage(JSON.stringify({
 /**
  * Loads DiveMeets pages one at a time in a hidden browser view, the way a person's browser would, and gives
  * them to the screens below it. When DiveMeets shows its check, the view comes up so the person can pass it;
- * the app never answers the check itself.
+ * the app never answers the check itself. Live mode (`useLivePage`) reads through the service's own browser instead.
  */
 export function ReaderProvider({ children }: { children: React.ReactNode }) {
   const [current, setCurrent] = useState<Request | undefined>();
   const [checking, setChecking] = useState(false);
   const [reader] = useState(() => createQueue(setCurrent, setChecking));
+  const [follow] = useState(() => createLive(LiveReader));
   const web = useRef<WebHandle>(null);
 
   return (
     <PageSourceContext.Provider value={reader.load}>
-      {children}
+      <LiveSourceContext.Provider value={follow}>{children}</LiveSourceContext.Provider>
       {current && (
         <View style={checking ? styles.check : styles.hidden} pointerEvents={checking ? 'auto' : 'none'}>
           {checking && (

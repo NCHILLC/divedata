@@ -15,6 +15,9 @@ themselves. The app never solves it, never works around it, and never uses a ser
 ## Polite use
 
 The reader (`src/divemeets/reader/`) keeps these rules: one page at a time, each page cached for a minute.
+Live mode (`live.ts`, through the Android service in `modules/live-reader/`) follows one page at a time and
+re-reads it every 30 seconds; the service refuses anything faster and stops itself after 4 hours. While
+DiveMeets shows its check, live mode stops re-reading and tells the screen.
 
 - Load a page no more than once a minute normally, and no more than every 30 seconds in live mode.
 - Only load pages the person asked for (a meet they opened, an event they follow live).
