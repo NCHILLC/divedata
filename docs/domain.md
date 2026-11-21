@@ -34,6 +34,8 @@ every one of the 6 dives scores net × DD exactly, where net is the "Net Score" 
 - Dive score = sum of kept awards × DD. Example: awards 7.5, 7.0, 7.5, 8.0, 7.0 with DD 2.9 → drop 8.0
   and one 7.0 → 22.0 × 2.9 = 63.80.
 
+`averageAwardNeeded` (milestone 5) assumes 3 kept awards per dive: true for 3, 5 and 7 judges, not for synchronized panels. Milestone 6.
+
 Penalties: no saved page has a penalty column or a failed-dive marker. How a failed dive or a
 penalty shows up is unverified.
 

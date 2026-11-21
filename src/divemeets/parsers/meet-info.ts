@@ -1,14 +1,11 @@
 import type { HTMLElement } from 'node-html-parser';
-import { checked, cleanText, load, numberFromHref, PageChangedError } from './common';
+import { checked, cleanText, load, numberFromHref, PageChangedError, parseDay } from './common';
 import { type Meet, MeetSchema } from './types';
 
-const MONTHS = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
-
-/** "Tuesday, Nov 17, 2026" becomes "2026-11-17". */
-function parseLongDay(text: string): string | undefined {
-  const m = /^(?:[A-Za-z]+, )?([A-Za-z]{3})[a-z]* (\d{1,2}), (\d{4})$/.exec(text);
-  const month = m ? MONTHS.indexOf(m[1].toLowerCase()) + 1 : 0;
-  return m && month ? `${m[3]}-${String(month).padStart(2, '0')}-${m[2].padStart(2, '0')}` : undefined;
+/** "Prelim/Quarterfinal Women 1m ..." becomes the name without the stage and the stage; names with no stage prefix pass through. */
+function splitStage(text: string): { name: string; stage?: string } {
+  const m = /^(Prelim\/Quarterfinal|Prelim|Quarterfinal|Semifinal|Final)\s+(.+)$/i.exec(text);
+  return m ? { name: m[2], stage: m[1] } : { name: text };
 }
 
 /** The bold value beside a label such as "Name:" in the meet details table. */
@@ -38,7 +35,7 @@ export function parseMeetInfo(html: string): Meet {
   let date: string | undefined;
   for (const td of root.querySelectorAll('td')) {
     if (td.querySelector('table')) continue;
-    const day = parseLongDay(cleanText(td.querySelector('strong')));
+    const day = parseDay(cleanText(td.querySelector('strong')));
     if (day && cleanText(td) === cleanText(td.querySelector('strong'))) date = day;
     // Every event row has a qualification-rule link; the entries link is missing until someone signs up.
     const rule = td.querySelector('a[href*="qualrule.php?"]');
@@ -47,7 +44,7 @@ export function parseMeetInfo(html: string): Meet {
       events.push({
         eventNumber: numberFromHref(href, 'event'),
         eventType: numberFromHref(href, 'eventtype'),
-        name: cleanText(td.childNodes[0] as HTMLElement),
+        ...splitStage(cleanText(td.childNodes[0] as HTMLElement)),
         ...(date ? { date } : {}),
       });
     }

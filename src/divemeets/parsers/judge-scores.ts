@@ -18,7 +18,8 @@ export function parseJudgeScores(html: string): JudgeScores {
   const title = root.querySelector('strong[style*="font-size:14px"]');
   const dive = labelled(root, 'Dive');
   const rows = root.querySelectorAll('tr').map((tr) => tr.querySelectorAll('td'));
-  const awardRows = rows.filter((c) => c.length === 3 && c[1].querySelector('a[href*="profilej.php"]'));
+  // The first cell is the "Judge Number" column; the judge's link is not needed (it may be missing).
+  const awardRows = rows.filter((c) => c.length === 3 && /^\d+$/.test(cleanText(c[0])));
   const totalRow = rows.find((c) => c.length === 2 && cleanText(c[0]) === 'Total');
   if (!title || dive === undefined || !totalRow) throw new PageChangedError('judge-scores', 'title, dive or total not found');
 

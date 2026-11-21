@@ -1,12 +1,6 @@
 import type { HTMLElement } from 'node-html-parser';
-import { checked, cleanText, load, numberFromHref, PageChangedError, toNumber } from './common';
+import { checked, cleanText, load, numberFromHref, PageChangedError, parsePlace, toNumber } from './common';
 import { type DiverProfile, DiverProfileSchema } from './types';
-
-/** Blank (unfinished) and EXHB (exhibition, not ranked) are no place; anything else that is not a number is NaN, which the schema rejects. */
-function parsePlace(text: string): number | undefined {
-  if (!text || text === 'EXHB') return undefined;
-  return toNumber(text);
-}
 
 /** The text right after a bold label such as "Name:" in the profile header. */
 function labelled(root: HTMLElement, label: string): string {
@@ -19,11 +13,13 @@ function event(tr: HTMLElement): { event: unknown; meetNumber?: number } {
   const sheet = cells[2].querySelector('a[href*="divesheetresultsext.php?"]');
   const href = sheet?.getAttribute('href');
   const score = cleanText(cells[2]);
+  const p = parsePlace(cleanText(cells[1]));
   return {
     meetNumber: href ? numberFromHref(href, 'meetnum') : undefined,
     event: {
       name: cleanText(cells[0]),
-      place: parsePlace(cleanText(cells[1])),
+      ...(p.place !== undefined ? { place: p.place, tied: p.tied } : {}),
+      ...(p.exhibition ? { exhibition: true } : {}),
       ...(score ? { total: toNumber(score) } : {}),
       ...(href ? { diveSheetPath: href } : {}),
     },

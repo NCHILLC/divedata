@@ -17,6 +17,7 @@ describe('parseDiverProfile', () => {
         {
           name: 'Women 1m Championship (5 Dives) - (Prelim/Quarterfinal)',
           place: 1,
+          tied: false,
           total: 231.75,
           diveSheetPath: 'divesheetresultsext.php?meetnum=13353&eventnum=7143&dvrnum=1&eventtype=1&sts=1794363265',
         },
@@ -40,6 +41,16 @@ describe('parseDiverProfile', () => {
       .find((ev) => ev.name.includes('EXHIBITION'));
     expect(e).toMatchObject({ total: 247.73 });
     expect(e?.place).toBeUndefined();
+  });
+
+  it('marks an exhibition entry and reads a tied place', () => {
+    const e = parseDiverProfile(page())
+      .meets.flatMap((m) => m.events)
+      .find((ev) => ev.name.includes('EXHIBITION'));
+    expect(e?.exhibition).toBe(true);
+    const tied = parseDiverProfile(page().replace('<td align="right">18&nbsp;</td>', '<td align="right">T-18&nbsp;</td>'));
+    const found = tied.meets.flatMap((m) => m.events).find((ev) => ev.place === 18);
+    expect(found?.tied).toBe(true);
   });
 
   it('never reads personal details', () => {

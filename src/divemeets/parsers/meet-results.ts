@@ -1,3 +1,4 @@
+import type { HTMLElement } from 'node-html-parser';
 import { checked, cleanText, load, numberFromHref, PageChangedError } from './common';
 import { type MeetResults, MeetResultsSchema } from './types';
 
@@ -18,12 +19,15 @@ export function parseMeetResults(html: string): MeetResults {
     const href = a.getAttribute('href') ?? '';
     const eventNumber = /eventnum=(\d+)/.exec(href)?.[1];
     if (!eventNumber) return [];
+    // The stage sits in the text right after the link: " (Final)".
+    const stage = cleanText(a.nextSibling as HTMLElement | null).replace(/^\(|\)$/g, '').trim();
     const date = cleanText(a.parentNode?.nextElementSibling?.nextElementSibling);
     return [
       {
         eventNumber: Number(eventNumber),
         eventType: numberFromHref(href, 'eventtype'),
         name: cleanText(a),
+        ...(stage ? { stage } : {}),
         ...(/^\d{4}-\d{2}-\d{2}$/.test(date) ? { date } : {}),
         resultsPath: href,
       },

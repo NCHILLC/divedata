@@ -193,4 +193,4 @@ _Shipped: `parseDiverSearch` added; no `startDate` on profile meets (the page sh
 - [x] **Step 1:** `npm run lint`, `npm run check:layers`, `npm run check:licenses`, `npm run check:fixtures`, `npm run check:skills` pass locally.
 - [ ] **Step 2:** Commit, push, open the PR from `main` with the `pr` skill. CI `checks` and `android` green.
 - [ ] **Step 3:** A fresh reviewer on the whole branch; fix what it finds.
-- [ ] **Step 4:** Merge with `gh pr merge --squash` once checks pass. Update STATE and the log in `claude-memory/projects/divedata/`.
+- [ ] **Step 4:** Merge with `gh pr merge --squash` once checks pass. Update the maintainer's private notes.

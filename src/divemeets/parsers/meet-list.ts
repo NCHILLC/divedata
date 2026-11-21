@@ -1,17 +1,7 @@
 import type { HTMLElement } from 'node-html-parser';
 import { z } from 'zod';
-import { checked, cleanText, load, numberFromHref, PageChangedError } from './common';
+import { checked, cleanText, isoDate as iso, load, monthNumber, numberFromHref, PageChangedError, parseDay } from './common';
 import { type MeetSummary, MeetSummarySchema } from './types';
-
-const MONTHS = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
-
-function iso(year: number, month: number, day: number): string {
-  return `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-}
-
-function monthNumber(name: string): number {
-  return MONTHS.indexOf(name.slice(0, 3).toLowerCase()) + 1;
-}
 
 /** "Nov 17 - Nov 20, 2026" (the year is the end date's; Dec 30 - Jan 2 starts a year earlier). */
 function parseRange(text: string): { start: string; end: string } | undefined {
@@ -21,13 +11,6 @@ function parseRange(text: string): { start: string; end: string } | undefined {
   if (!startMonth || !endMonth) return undefined;
   const startYear = startMonth > endMonth ? endYear - 1 : endYear;
   return { start: iso(startYear, startMonth, Number(m[2])), end: iso(endYear, endMonth, Number(m[4])) };
-}
-
-/** "Dec 13, 2025" */
-function parseDay(text: string): string | undefined {
-  const m = /^([A-Za-z]{3})[a-z]* (\d{1,2}), (\d{4})$/.exec(text);
-  const month = m && monthNumber(m[1]);
-  return m && month ? iso(Number(m[3]), month, Number(m[2])) : undefined;
 }
 
 function meetNumber(a: HTMLElement | null): number {

@@ -22,6 +22,7 @@ describe('parseDiveSheet', () => {
       dd: 2.4,
       score: 50.4,
       roundPlace: 1,
+      roundPlaceTied: false,
       judgeScoresPath: 'judgesscoresext.php?meetnum=13501&eventnum=7160&dvrnum=1&divord=1&eventtype=9&synchdvrnum=&sts=1794531690',
     });
     expect(sheet.total).toBe(321.55);
@@ -47,7 +48,8 @@ describe('parseDiveSheet', () => {
   it('keeps a failed dive: net and score 0', () => {
     const html = fixture('dive-sheet/final.html')
       .replace('<td valign="top">21.00</td><td valign="top">2.40</td>', '<td valign="top">0.00</td><td valign="top">2.40</td>')
-      .replace('>50.40<', '>0.00<');
+      .replace('>50.40<', '>0.00<')
+      .replace('<td valign="bottom">321.55</td>', '<td valign="bottom">271.15</td>');
     const s = parseDiveSheet(html);
     expect(s.dives[0]).toMatchObject({ net: 0, dd: 2.4, score: 0 });
     expect(s.dives).toHaveLength(6);
@@ -69,6 +71,25 @@ describe('parseDiveSheet', () => {
     const s = parseDiveSheet(html);
     expect(s.dives.map((d) => d.diveNumber)).toEqual(['105B', '5152B', '205C']);
     expect(s.total).toBeUndefined();
+  });
+
+  it('reads a tied round place and no place for EXHB', () => {
+    const html = fixture('dive-sheet/final.html');
+    const tied = parseDiveSheet(html.replace('<td align="right" valign="top">1</td>', '<td align="right" valign="top">T-1</td>'));
+    expect(tied.dives[0]).toMatchObject({ roundPlace: 1, roundPlaceTied: true });
+    const exhb = parseDiveSheet(html.replace('<td align="right" valign="top">1</td>', '<td align="right" valign="top">EXHB</td>'));
+    expect(exhb.dives[0].roundPlace).toBeUndefined();
+    expect(exhb.dives[0].roundPlaceTied).toBeUndefined();
+  });
+
+  it('throws PageChangedError when the shown total is not the sum of the dive scores', () => {
+    const html = fixture('dive-sheet/final.html').replace('<td valign="bottom">321.55</td>', '<td valign="bottom">321.50</td>');
+    expect(() => parseDiveSheet(html)).toThrow(expect.objectContaining({ page: 'dive-sheet', name: 'PageChangedError' }));
+  });
+
+  it('throws PageChangedError on a half-blank dive row (net filled, score blank)', () => {
+    const html = fixture('dive-sheet/final.html').replace('>53.20<', '>&nbsp;<');
+    expect(() => parseDiveSheet(html)).toThrow(expect.objectContaining({ page: 'dive-sheet', name: 'PageChangedError' }));
   });
 
   it('throws PageChangedError on garbage in a score cell', () => {
@@ -118,6 +139,14 @@ describe('parseJudgeScores', () => {
     const j = parseJudgeScores(html);
     expect(j.awards).toEqual([0, 0, 0, 0, 0]);
     expect(j.total).toBe(0);
+  });
+
+  it('still reads every award when a judge row has no profile link', () => {
+    const html = fixture('judge-scores/five-judges.html').replace(
+      '<a href="profilej.php?number=1" onclick="return profpopup(this,1)">Judge 1</a>',
+      'Judge 1',
+    );
+    expect(parseJudgeScores(html).awards).toEqual([7, 7, 6.5, 7, 7]);
   });
 
   it('never reads judge names', () => {

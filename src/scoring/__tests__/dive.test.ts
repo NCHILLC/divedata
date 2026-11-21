@@ -27,3 +27,12 @@ test('keptAwards does not change its input', () => {
 
 test('running totals', () =>
   expect(runningTotals([63.8, 37.05, 48.3])).toEqual([63.8, 100.85, 149.15]));
+
+test('an award that is not a half point gives undefined', () => {
+  expect(diveScore([7.3, 7.0, 7.0], 2.0)).toBeUndefined();
+  expect(keptAwards([7.3, 7.0, 7.0])).toBeUndefined();
+});
+
+test('a DD with two decimals gives undefined', () => expect(diveScore([7.0, 7.0, 7.0], 2.25)).toBeUndefined());
+
+test('half-point awards and one-decimal DDs still work', () => expect(diveScore([7.5, 7.0, 6.5], 2.4)).toBe(50.4));

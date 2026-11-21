@@ -8,10 +8,10 @@ description: Use when adding or fixing a parser that turns a saved DiveMeets pag
 Parsers live in `src/divemeets/parsers/`. They are pure functions from saved HTML to typed data
 (meet, event, diver, dive, judge awards), checked with Zod. Tests never call DiveMeets.
 
-1. **Get the page.** The maintainer opens DiveMeets in his own Chrome and passes the Cloudflare check
-   himself. (It never passed in the Claude desktop browser pane.) Never try to pass or skip the check.
+1. **Get the page.** The maintainer opens DiveMeets in a normal browser and passes the Cloudflare check
+   himself. (The check may not pass in an automated browser.) Never try to pass or skip the check.
    Run a small relay on `127.0.0.1`: a Node script kept outside the repo that accepts a POST and writes
-   the body to a folder outside the repo. From the page in Chrome, POST
+   the body to a folder outside the repo. From the page in that browser, POST
    `document.documentElement.outerHTML` to the relay. Load at most one page a minute. Raw pages stay
    outside the repo.
 2. **Remove real names.** Run `node scripts/anonymize.mjs <saved.html> <out.html>`. Open every output and

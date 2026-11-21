@@ -48,6 +48,8 @@ date cell, then one cell per event with a link to `qualrule.php?` that carries `
 
 ### Meet results: `meetresultsext.php?meetnum=`
 
+Event names never carry the stage. `parseMeetResults` reads it from the bracketed text after each link ("(Final)") and `parseMeetInfo` splits it off the front of the schedule name ("Final Women Platform"); both give `stage` separately, so prelim and final of one event share a name.
+
 `parseMeetResults`. The meet number and name, then one link per event to `eventresultsext.php?`
 (the `eventnum=all` link is skipped). The event's date sits in the cell two over from the link. While a
 meet is in progress the page may list no events yet; that is an empty list, not an error.
@@ -57,7 +59,7 @@ meet is in progress the page may list no events yet; that is an empty list, not 
 `parseEventResults`. The event name is the large bold text; a stage such as "Prelim/Quarterfinal"
 follows it in brackets (finals have none). The table header is Diver, Team, Place, Score, Diff, and
 each result row has 5 cells: a diver link to `profile.php?number=`, the team, the place, the score (a link to the dive sheet,
-`divesheetresultsext.php?`) and the gap. Places read `3`, `3T` or `T-3`; the T marks a tie. A blank
+`divesheetresultsext.php?`) and the gap. Places read `3`, `3T`, `T-3` or `T - 3`; the T marks a tie. `EXHB` is an exhibition entry (scored, not ranked). One reader (`parsePlace` in `common.ts`) serves event results, the dive sheet's Round Place and the diver profile. A blank
 place or score (an unfinished event) reads as nothing, not zero.
 
 ### Dive sheet: `divesheetresultsext.php?meetnum=&eventnum=&dvrnum=&eventtype=`
@@ -72,7 +74,7 @@ not yet scored (net, DD and score all blank) are skipped. A row that is only par
 `parseJudgeScores`. One dive. Rows labelled "Diver:" (name and team) and "Dive:" (description and
 height in brackets), then one 3-cell row per judge with the award in the last cell (judge names are
 never read), then a "Total" row. The Total is the kept awards added up, with the highest and lowest
-dropped, not the sum of all awards. The page shows no dive number, DD or dive score; take those from the
+dropped (two of each on a 7-judge panel), not the sum of all awards. The page shows no dive number, DD or dive score; take those from the
 dive sheet.
 
 ### Diver profile: `profile.php?number=`
@@ -99,4 +101,9 @@ Saved in `fixtures/divemeets/live/`, but not parsed yet. Milestone 5 does that.
 - No 3-judge dive sheet. The only 3-judge page seen is the live board.
 - No failed-dive or penalty example in any saved page.
 - Only one diver profile layout (an adult diver) is saved.
-- Exhibition (`EXHB`) places read as no place.
+- Exhibition (`EXHB`) places read as no place, flagged `exhibition`.
+- Synchronized events: the dive sheet and event results read only the first diver's profile link, so the
+  partner is not read.
+- Heights are written `3M` on the dive sheet and `3 Meter` on the judge page; they are kept as written and
+  not matched to each other.
+- A past meet without a results link is left out of the past meets list.

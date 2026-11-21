@@ -1,17 +1,13 @@
 import type { HTMLElement } from 'node-html-parser';
-import { checked, cleanText, load, numberFromHref, PageChangedError, toNumber } from './common';
+import { checked, cleanText, load, numberFromHref, PageChangedError, parsePlace, toNumber } from './common';
 import { type DiveSheet, DiveSheetSchema } from './types';
-
-/** Blank is no place yet; a number is the place; anything else is NaN, which the schema rejects. */
-function place(text: string): number | undefined {
-  return text ? toNumber(text) : undefined;
-}
 
 /** A dive row has 8 cells: Dive (round), Number, Height, Description, Net Score, DD, Score (linked), Round Place. */
 function dive(cells: HTMLElement[]): unknown {
   const link = cells[6].querySelector('a[href*="judgesscoresext.php?"]');
   const height = cleanText(cells[2]);
   const description = cleanText(cells[3]);
+  const roundPlace = parsePlace(cleanText(cells[7]));
   return {
     round: toNumber(cleanText(cells[0])),
     diveNumber: cleanText(cells[1]),
@@ -20,7 +16,7 @@ function dive(cells: HTMLElement[]): unknown {
     net: toNumber(cleanText(cells[4])),
     dd: toNumber(cleanText(cells[5])),
     score: toNumber(cleanText(cells[6])),
-    ...(cleanText(cells[7]) ? { roundPlace: place(cleanText(cells[7])) } : {}),
+    ...(roundPlace.place !== undefined ? { roundPlace: roundPlace.place, roundPlaceTied: roundPlace.tied } : {}),
     ...(link ? { judgeScoresPath: link.getAttribute('href') } : {}),
   };
 }
@@ -45,10 +41,18 @@ export function parseDiveSheet(html: string): DiveSheet {
     .map(dive);
   const total = cleanText(totals[totals.length - 2]);
 
-  return checked('dive-sheet', DiveSheetSchema, {
+  const sheet = checked('dive-sheet', DiveSheetSchema, {
     diver: { diverNumber: numberFromHref(diver.getAttribute('href'), 'number'), name: cleanText(diver) },
     eventName: cleanText(title),
     dives,
     ...(total ? { total: toNumber(total) } : {}),
   });
+  // A shown total must be the dive scores added up, in whole hundredths so there is no float noise.
+  if (sheet.total !== undefined) {
+    const hundredths = sheet.dives.reduce((sum, d) => sum + Math.round(d.score * 100), 0);
+    if (Math.round(sheet.total * 100) !== hundredths) {
+      throw new PageChangedError('dive-sheet', `total ${sheet.total} is not the sum of the dive scores`);
+    }
+  }
+  return sheet;
 }

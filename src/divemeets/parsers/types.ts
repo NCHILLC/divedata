@@ -26,6 +26,8 @@ export const EventSummarySchema = z.object({
   /** Prelim, consolation and final share an `eventNumber`; the type (the `eventtype` in links) tells them apart. */
   eventType: z.number().int().positive(),
   name: z.string().min(1),
+  /** `Prelim/Quarterfinal`, `Final` and so on, when the page says; the name never carries it. */
+  stage: z.string().min(1).optional(),
   date: isoDate.optional(),
   /** DiveMeets-relative link to the event's results, e.g. `eventresultsext.php?meetnum=1&eventnum=2&eventtype=9`. */
   resultsPath: z.string().min(1).optional(),
@@ -47,6 +49,8 @@ export const ResultRowSchema = z.object({
   /** Undefined only while DiveMeets shows a blank place (event not finished). */
   place: z.number().int().positive().optional(),
   tied: z.boolean(),
+  /** DiveMeets shows EXHB: scored but not ranked. */
+  exhibition: z.boolean().optional(),
   diver: DiverRefSchema,
   team: z.string().min(1).optional(),
   /** Undefined only while DiveMeets shows a blank score. */
@@ -78,6 +82,8 @@ export const DiveSchema = z.object({
   score: z.number(),
   /** Place after this round; undefined while blank. */
   roundPlace: z.number().int().positive().optional(),
+  /** Only set with `roundPlace`: true when DiveMeets marks the place as a tie. */
+  roundPlaceTied: z.boolean().optional(),
   /** DiveMeets-relative link to the judges' awards for this dive. */
   judgeScoresPath: z.string().min(1).optional(),
 });
@@ -114,6 +120,10 @@ export const DiverEventSchema = z.object({
   name: z.string().min(1),
   /** Undefined while the place is blank, and for exhibition entries (DiveMeets shows EXHB). */
   place: z.number().int().positive().optional(),
+  /** True when the place is shared; only set with `place`. */
+  tied: z.boolean().optional(),
+  /** DiveMeets shows EXHB: scored but not ranked. */
+  exhibition: z.boolean().optional(),
   /** Undefined only while DiveMeets shows a blank score. */
   total: z.number().optional(),
   /** DiveMeets-relative link to the diver's dive sheet for this event. */

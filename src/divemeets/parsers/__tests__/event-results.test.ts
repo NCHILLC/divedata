@@ -46,6 +46,17 @@ describe('parseEventResults', () => {
     expect(r.rows[2]).toMatchObject({ place: 3, tied: false });
   });
 
+  it('reads T - 3 with inner spaces and EXHB as exhibition with no place', () => {
+    const html = fixture('event-results/final.html')
+      .replace(/(<td valign="top">)1(<\/td><td valign="top"><a href="divesheetresultsext)/, '$1T - 3$2')
+      .replace(/(<td valign="top">)2(<\/td><td valign="top"><a href="divesheetresultsext)/, '$1EXHB$2');
+    const r = parseEventResults(html);
+    expect(r.rows[0]).toMatchObject({ place: 3, tied: true });
+    expect(r.rows[0].exhibition).toBeUndefined();
+    expect(r.rows[1]).toMatchObject({ tied: false, exhibition: true });
+    expect(r.rows[1].place).toBeUndefined();
+  });
+
   it('parses a results table with no rows', () => {
     const html = fixture('event-results/final.html').replace(/<tr><td valign="top"><a href="profile\.php.*?<\/tr>/g, '');
     expect(parseEventResults(html).rows).toEqual([]);

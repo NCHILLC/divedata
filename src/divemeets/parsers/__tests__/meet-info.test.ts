@@ -1,5 +1,6 @@
 import { PageChangedError } from '../common';
 import { parseMeetInfo } from '../meet-info';
+import { parseMeetResults } from '../meet-results';
 import { fixture } from './fixtures';
 
 describe('parseMeetInfo', () => {
@@ -22,11 +23,22 @@ describe('parseMeetInfo', () => {
     expect(meet.events[1]).toEqual({
       eventNumber: 7140,
       eventType: 1,
-      name: 'Prelim/Quarterfinal Women 1m Championship (6 Dives)',
+      name: 'Women 1m Championship (6 Dives)',
+      stage: 'Prelim/Quarterfinal',
       date: '2026-11-18',
     });
     expect(meet.events[2].name).toBe('Women 1m Champ.(6 Dives) CONSOL.');
-    expect(meet.events[9]).toEqual({ eventNumber: 7175, eventType: 9, name: 'Final Women Platform (5 Dives)', date: '2026-11-20' });
+    expect(meet.events[9]).toEqual({ eventNumber: 7175, eventType: 9, name: 'Women Platform (5 Dives)', stage: 'Final', date: '2026-11-20' });
+  });
+
+  it('gives the same name for prelim and final as the meet results page', () => {
+    const results = parseMeetResults(fixture('meet-results/finished.html'));
+    const names = new Set(results.events.map((e) => e.name));
+    expect(meet.events.filter((e) => e.eventNumber === 7140).map((e) => e.name)).toEqual([
+      'Women 1m Championship (6 Dives)',
+      'Women 1m Championship (6 Dives)',
+    ]);
+    expect(names.has('Women 1m Championship (6 Dives)')).toBe(true);
   });
 
   it('leaves resultsPath out when the page does not link results', () => {
