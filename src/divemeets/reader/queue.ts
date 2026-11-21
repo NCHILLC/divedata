@@ -1,10 +1,17 @@
 import { CheckNeededError, NotReachedError } from '../source';
 import { createPageCache } from './cache';
-import { isBotCheck, pageUrl } from './page';
+import { answered, isBotCheck, pageUrl } from './page';
 
 const TIMEOUT_MS = 30_000;
 
-export type Request = { id: number; path: string; resolve: (html: string) => void; reject: (e: Error) => void };
+/** `from` is the page the link came from, sent as the Referer: DiveMeets refuses results pages without one. */
+export type Request = {
+  id: number;
+  path: string;
+  from?: string;
+  resolve: (html: string) => void;
+  reject: (e: Error) => void;
+};
 
 /**
  * The reader's page queue: one page at a time through the hidden browser view, behind the cache.
@@ -15,18 +22,23 @@ export function createQueue(show: (r: Request | undefined) => void, check: (on: 
   let nextId = 1;
   let status = 200;
   let timer: ReturnType<typeof setTimeout> | undefined;
+  // The last page the person got, as a browser tab remembers where you are. Any DiveMeets page passes its rule.
+  let lastPage: string | undefined;
 
   const startNext = () => {
     clearTimeout(timer);
     status = 200;
+    if (queue[0]) queue[0].from = lastPage;
     show(queue[0]);
     if (queue[0]) timer = setTimeout(() => finish(new NotReachedError('DiveMeets did not answer')), TIMEOUT_MS);
   };
 
   const finish = (result: string | Error) => {
     const done = queue.shift();
-    if (typeof result === 'string') done?.resolve(result);
-    else done?.reject(result);
+    if (typeof result === 'string') {
+      if (done) lastPage = pageUrl(done.path);
+      done?.resolve(result);
+    } else done?.reject(result);
     startNext();
   };
 
@@ -55,8 +67,11 @@ export function createQueue(show: (r: Request | undefined) => void, check: (on: 
         return;
       }
       check(false);
-      finish(status >= 400 ? new NotReachedError(`DiveMeets answered ${status}`) : page.html);
+      finish(status >= 400 ? answered(status, queue[0]?.from) : page.html);
     },
+
+    /** The page this reader got last, for live mode's Referer. */
+    lastPage: () => lastPage,
 
     httpError(code: number) {
       status = code;

@@ -42,10 +42,11 @@ class LiveReaderModule : Module() {
     }
 
     // Starts the service, or points it at a new page. Android refuses while the app is off screen; that throws.
-    Function("start") { url: String, intervalSeconds: Int ->
+    Function("start") { url: String, intervalSeconds: Int, referer: String ->
       val intent = Intent(context, LiveReaderService::class.java)
         .putExtra(LiveReaderService.EXTRA_URL, url)
         .putExtra(LiveReaderService.EXTRA_INTERVAL, intervalSeconds)
+        .putExtra(LiveReaderService.EXTRA_REFERER, referer)
       ContextCompat.startForegroundService(context, intent)
     }
 

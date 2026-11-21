@@ -34,6 +34,7 @@ class LiveReaderService : Service() {
     private const val ACTION_STOP = "org.divedata.livereader.STOP"
     const val EXTRA_URL = "url"
     const val EXTRA_INTERVAL = "intervalSeconds"
+    const val EXTRA_REFERER = "referer"
     // docs/divemeets.md "Polite use": never faster than every 30 seconds in live mode.
     private const val MIN_INTERVAL_MS = 30_000L
     // A whole meet session fits; past it the service stops so a forgotten follow can't drain the battery.
@@ -84,7 +85,9 @@ class LiveReaderService : Service() {
     }
     // Following a new page restarts the timer, so the new page also waits a full interval between reads.
     handler.removeCallbacks(tick)
-    (browser ?: openBrowser()).loadUrl(url)
+    // DiveMeets refuses results pages without a Referer; reload() keeps the one sent here.
+    val referer = intent?.getStringExtra(EXTRA_REFERER).orEmpty()
+    (browser ?: openBrowser()).loadUrl(url, if (referer.isEmpty()) emptyMap() else mapOf("Referer" to referer))
     handler.postDelayed(tick, intervalMs)
     return START_NOT_STICKY
   }
