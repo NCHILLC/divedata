@@ -3,6 +3,7 @@
 import React, { useRef, useState } from 'react';
 import { Pressable, ScrollView, Share, StyleSheet, Text, TextInput, View } from 'react-native';
 import { WebView, type WebViewProps } from 'react-native-webview';
+import type { ExitReason } from '../../modules/background-test';
 import type { Summary } from '../spike/log';
 import { useBackgroundTest, type WebHandle } from '../spike/useBackgroundTest';
 
@@ -34,11 +35,21 @@ function summaryLines(s: Summary): string[] {
     `Longest wait between ticks: ${s.longestGapSeconds} seconds`,
     `Slowest reaction to a tick: ${s.maxJsDelaySeconds} seconds`,
     `Page changes: ${s.pageChanges}`,
+    `Reads that started loading: ${s.steps.loadStart}, finished loading: ${s.steps.loadEnd}, sent the page back: ${s.steps.message}`,
+    ...(s.lastError ? [`Last browser error: ${s.lastError}`] : []),
+    ...(s.screenOnTicks === null ? [] : [`Ticks with the screen on: ${s.screenOnTicks} of ${s.ticks}`]),
     `Alerts allowed: ${s.alertsOn ? 'yes' : 'no'}`,
     `Battery optimisation on: ${s.batteryOptimized ? 'yes' : 'no'}`,
     `Battery saver on: ${s.powerSave ? 'yes' : 'no'}`,
     ...s.reasons.map((r) => `Note: ${r}`),
   ];
+}
+
+function exitLines(exits: ExitReason[]): string[] {
+  return exits.map((e) => {
+    const when = new Date(e.at).toLocaleString([], { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+    return `Android closed the app at ${when}: ${e.reason}${e.description ? ` (${e.description})` : ''}`;
+  });
 }
 
 export default function BackgroundTest() {
@@ -51,7 +62,7 @@ export default function BackgroundTest() {
   const share = async () => {
     if (!test.summary) return;
     const verdict = test.summary.pass ? 'Passed' : 'Did not pass';
-    const text = [verdict, ...summaryLines(test.summary), '', await test.log()].join('\n');
+    const text = [verdict, ...summaryLines(test.summary), ...exitLines(test.exits), '', await test.log()].join('\n');
     await Share.share({ message: text });
   };
 
@@ -116,7 +127,7 @@ export default function BackgroundTest() {
       {test.stage === 'result' && test.summary && (
         <ScrollView style={styles.block}>
           <Text style={styles.verdict}>{test.summary.pass ? 'Passed' : 'Did not pass'}</Text>
-          {summaryLines(test.summary).map((line) => (
+          {[...summaryLines(test.summary), ...exitLines(test.exits)].map((line) => (
             <Text key={line} style={styles.body}>
               {line}
             </Text>
@@ -135,8 +146,9 @@ export default function BackgroundTest() {
           style={showWeb ? styles.web : styles.hiddenWeb}
           containerStyle={showWeb ? styles.web : styles.hiddenWeb}
           onNavigationStateChange={(nav) => test.onNavigation(nav.url)}
+          onLoadStart={test.onLoadStart}
           onLoadEnd={test.onLoadEnd}
-          onError={test.onLoadError}
+          onError={(e) => test.onLoadError(e.nativeEvent.description || `code ${e.nativeEvent.code}`)}
           onHttpError={(e) => test.onHttpError(e.nativeEvent.statusCode)}
           onMessage={test.onMessage}
           accessibilityLabel="DiveMeets page"

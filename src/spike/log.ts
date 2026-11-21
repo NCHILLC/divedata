@@ -3,8 +3,13 @@
 
 export type ReadResult = 'page' | 'check' | 'error' | 'busy';
 
+/** The browser's steps inside one read, in order. A read that stalls shows where. */
+export type Step = 'reload' | 'loadStart' | 'loadEnd' | 'message' | 'error';
+const STEPS: Step[] = ['reload', 'loadStart', 'loadEnd', 'message', 'error'];
+
 export type LogEntry =
-  | { kind: 'tick'; seq: number; nativeAt: number }
+  | { kind: 'tick'; seq: number; nativeAt: number; screenOn?: boolean }
+  | { kind: 'step'; seq: number; at: number; step: Step; detail?: string }
   | {
       kind: 'read';
       seq: number;
@@ -33,6 +38,11 @@ export type Summary = {
   longestGapSeconds: number;
   maxJsDelaySeconds: number;
   pageChanges: number;
+  /** How many reads reached each browser step. */
+  steps: Record<Step, number>;
+  lastError: string | null;
+  /** Ticks with the screen on; null when the log does not record it. */
+  screenOnTicks: number | null;
   stoppedEarlyAt: string | null;
   alertsOn: boolean;
   batteryOptimized: boolean;
@@ -41,7 +51,7 @@ export type Summary = {
   reasons: string[];
 };
 
-const KINDS = new Set(['tick', 'read', 'start', 'stop']);
+const KINDS = new Set(['tick', 'step', 'read', 'start', 'stop']);
 
 export function parseLog(text: string): LogEntry[] {
   const entries: LogEntry[] = [];
@@ -109,6 +119,15 @@ export function summarize(
     lastPrint = read.fingerprint;
   }
 
+  const stepLines = entries.filter((e) => e.kind === 'step');
+  const steps = Object.fromEntries(
+    STEPS.map((name) => [name, new Set(stepLines.filter((e) => e.step === name).map((e) => e.seq)).size]),
+  ) as Record<Step, number>;
+  const lastError = stepLines.filter((e) => e.step === 'error' && e.detail).at(-1)?.detail ?? null;
+  const screenOnTicks = ticks.some((t) => t.screenOn !== undefined)
+    ? ticks.filter((t) => t.screenOn).length
+    : null;
+
   let stoppedEarlyAt: string | null = null;
   if (start && (!stop || stop.reason === 'stopped')) {
     const times = entries.map((e) =>
@@ -140,6 +159,9 @@ export function summarize(
     longestGapSeconds,
     maxJsDelaySeconds: Math.round(maxJsDelay / 1000),
     pageChanges,
+    steps,
+    lastError,
+    screenOnTicks,
     stoppedEarlyAt,
     alertsOn,
     batteryOptimized: start?.batteryOptimized ?? false,

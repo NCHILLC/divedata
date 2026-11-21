@@ -15,6 +15,12 @@ declare class BackgroundTestModule extends NativeModule<Events> {
   clearLog(): void;
   notify(title: string, body: string): void;
   phoneState(): { batteryOptimized: boolean; powerSave: boolean; alertsOn: boolean };
+  /** Android's own record of why the app last closed, newest first (up to 5). */
+  exitReasons(): ExitReason[];
+  /** Asks Android to keep the hidden browser's page process running with the screen off. Reports the old setting. */
+  keepBrowserImportant(): Promise<{ found: number; requested: number; waived: boolean }>;
 }
+
+export type ExitReason = { at: number; reason: string; description: string };
 
 export default requireNativeModule<BackgroundTestModule>('BackgroundTest');

@@ -123,6 +123,40 @@ test('a late JavaScript reaction shows as delay', () => {
   expect(summarize(entries).maxJsDelaySeconds).toBe(12);
 });
 
+test('step lines show how far each read got', () => {
+  const entries = run(['error', 'error', 'page']);
+  const step = (seq: number, name: string, detail?: string): LogEntry => ({
+    kind: 'step',
+    seq,
+    at: T0 + seq * STEP + 10,
+    step: name as 'reload',
+    ...(detail ? { detail } : {}),
+  });
+  entries.push(
+    step(1, 'reload'),
+    step(2, 'reload'),
+    step(2, 'loadStart'),
+    step(2, 'error', 'net::ERR_TIMED_OUT'),
+    step(3, 'reload'),
+    step(3, 'loadStart'),
+    step(3, 'loadStart'),
+    step(3, 'loadEnd'),
+    step(3, 'message'),
+  );
+  const s = summarize(entries);
+  expect(s.steps).toEqual({ reload: 3, loadStart: 2, loadEnd: 1, message: 1, error: 1 });
+  expect(s.lastError).toBe('net::ERR_TIMED_OUT');
+});
+
+test('ticks record whether the screen was on', () => {
+  const entries = run(pages(4));
+  entries.forEach((e) => {
+    if (e.kind === 'tick') e.screenOn = e.seq === 1;
+  });
+  expect(summarize(entries).screenOnTicks).toBe(1);
+  expect(summarize(run(pages(4))).screenOnTicks).toBeNull();
+});
+
 test('a gap over 45 seconds fails the run', () => {
   const s = summarize(run(pages(60), { gapAt: 20 }));
   expect(s.longestGapSeconds).toBe(61);

@@ -3,8 +3,17 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { PermissionsAndroid, Platform } from 'react-native';
 import type { WebViewMessageEvent } from 'react-native-webview';
-import BackgroundTestModule from '../../modules/background-test';
-import { classifyPage, fingerprint, parseLog, summarize, type LogEntry, type ReadResult, type Summary } from './log';
+import BackgroundTestModule, { type ExitReason } from '../../modules/background-test';
+import {
+  classifyPage,
+  fingerprint,
+  parseLog,
+  summarize,
+  type LogEntry,
+  type ReadResult,
+  type Step,
+  type Summary,
+} from './log';
 
 export const START_URL = 'https://secure.meetcontrol.com/divemeets/system/index.php';
 export const ALLOWED_PREFIX = 'https://secure.meetcontrol.com/divemeets/';
@@ -30,6 +39,7 @@ const clockTime = (ms: number) =>
 export function useBackgroundTest(webRef: React.RefObject<WebHandle | null>) {
   const [stage, setStage] = useState<Stage>('choose');
   const [summary, setSummary] = useState<Summary | null>(null);
+  const [exits, setExits] = useState<ExitReason[]>([]);
   const [url, setUrl] = useState(START_URL);
   const [chosenUrl, setChosenUrl] = useState<string | null>(null);
   const currentUrl = useRef(START_URL);
@@ -42,7 +52,13 @@ export function useBackgroundTest(webRef: React.RefObject<WebHandle | null>) {
 
   const showResult = useCallback(async () => {
     setSummary(summarize(parseLog(await BackgroundTestModule.readLog())));
+    setExits(BackgroundTestModule.exitReasons());
     setStage('result');
+  }, []);
+
+  const step = useCallback((name: Step, detail?: string) => {
+    const read = inFlight.current;
+    if (read) write({ kind: 'step', seq: read.seq, at: Date.now(), step: name, ...(detail ? { detail } : {}) });
   }, []);
 
   const finishRead = useCallback((result: ReadResult, print?: string) => {
@@ -73,6 +89,7 @@ export function useBackgroundTest(webRef: React.RefObject<WebHandle | null>) {
         setStage('running');
       } else {
         setSummary(summarize(entries));
+        setExits(BackgroundTestModule.exitReasons());
         setStage('result');
       }
     })();
@@ -93,6 +110,7 @@ export function useBackgroundTest(webRef: React.RefObject<WebHandle | null>) {
         finishRead('error');
       }
       inFlight.current = { seq, startedAt: now, httpStatus: 200 };
+      step('reload');
       webRef.current?.reload();
     });
     const finished = BackgroundTestModule.addListener('onFinished', ({ reason }) => {
@@ -104,21 +122,35 @@ export function useBackgroundTest(webRef: React.RefObject<WebHandle | null>) {
       tick.remove();
       finished.remove();
     };
-  }, [finishRead, showResult, webRef]);
+  }, [finishRead, showResult, step, webRef]);
+
+  const onLoadStart = useCallback(() => step('loadStart'), [step]);
 
   const onLoadEnd = useCallback(() => {
+    step('loadEnd');
     if (inFlight.current) webRef.current?.injectJavaScript(READ_PAGE_JS);
-  }, [webRef]);
+  }, [step, webRef]);
 
-  const onHttpError = useCallback((status: number) => {
-    if (inFlight.current) inFlight.current.httpStatus = status;
-  }, []);
+  const onHttpError = useCallback(
+    (status: number) => {
+      step('error', `HTTP ${status}`);
+      if (inFlight.current) inFlight.current.httpStatus = status;
+    },
+    [step],
+  );
 
-  const onLoadError = useCallback(() => finishRead('error'), [finishRead]);
+  const onLoadError = useCallback(
+    (description: string) => {
+      step('error', description);
+      finishRead('error');
+    },
+    [finishRead, step],
+  );
 
   const onMessage = useCallback(
     (event: WebViewMessageEvent) => {
       if (!inFlight.current) return;
+      step('message');
       let page: { title: string; text: string };
       try {
         page = JSON.parse(event.nativeEvent.data);
@@ -144,7 +176,7 @@ export function useBackgroundTest(webRef: React.RefObject<WebHandle | null>) {
       lastPrint.current = print;
       finishRead('page', print);
     },
-    [finishRead],
+    [finishRead, step],
   );
 
   const openLink = useCallback((link: string) => {
@@ -168,6 +200,13 @@ export function useBackgroundTest(webRef: React.RefObject<WebHandle | null>) {
     BackgroundTestModule.clearLog();
     const phone = BackgroundTestModule.phoneState();
     write({ kind: 'start', at: Date.now(), url: chosenUrl, ...phone });
+    // Logged as its own line (dropped by parseLog, kept in the shared log): the browser's old setting.
+    try {
+      const before = await BackgroundTestModule.keepBrowserImportant();
+      BackgroundTestModule.appendLog(JSON.stringify({ kind: 'browser', at: Date.now(), ...before }));
+    } catch (e) {
+      BackgroundTestModule.appendLog(JSON.stringify({ kind: 'browser', at: Date.now(), failed: String(e) }));
+    }
     lastPrint.current = undefined;
     inFlight.current = null;
     setUrl(chosenUrl);
@@ -189,6 +228,7 @@ export function useBackgroundTest(webRef: React.RefObject<WebHandle | null>) {
   return {
     stage,
     summary,
+    exits,
     url,
     chosenUrl,
     openLink,
@@ -199,6 +239,7 @@ export function useBackgroundTest(webRef: React.RefObject<WebHandle | null>) {
     reset,
     showResult,
     log,
+    onLoadStart,
     onLoadEnd,
     onHttpError,
     onLoadError,

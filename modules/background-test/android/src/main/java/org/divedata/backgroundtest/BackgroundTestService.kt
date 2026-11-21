@@ -80,9 +80,10 @@ class BackgroundTestService : Service() {
         return
       }
       seq++
+      val screenOn = (getSystemService(Context.POWER_SERVICE) as PowerManager).isInteractive
       TestLog.append(
         this@BackgroundTestService,
-        JSONObject().put("kind", "tick").put("seq", seq).put("nativeAt", now).toString()
+        JSONObject().put("kind", "tick").put("seq", seq).put("nativeAt", now).put("screenOn", screenOn).toString()
       )
       onTick?.invoke(seq, now)
       handler.postDelayed(this, intervalMs)
@@ -149,7 +150,18 @@ class BackgroundTestService : Service() {
     stopSelf()
   }
 
+  // These two lines are only in the shared log, so a run that ends early shows who ended it.
+  private fun logApp(event: String) = TestLog.append(
+    this, JSONObject().put("kind", "app").put("at", System.currentTimeMillis()).put("event", event).toString()
+  )
+
+  override fun onTaskRemoved(rootIntent: Intent?) {
+    if (running) logApp("swipedAway")
+    super.onTaskRemoved(rootIntent)
+  }
+
   override fun onDestroy() {
+    if (running) logApp("serviceDestroyed")
     handler.removeCallbacks(tick)
     wakeLock?.let { if (it.isHeld) it.release() }
     instance = null

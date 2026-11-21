@@ -26,6 +26,8 @@ jest.mock('../../modules/background-test', () => ({
     clearLog: jest.fn(),
     notify: jest.fn(),
     phoneState: jest.fn(() => ({ batteryOptimized: true, powerSave: false, alertsOn: true })),
+    exitReasons: jest.fn(() => []),
+    keepBrowserImportant: jest.fn(async () => ({ found: 1, requested: 2, waived: true })),
     addListener: jest.fn(() => ({ remove: jest.fn() })),
   },
 }));
@@ -62,4 +64,20 @@ test('a finished clean run shows Passed', async () => {
   await render(<BackgroundTest />);
   expect(await screen.findByText('Passed')).toBeTruthy();
   expect(screen.getByText(/60 of 60 reads came back/)).toBeTruthy();
+});
+
+test('the result shows how far reads got and why Android closed the app', async () => {
+  const log = [
+    cleanLog(),
+    JSON.stringify({ kind: 'step', seq: 1, at: 1, step: 'loadStart' }),
+    JSON.stringify({ kind: 'step', seq: 1, at: 2, step: 'error', detail: 'net::ERR_FAILED' }),
+  ].join('\n');
+  mocked.readLog.mockResolvedValueOnce(log);
+  mocked.exitReasons.mockReturnValueOnce([
+    { at: new Date(2026, 10, 20, 22, 10).getTime(), reason: 'low memory', description: '' },
+  ]);
+  await render(<BackgroundTest />);
+  expect(await screen.findByText(/Reads that started loading: 1/)).toBeTruthy();
+  expect(screen.getByText('Last browser error: net::ERR_FAILED')).toBeTruthy();
+  expect(screen.getByText(/Android closed the app at Nov 20.*10:10.*: low memory/)).toBeTruthy();
 });
