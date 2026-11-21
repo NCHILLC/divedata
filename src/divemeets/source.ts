@@ -17,6 +17,50 @@ export class NotReachedError extends Error {
   name = 'NotReachedError';
 }
 
+/** Live mode stopped: the person tapped Stop in its notification, or it ran out of time. */
+export class LiveStoppedError extends Error {
+  name = 'LiveStoppedError';
+}
+
+/** One read of a followed page: its HTML, or why it did not come. */
+export type LiveUpdate = { html: string } | { error: Error };
+
+/** Follows one DiveMeets page live (re-read every 30 seconds, screen off too). Gives back the unfollow. */
+export type FollowPage = (path: string, onUpdate: (u: LiveUpdate) => void) => () => void;
+
+export const LiveSourceContext = createContext<FollowPage | null>(null);
+
+/**
+ * Follows a page live and reads each copy with a parser. `data` is the latest good page; `error` is the latest
+ * problem since it, cleared by the next good page. Only one page is followed at a time. `path` undefined waits.
+ */
+export function useLivePage<T>(path: string | undefined, parse: (html: string) => T): { data?: T; error?: Error } {
+  const follow = useContext(LiveSourceContext);
+  if (!follow) throw new Error('useLivePage needs a LiveSourceContext provider');
+  const [state, setState] = useState<{ path?: string; data?: T; error?: Error }>({});
+
+  useEffect(() => {
+    if (!path) return;
+    return follow(path, (u) => {
+      let next: { data?: T; error?: Error };
+      if ('error' in u) next = { error: u.error };
+      else {
+        try {
+          next = { data: parse(u.html) };
+        } catch (error) {
+          next = { error: error as Error };
+        }
+      }
+      setState((s) =>
+        'data' in next ? { path, data: next.data } : { path, data: s.path === path ? s.data : undefined, error: next.error },
+      );
+    });
+  }, [follow, path, parse]);
+
+  if (state.path !== path) return {};
+  return state.error ? { data: state.data, error: state.error } : { data: state.data };
+}
+
 export type PageState<T> = { status: 'loading' } | { status: 'ready'; data: T } | { status: 'error'; error: Error };
 
 /** Loads a page and reads it with a parser. `path` undefined waits. `reload` tries again after an error. */
