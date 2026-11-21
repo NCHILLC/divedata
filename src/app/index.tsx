@@ -1,25 +1,95 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { router } from 'expo-router';
+import { useState } from 'react';
+import { TextInput, View } from 'react-native';
+import { parseDiverProfile, parseMeetLink, parseMeetList, type DiverRef } from '../divemeets/parsers';
+import { usePage } from '../divemeets/source';
+import { useFollows } from '../follows';
+import { Body, Button, Card, color, Heading, Num, PageView, placeWords, points, Screen, styles, Title } from '../ui';
 
-export default function Home() {
+const openMeet = (meetNumber: number) =>
+  router.push({ pathname: '/meet/[meetNumber]', params: { meetNumber: String(meetNumber) } });
+
+function FollowedDiver({ diver }: { diver: DiverRef }) {
+  const { state, reload } = usePage(`profile.php?number=${diver.diverNumber}`, parseDiverProfile);
   return (
-    <View style={styles.screen}>
-      <Text style={styles.title} accessibilityRole="header">
-        DiveData
-      </Text>
-      <Text style={styles.body}>Find a meet to get started.</Text>
-    </View>
+    <Card
+      label={`Open ${diver.name}`}
+      highlight
+      onPress={() => router.push({ pathname: '/diver/[diverNumber]', params: { diverNumber: String(diver.diverNumber) } })}
+    >
+      <Body>{diver.name}</Body>
+      <PageView state={state} reload={reload}>
+        {(profile) => {
+          const meet = profile.meets[0];
+          const event = meet?.events.at(-1);
+          if (!meet || !event) return <Body muted>No results yet.</Body>;
+          return (
+            <View>
+              <Body muted>{meet.name}</Body>
+              <Body muted>{event.name}</Body>
+              <Num>{`Place ${placeWords(event)} · Total ${points(event.total)}`}</Num>
+            </View>
+          );
+        }}
+      </PageView>
+    </Card>
   );
 }
 
-const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 24,
-    backgroundColor: '#0e1417',
-  },
-  // Colors are tokens from docs/design.md: on-surface and on-surface-variant.
-  title: { color: '#dde3e7', fontSize: 30, fontWeight: '700', marginBottom: 8 },
-  body: { color: '#bacac5', fontSize: 16 },
-});
+export default function Home() {
+  const { divers } = useFollows();
+  const [query, setQuery] = useState('');
+  const { state, reload } = usePage('index.php', parseMeetList);
+  const meetNumber = parseMeetLink(query);
+  const words = query.trim().toLowerCase();
+
+  return (
+    <Screen title="DiveData">
+      <Title>DiveData</Title>
+
+      <Heading>My divers</Heading>
+      {divers.length === 0 ? (
+        <Body muted>Open a diver from any results list and tap Follow.</Body>
+      ) : (
+        divers.map((d) => <FollowedDiver key={d.diverNumber} diver={d} />)
+      )}
+
+      <Heading>Meets</Heading>
+      <TextInput
+        accessibilityLabel="Find a meet"
+        placeholder="Meet name, number or DiveMeets link"
+        placeholderTextColor={color.outline}
+        value={query}
+        onChangeText={setQuery}
+        autoCapitalize="none"
+        autoCorrect={false}
+        style={styles.input}
+      />
+      {meetNumber !== undefined && (
+        <Button label={`Open meet ${meetNumber}`} filled onPress={() => openMeet(meetNumber)} />
+      )}
+      <PageView state={state} reload={reload}>
+        {(meets) => {
+          const shown = meets.filter((m) => m.name.toLowerCase().includes(words));
+          if (shown.length === 0 && meetNumber === undefined) return <Body muted>No meet on DiveMeets matches that.</Body>;
+          return shown.map((m) => (
+            <Card key={m.meetNumber} label={`Open ${m.name}`} onPress={() => openMeet(m.meetNumber)}>
+              <Body>{m.name}</Body>
+              <Body muted>
+                {[dateRange(m.startDate, m.endDate), [m.city, m.state].filter(Boolean).join(', ')].filter(Boolean).join(' · ')}
+              </Body>
+            </Card>
+          ));
+        }}
+      </PageView>
+    </Screen>
+  );
+}
+
+/** "Nov 17 – Nov 20, 2026" from two YYYY-MM-DD dates. */
+function dateRange(start: string, end: string): string {
+  const day = (iso: string) =>
+    new Date(`${iso}T12:00:00`).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  const text = start === end ? day(start) : `${day(start)} – ${day(end)}`;
+  return `${text}, ${end.slice(0, 4)}`;
+}

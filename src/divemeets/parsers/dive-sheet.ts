@@ -1,5 +1,5 @@
 import type { HTMLElement } from 'node-html-parser';
-import { checked, cleanText, load, numberFromHref, PageChangedError, parsePlace, toNumber } from './common';
+import { boardHeight, checked, cleanText, load, numberFromHref, PageChangedError, parsePlace, toNumber } from './common';
 import { type DiveSheet, DiveSheetSchema } from './types';
 
 /** A dive row has 8 cells: Dive (round), Number, Height, Description, Net Score, DD, Score (linked), Round Place. */
@@ -11,7 +11,7 @@ function dive(cells: HTMLElement[]): unknown {
   return {
     round: toNumber(cleanText(cells[0])),
     diveNumber: cleanText(cells[1]),
-    ...(height ? { height } : {}),
+    ...(height ? { height: boardHeight(height) } : {}),
     ...(description ? { description } : {}),
     net: toNumber(cleanText(cells[4])),
     dd: toNumber(cleanText(cells[5])),

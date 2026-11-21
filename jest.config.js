@@ -6,5 +6,6 @@ module.exports = {
   preset: 'jest-expo',
   // Files in __tests__ that only help tests (fixture readers) are not tests.
   testPathIgnorePatterns: ['/node_modules/', '/__tests__/fixtures\\.ts$'],
+  setupFiles: ['<rootDir>/jest.setup.js'],
   transform: { '\\.mjs$': preset.transform['\\.[jt]sx?$'], ...preset.transform },
 };

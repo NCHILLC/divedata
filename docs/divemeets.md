@@ -14,6 +14,8 @@ themselves. The app never solves it, never works around it, and never uses a ser
 
 ## Polite use
 
+The reader (`src/divemeets/reader/`) keeps these rules: one page at a time, each page cached for a minute.
+
 - Load a page no more than once a minute normally, and no more than every 30 seconds in live mode.
 - Only load pages the person asked for (a meet they opened, an event they follow live).
 - Cache every page, and serve the cache when it is fresh enough.
@@ -97,13 +99,16 @@ Saved in `fixtures/divemeets/live/`, but not parsed yet. Milestone 5 does that.
 
 ## Known gaps
 
-- No meet-search-by-name page is saved, so searching meets by name is not covered.
+- DiveMeets has no meet-search-by-name page; the app filters the home page's meets instead
+  (docs/decisions/2026-11-20-meet-name-search.md).
 - No 3-judge dive sheet. The only 3-judge page seen is the live board.
 - No failed-dive or penalty example in any saved page.
 - Only one diver profile layout (an adult diver) is saved.
 - Exhibition (`EXHB`) places read as no place, flagged `exhibition`.
 - Synchronized events: the dive sheet and event results read only the first diver's profile link, so the
   partner is not read.
-- Heights are written `3M` on the dive sheet and `3 Meter` on the judge page; they are kept as written and
-  not matched to each other.
+- Heights are written `3M` on the dive sheet and `3 Meter` on the judge page; the parsers turn both into
+  `3 m` (docs/decisions/2026-11-20-board-heights.md).
+- An upcoming meet's results page is not saved. The meet screen expects it to read like a meet in progress
+  (no events yet).
 - A past meet without a results link is left out of the past meets list.
