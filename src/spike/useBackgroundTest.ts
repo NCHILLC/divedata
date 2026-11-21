@@ -1,8 +1,10 @@
 // Throwaway: milestone 2 background test. Never merged.
-// Drives one hidden WebView from the native timer and writes one log line per read.
+// The background service owns its own browser and reloads it on each native timer tick; this hook
+// reads the page it sends back and writes one log line per read. The screen's browser is only for
+// choosing the page and passing DiveMeets' check, since React Native holds its commands while the
+// app is paused (screen off).
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { PermissionsAndroid, Platform } from 'react-native';
-import type { WebViewMessageEvent } from 'react-native-webview';
 import BackgroundTestModule, { type ExitReason } from '../../modules/background-test';
 import {
   classifyPage,
@@ -18,25 +20,16 @@ import {
 export const START_URL = 'https://secure.meetcontrol.com/divemeets/system/index.php';
 export const ALLOWED_PREFIX = 'https://secure.meetcontrol.com/divemeets/';
 const INTERVAL_SECONDS = 30;
-const MINUTES = 30;
+const MINUTES = 5;
 const READ_TIMEOUT_MS = 25_000;
 
-// Sends the page's title and text back to the app. Read only; it changes nothing on the page.
-export const READ_PAGE_JS = `window.ReactNativeWebView.postMessage(JSON.stringify({
-  title: document.title || '',
-  text: document.body ? document.body.innerText : ''
-})); true;`;
-
 export type Stage = 'choose' | 'running' | 'check' | 'result';
-
-/** The two WebView methods the test uses. */
-export type WebHandle = { reload(): void; injectJavaScript(script: string): void };
 
 const write = (entry: LogEntry) => BackgroundTestModule.appendLog(JSON.stringify(entry));
 const clockTime = (ms: number) =>
   new Date(ms).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
 
-export function useBackgroundTest(webRef: React.RefObject<WebHandle | null>) {
+export function useBackgroundTest() {
   const [stage, setStage] = useState<Stage>('choose');
   const [summary, setSummary] = useState<Summary | null>(null);
   const [exits, setExits] = useState<ExitReason[]>([]);
@@ -111,7 +104,7 @@ export function useBackgroundTest(webRef: React.RefObject<WebHandle | null>) {
       }
       inFlight.current = { seq, startedAt: now, httpStatus: 200 };
       step('reload');
-      webRef.current?.reload();
+      BackgroundTestModule.browserReload();
     });
     const finished = BackgroundTestModule.addListener('onFinished', ({ reason }) => {
       inFlight.current = null;
@@ -122,38 +115,15 @@ export function useBackgroundTest(webRef: React.RefObject<WebHandle | null>) {
       tick.remove();
       finished.remove();
     };
-  }, [finishRead, showResult, step, webRef]);
+  }, [finishRead, showResult, step]);
 
-  const onLoadStart = useCallback(() => step('loadStart'), [step]);
-
-  const onLoadEnd = useCallback(() => {
-    step('loadEnd');
-    if (inFlight.current) webRef.current?.injectJavaScript(READ_PAGE_JS);
-  }, [step, webRef]);
-
-  const onHttpError = useCallback(
-    (status: number) => {
-      step('error', `HTTP ${status}`);
-      if (inFlight.current) inFlight.current.httpStatus = status;
-    },
-    [step],
-  );
-
-  const onLoadError = useCallback(
-    (description: string) => {
-      step('error', description);
-      finishRead('error');
-    },
-    [finishRead, step],
-  );
-
-  const onMessage = useCallback(
-    (event: WebViewMessageEvent) => {
+  const onPage = useCallback(
+    (data: string) => {
       if (!inFlight.current) return;
       step('message');
       let page: { title: string; text: string };
       try {
-        page = JSON.parse(event.nativeEvent.data);
+        page = JSON.parse(data);
       } catch {
         finishRead('error');
         return;
@@ -179,6 +149,26 @@ export function useBackgroundTest(webRef: React.RefObject<WebHandle | null>) {
     [finishRead, step],
   );
 
+  // The service's browser reports its steps and the page text as module events.
+  useEffect(() => {
+    const steps = BackgroundTestModule.addListener('onBrowserStep', ({ step: name, detail }) => {
+      if (name === 'httpError') {
+        step('error', `HTTP ${detail}`);
+        if (inFlight.current) inFlight.current.httpStatus = Number(detail);
+      } else if (name === 'error') {
+        step('error', detail);
+        finishRead('error');
+      } else {
+        step(name);
+      }
+    });
+    const pages = BackgroundTestModule.addListener('onBrowserPage', ({ data }) => onPage(data));
+    return () => {
+      steps.remove();
+      pages.remove();
+    };
+  }, [finishRead, onPage, step]);
+
   const openLink = useCallback((link: string) => {
     const trimmed = link.trim();
     if (!trimmed.startsWith(ALLOWED_PREFIX)) return false;
@@ -199,19 +189,12 @@ export function useBackgroundTest(webRef: React.RefObject<WebHandle | null>) {
     }
     BackgroundTestModule.clearLog();
     const phone = BackgroundTestModule.phoneState();
-    write({ kind: 'start', at: Date.now(), url: chosenUrl, ...phone });
-    // Logged as its own line (dropped by parseLog, kept in the shared log): the browser's old setting.
-    try {
-      const before = await BackgroundTestModule.keepBrowserImportant();
-      BackgroundTestModule.appendLog(JSON.stringify({ kind: 'browser', at: Date.now(), ...before }));
-    } catch (e) {
-      BackgroundTestModule.appendLog(JSON.stringify({ kind: 'browser', at: Date.now(), failed: String(e) }));
-    }
+    write({ kind: 'start', at: Date.now(), url: chosenUrl, minutes: MINUTES, ...phone });
     lastPrint.current = undefined;
     inFlight.current = null;
     setUrl(chosenUrl);
     setStage('running');
-    BackgroundTestModule.start(INTERVAL_SECONDS, MINUTES);
+    BackgroundTestModule.start(INTERVAL_SECONDS, MINUTES, chosenUrl);
   }, [chosenUrl]);
 
   const stop = useCallback(() => BackgroundTestModule.stop('stopped'), []);
@@ -239,10 +222,6 @@ export function useBackgroundTest(webRef: React.RefObject<WebHandle | null>) {
     reset,
     showResult,
     log,
-    onLoadStart,
-    onLoadEnd,
-    onHttpError,
-    onLoadError,
-    onMessage,
+    minutes: MINUTES,
   };
 }

@@ -25,6 +25,8 @@ export type LogEntry =
       alertsOn: boolean;
       batteryOptimized: boolean;
       powerSave: boolean;
+      /** How long the run was set for; older logs leave it out (30). */
+      minutes?: number;
     }
   | { kind: 'stop'; at: number; reason: 'done' | 'stopped' | 'check' };
 
@@ -88,10 +90,11 @@ const clock = (ms: number) => {
 
 export function summarize(
   entries: LogEntry[],
-  plan: { intervalSeconds: number; minutes: number } = { intervalSeconds: 30, minutes: 30 },
+  plan?: { intervalSeconds: number; minutes: number },
 ): Summary {
-  const planned = Math.round((plan.minutes * 60) / plan.intervalSeconds);
   const start = entries.find((e) => e.kind === 'start');
+  const minutes = plan?.minutes ?? start?.minutes ?? 30;
+  const planned = Math.round((minutes * 60) / (plan?.intervalSeconds ?? 30));
   const stop = entries.find((e) => e.kind === 'stop');
   const ticks = entries.filter((e) => e.kind === 'tick');
   const reads = entries.filter((e) => e.kind === 'read');

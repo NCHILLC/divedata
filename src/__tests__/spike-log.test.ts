@@ -162,3 +162,12 @@ test('a gap over 45 seconds fails the run', () => {
   expect(s.longestGapSeconds).toBe(61);
   expect(s.pass).toBe(false);
 });
+
+test('a run plans its reads from the minutes on its start line', () => {
+  const entries = run(pages(10));
+  const start = entries[0];
+  if (start.kind === 'start') start.minutes = 5;
+  const s = summarize(entries);
+  expect(s.planned).toBe(10);
+  expect(s.pass).toBe(true);
+});

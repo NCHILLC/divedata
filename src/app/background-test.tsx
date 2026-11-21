@@ -1,14 +1,14 @@
 // Throwaway: milestone 2 background test. Never merged.
 // See docs/superpowers/specs/2026-11-20-background-test-design.md.
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Pressable, ScrollView, Share, StyleSheet, Text, TextInput, View } from 'react-native';
 import { WebView, type WebViewProps } from 'react-native-webview';
 import type { ExitReason } from '../../modules/background-test';
 import type { Summary } from '../spike/log';
-import { useBackgroundTest, type WebHandle } from '../spike/useBackgroundTest';
+import { useBackgroundTest } from '../spike/useBackgroundTest';
 
 // react-native-webview 14's class type resolves its props to `never`; this gives it usable props.
-const Web = WebView as unknown as React.ComponentType<WebViewProps & { ref?: React.Ref<WebHandle> }>;
+const Web = WebView as unknown as React.ComponentType<WebViewProps>;
 
 function Button(props: { label: string; onPress: () => void; disabled?: boolean }) {
   return (
@@ -53,8 +53,7 @@ function exitLines(exits: ExitReason[]): string[] {
 }
 
 export default function BackgroundTest() {
-  const webRef = useRef<WebHandle>(null);
-  const test = useBackgroundTest(webRef);
+  const test = useBackgroundTest();
   const [link, setLink] = useState('');
   const [linkRejected, setLinkRejected] = useState(false);
   const showWeb = test.stage === 'choose' || test.stage === 'check';
@@ -76,7 +75,7 @@ export default function BackgroundTest() {
         <View style={styles.block}>
           <Text style={styles.body}>
             Go to the DiveMeets page to follow, or paste its link. Then tap Use this page and Start test,
-            and lock the phone for 30 minutes.
+            and lock the phone for {test.minutes} minutes.
           </Text>
           <TextInput
             accessibilityLabel="DiveMeets link"
@@ -108,7 +107,7 @@ export default function BackgroundTest() {
       {test.stage === 'running' && (
         <View style={styles.block}>
           <Text style={styles.body}>
-            Running. Lock the phone and leave it for 30 minutes. The test stops on its own.
+            Running. Lock the phone and leave it for {test.minutes} minutes. The test stops on its own.
           </Text>
           <Button label="Stop" onPress={test.stop} />
         </View>
@@ -139,18 +138,13 @@ export default function BackgroundTest() {
         </ScrollView>
       )}
 
-      {test.stage !== 'result' && (
+      {/* The screen's browser is only for choosing the page and passing the check; the service reads. */}
+      {showWeb && (
         <Web
-          ref={webRef}
           source={{ uri: test.url }}
-          style={showWeb ? styles.web : styles.hiddenWeb}
-          containerStyle={showWeb ? styles.web : styles.hiddenWeb}
+          style={styles.web}
+          containerStyle={styles.web}
           onNavigationStateChange={(nav) => test.onNavigation(nav.url)}
-          onLoadStart={test.onLoadStart}
-          onLoadEnd={test.onLoadEnd}
-          onError={(e) => test.onLoadError(e.nativeEvent.description || `code ${e.nativeEvent.code}`)}
-          onHttpError={(e) => test.onHttpError(e.nativeEvent.statusCode)}
-          onMessage={test.onMessage}
           accessibilityLabel="DiveMeets page"
         />
       )}
@@ -187,5 +181,4 @@ const styles = StyleSheet.create({
   buttonDisabled: { opacity: 0.4 },
   buttonText: { color: '#003731', fontSize: 16, fontWeight: '600' },
   web: { flex: 1 },
-  hiddenWeb: { width: 1, height: 1, opacity: 0, flex: 0 },
 });

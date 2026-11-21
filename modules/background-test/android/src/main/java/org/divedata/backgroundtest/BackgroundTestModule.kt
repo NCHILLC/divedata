@@ -9,22 +9,13 @@ import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.os.PowerManager
-import android.view.View
-import android.view.ViewGroup
-import android.webkit.WebView
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import expo.modules.kotlin.exception.Exceptions
-import expo.modules.kotlin.functions.Queues
 import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
-
-private fun findWebViews(view: View, out: MutableList<WebView>) {
-  if (view is WebView) out.add(view)
-  if (view is ViewGroup) for (i in 0 until view.childCount) findWebViews(view.getChildAt(i), out)
-}
 
 private fun exitReasonName(reason: Int): String = when (reason) {
   ApplicationExitInfo.REASON_LOW_MEMORY -> "low memory"
@@ -50,7 +41,7 @@ class BackgroundTestModule : Module() {
   override fun definition() = ModuleDefinition {
     Name("BackgroundTest")
 
-    Events("onTick", "onFinished")
+    Events("onTick", "onFinished", "onBrowserStep", "onBrowserPage")
 
     OnCreate {
       BackgroundTestService.onTick = { seq, at ->
@@ -59,22 +50,36 @@ class BackgroundTestModule : Module() {
       BackgroundTestService.onFinished = { reason ->
         sendEvent("onFinished", bundleOf("reason" to reason))
       }
+      BackgroundTestService.onBrowserStep = { step, detail ->
+        sendEvent("onBrowserStep", if (detail == null) bundleOf("step" to step) else bundleOf("step" to step, "detail" to detail))
+      }
+      BackgroundTestService.onBrowserPage = { data ->
+        sendEvent("onBrowserPage", bundleOf("data" to data))
+      }
     }
 
     OnDestroy {
       BackgroundTestService.onTick = null
       BackgroundTestService.onFinished = null
+      BackgroundTestService.onBrowserStep = null
+      BackgroundTestService.onBrowserPage = null
     }
 
-    Function("start") { intervalSeconds: Int, minutes: Int ->
+    Function("start") { intervalSeconds: Int, minutes: Int, url: String ->
       val intent = Intent(context, BackgroundTestService::class.java)
         .putExtra(BackgroundTestService.EXTRA_INTERVAL, intervalSeconds)
         .putExtra(BackgroundTestService.EXTRA_MINUTES, minutes)
+        .putExtra(BackgroundTestService.EXTRA_URL, url)
       ContextCompat.startForegroundService(context, intent)
     }
 
     Function("stop") { reason: String ->
       Handler(Looper.getMainLooper()).post { BackgroundTestService.instance?.finish(reason) }
+    }
+
+    // A plain main-thread post, not React Native's view queue, so it runs with the screen off.
+    Function("browserReload") {
+      Handler(Looper.getMainLooper()).post { BackgroundTestService.instance?.reloadBrowser() }
     }
 
     Function("isRunning") {
@@ -127,23 +132,6 @@ class BackgroundTestModule : Module() {
         }
       }
     }
-
-    AsyncFunction("keepBrowserImportant") {
-      val webViews = mutableListOf<WebView>()
-      appContext.currentActivity?.window?.decorView?.let { findWebViews(it, webViews) }
-      val first = webViews.firstOrNull()
-      if (Build.VERSION.SDK_INT < 26 || first == null) {
-        mapOf<String, Any>("found" to webViews.size, "requested" to -1, "waived" to false)
-      } else {
-        val before = mapOf<String, Any>(
-          "found" to webViews.size,
-          "requested" to first.rendererRequestedPriority,
-          "waived" to first.rendererPriorityWaivedWhenNotVisible
-        )
-        webViews.forEach { it.setRendererPriorityPolicy(WebView.RENDERER_PRIORITY_IMPORTANT, false) }
-        before
-      }
-    }.runOnQueue(Queues.MAIN)
 
     Function("phoneState") {
       val power = context.getSystemService(Context.POWER_SERVICE) as PowerManager

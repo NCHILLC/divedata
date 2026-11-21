@@ -27,7 +27,7 @@ jest.mock('../../modules/background-test', () => ({
     notify: jest.fn(),
     phoneState: jest.fn(() => ({ batteryOptimized: true, powerSave: false, alertsOn: true })),
     exitReasons: jest.fn(() => []),
-    keepBrowserImportant: jest.fn(async () => ({ found: 1, requested: 2, waived: true })),
+    browserReload: jest.fn(),
     addListener: jest.fn(() => ({ remove: jest.fn() })),
   },
 }));
@@ -80,4 +80,24 @@ test('the result shows how far reads got and why Android closed the app', async 
   expect(await screen.findByText(/Reads that started loading: 1/)).toBeTruthy();
   expect(screen.getByText('Last browser error: net::ERR_FAILED')).toBeTruthy();
   expect(screen.getByText(/Android closed the app at Nov 20.*10:10.*: low memory/)).toBeTruthy();
+});
+
+test('a tick reloads the background browser, and its page completes the read', async () => {
+  const listeners: Record<string, (event: never) => void> = {};
+  mocked.addListener.mockImplementation(((name: string, fn: (event: never) => void) => {
+    listeners[name] = fn;
+    return { remove: jest.fn() };
+  }) as never);
+  await render(<BackgroundTest />);
+  await fireEvent.press(screen.getByLabelText('Use this page'));
+  await fireEvent.press(screen.getByLabelText('Start test'));
+  expect(mocked.start).toHaveBeenCalledWith(30, 5, expect.stringContaining('meetcontrol.com'));
+
+  listeners.onTick({ seq: 1, nativeAt: Date.now() } as never);
+  expect(mocked.browserReload).toHaveBeenCalledTimes(1);
+
+  listeners.onBrowserPage({ data: JSON.stringify({ title: 'Event Results', text: 'Round 1' }) } as never);
+  const lines = mocked.appendLog.mock.calls.map(([line]) => JSON.parse(line));
+  expect(lines).toContainEqual(expect.objectContaining({ kind: 'read', seq: 1, result: 'page' }));
+  expect(lines).toContainEqual(expect.objectContaining({ kind: 'start', minutes: 5 }));
 });
