@@ -1,0 +1,272 @@
+<!-- anonymized: divedata -->
+<html><head><script type="text/javascript">
+		<!--
+		function profpopup(mylink, windowname)
+			{
+			if (! window.focus)return true;
+				var href;
+			if (typeof(mylink) == 'string')
+				href=mylink;
+			else
+				href=mylink.href;
+			window.open(href, windowname, 'width=400,height=600,scrollbars=yes');
+				return false;
+			}
+		//-->
+	</script>
+		<script type="text/javascript">
+		<!--
+
+		function smalldspopup(mylink, windowname)
+			{
+			if (! window.focus)return true;
+				var href;
+			if (typeof(mylink) == 'string')
+				href=mylink;
+			else
+				href=mylink.href;
+			window.open(href, windowname, 'width=700,height=300,scrollbars=yes,toolbar=no');
+			return false;
+			}
+		//-->
+	</script>
+		<script type="text/javascript">
+		function ajax_refresh($location,$url,$seconds)
+			{
+			var	$http, $milliseconds = $seconds * 1000;
+			if (window.XMLHttpRequest)
+				{
+				$http = new XMLHttpRequest();
+				}
+			else if (window.ActiveXObject)
+				{
+				try 
+					{
+					$http = new ActiveXObject('Msxml2.XMLHTTP');
+					}
+				catch(e) 
+					{
+					$http = new ActiveXObject('Microsoft.XMLHTTP');
+					}
+				}
+			if ($http)
+				{
+				$http.onreadystatechange = function()
+					{
+					if (/4|^complete$/.test($http.readyState))
+						{
+						document.getElementById($location).innerHTML = $http.responseText;
+						//setTimeout('ajax_refresh(' + $url + ',' + $seconds + ')', $milliseconds);
+						setTimeout(function() {ajax_refresh($location,$url,$seconds);}, $milliseconds);
+						}
+					};
+				$http.open('GET', $url , true);
+				$http.send(null);
+				}
+			}
+		</script>
+
+		<script type="text/javascript">
+		function ajax_refresh_new($location,$url,$seconds)
+			{
+			/// check to see it cookie set ///
+			$DMResults=getCookie('DMResults');
+			if ($DMResults == $url)
+				{
+				$milliseconds = $seconds * 1000;
+				RefreshTimer = setTimeout(function() {refresh_group($location,$url);}, $milliseconds);
+				}
+			else
+				{
+				}
+			}
+		
+		function refresh_group($location,$url)
+			{
+			/// check to see it cookie set ///
+			$DMResults=getCookie('DMResults');
+			if ($DMResults == $url)
+				{
+
+				var	$http;
+				if (window.XMLHttpRequest)
+					{
+					$http = new XMLHttpRequest();
+					}
+				else if (window.ActiveXObject)
+					{
+					try 
+						{
+						$http = new ActiveXObject('Msxml2.XMLHTTP');
+						}
+					catch(e) 
+						{
+						$http = new ActiveXObject('Microsoft.XMLHTTP');
+						}
+					}
+				if ($http)
+					{
+					$http.onreadystatechange = function()
+						{
+						if (/4|^complete$/.test($http.readyState))
+							{
+							document.getElementById($location).innerHTML = $http.responseText;
+							}
+						};
+					}
+				$http.open('GET', $url , true);
+				$http.send(null);
+				}
+			else
+				{
+				}
+			}			
+			
+		
+	</script>
+	
+
+		<script type="text/javascript">
+		function setCookie($name, $value, $expiredays)
+			{
+			var exdate=new Date();
+			exdate.setDate(exdate.getDate()+$expiredays);
+			document.cookie=$name+ "=" + escape($value)+ (($expiredays==null) ? "" : ";expires="+exdate.toGMTString());
+			}
+
+
+		function getCookie($name)
+			{
+			if (document.cookie.length>0)
+				{
+				c_start=document.cookie.indexOf($name + "=");
+				if (c_start!=-1)
+					{
+					c_start=c_start + $name.length+1;
+					c_end=document.cookie.indexOf(";",c_start);
+					if (c_end==-1) c_end=document.cookie.length;
+					return unescape(document.cookie.substring(c_start,c_end));
+					}
+				}
+			return "";
+			}
+
+		</script>
+
+	
+
+<noscript>
+<meta http-equiv="refresh" content="0;url=https://secure.meetcontrol.com/divemeets/system/noscript.php">
+</noscript>
+
+  
+    <title>::::::::::: MeetControl / DiveMeets :::::::::::</title>
+		<link rel="stylesheet" type="text/css" href="livestats.css" media="screen">
+	<meta http-equiv="refresh" content="43200">  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20transform%3D%22translate(-.5%20-.5)%22%20fill%3D%22%23C6613F%22%20d%3D%22M2%201.5%2014.2%206.6a.7.7%200%200%201-.06%201.32L9.2%209.4a.7.7%200%200%200-.46.46l-1.5%204.9a.7.7%200%200%201-1.32.05z%22%2F%3E%3C%2Fsvg%3E"></head>
+
+<body marginheight="0" marginwidth="0" leftmargin="0" topmargin="0" bgcolor="ffffff">
+
+				<script type="text/javascript">
+					var screenWidth = window.screen.width,
+					screenHeight = window.screen.height;
+					if (screenWidth < 500 || screenHeight < 500)
+					document.write("<div class=\"hcenter largetext\">Click for <a href=\"livestats.php?event=stats-13172-7160-9-Started&format=mobile\">Mobile Version</a></div>");
+				</script>
+<table class="center">
+	<tbody><tr>
+		<td>
+		<script type="text/javascript">
+			var	$http;
+			var $url = "livestats_results.php?event=stats-13172-7160-9-Started";
+			setCookie('DMResults', $url, 1);
+			//$DMResults=getCookie('DMResults');
+			//document.write($DMResults);
+			//document.write("test");
+			if (window.XMLHttpRequest)
+				{
+				$http = new XMLHttpRequest();
+				}
+			else if (window.ActiveXObject)
+				{
+				try 
+					{
+					$http = new ActiveXObject('Msxml2.XMLHTTP');
+					}
+				catch(e) 
+					{
+					$http = new ActiveXObject('Microsoft.XMLHTTP');
+					}
+				}
+			if ($http)
+				{
+				$http.onreadystatechange = function()
+					{
+					if (/4|^complete$/.test($http.readyState))
+						{
+						document.getElementById("Results").innerHTML = $http.responseText;
+						}
+					};
+				$http.open('GET', $url , true);
+				$http.send(null);
+				}
+		</script>
+			<div id="Results">
+<table class="border" width="100%">	<tbody><tr>
+		<td colspan="14" class="hcenter">
+			<strong style="font-size:1.2em">Unofficial Statistics<br>Women 3m Championship (6 Dives) (Final)</strong><img onload="ajax_refresh_new('Results','livestats_results.php?event=stats-13172-7160-9-Started', 22)" src="images/white.gif" border="0"><strong style="font-size: 14px">
+						</strong></td>
+	</tr>
+
+<tr><td colspan="14"><table width="100%"><tbody><tr><td width="50%" class="border padding1" valign="top">
+				<table width="100%"><tbody><tr><td valign="top"><strong>Last Diver:</strong> <a href="profile.php?number=1" onclick="return profpopup(this,1)">Diver 1</a><br><strong>Last Round Place:</strong> 6<br><strong>Last Round Total Score:</strong> 208.35<br><strong>Diver Order:</strong> 6<br><strong>Current Place:</strong> 4<br><strong>Current Total Score:</strong> 251.55<br><strong>Current Dive:</strong><br>&nbsp;&nbsp;5233D - Back 1 1/2 Somersault 1 1/2 Twist Free<br><strong>Height:</strong> 3m&nbsp;&nbsp;<strong>DD:</strong> 2.4<br><strong>Score:</strong> 43.20</td><td valign="top" align="right" rowspan="2"><table><tbody><tr><td class="hcenter"><img src="profilephotos/1.jpg" align="right" class="border" height="93"></td></tr></tbody></table></td></tr><tr><td><strong>Judges Scores:</strong> 6.0 6.0 6.0                  </td></tr></tbody></table></td><td width="50%" valign="top" class="border padding1" align="right"><table width="100%"><tbody><tr><td valign="top"><strong>Next Diver:</strong> <a href="profile.php?number=2" onclick="return profpopup(this,2)">Diver 2</a><br><strong>Last Round Place:</strong> 8<br><strong>Last Round Total Score:</strong> 199.95<br><strong>Diver Order:</strong> 7<br><strong>Next Dive:</strong><br>&nbsp;&nbsp;5233D - Back 1 1/2 Somersault 1 1/2 Twist Free<br><strong>Height:</strong> 3m&nbsp;&nbsp;<strong>DD:</strong> 2.4<br><strong>History for this dive:<br>&nbsp;Avg Score:</strong> 42.300<br><strong>&nbsp;Max Score Ever:</strong> 43.20<br><strong>Needed for 1st Place:</strong> 81.40</td><td valign="top" align="right" rowspan="2"><table><tbody><tr><td class="hcenter"><img src="profilephotos/submit_photo.jpg" class="border" width="75" height="91"></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr><tr><td colspan="10" class="padding1"><strong>Current Round:</strong> 6 / 6</td><td colspan="4" class="hcenter"><strong>Points to Catch Up</strong></td></tr>  <tr><td class="titlebar">Divers<br>Left to<br>Dive</td>
+					<td class="titlebar">Diver<br>Order</td>
+					<td class="titlebar">Last<br>Round<br>Place</td>
+					<td class="titlebar">Last<br>Round<br>Score</td><td class="titlebar">Current<br>Place</td>
+				<td class="titlebar">Current<br>Score</td>
+				<td class="titlebar">Diver Name</td><td class="titlebar">Last<br>Dive<br>Avg</td><td class="titlebar">Event<br>Avg<br>Score</td>
+					<td class="titlebar">Avg<br>Round<br>Score</td><td class="titlebar">1st</td>
+						<td class="titlebar">2nd</td>
+						<td class="titlebar">3rd</td>
+						<td class="titlebar">Next</td></tr><tr><td class="hcenter blueborder padding1 backlightblue"></td><td class="hcenter blueborder padding1 backlightblue">5</td><td class="hcenter blueborder padding1 backlightblue">3</td><td class="hright blueborder padding1 backlightblue">235.10</td><td class="hcenter blueborder padding1 backlightblue">1</td><td class="hright blueborder padding1 backlightblue"><a class="red" href="livedivesheet.php?divesheet=13172-7160-9-1795088962-3&amp;format=pc&amp;split=no" onclick="return smalldspopup(this,3)">281.35</a></td><td class="blueborder padding1 backlightblue"><a href="profile.php?number=3" onclick="return profpopup(this,3)">Diver 3</a></td><td class="hright blueborder padding1 backlightblue">6.2</td><td class="hright blueborder padding1 backlightblue">6.25</td><td class="hright blueborder padding1 backlightblue">46.89</td><td class="hright blueborder padding1 backlightblue">0.00</td><td class="hright blueborder padding1 backlightblue">0.00</td><td class="hright blueborder padding1 backlightblue">0.00</td><td class="hright blueborder padding1 backlightblue">0.00</td></tr><tr><td class="hcenter blueborder padding1 "></td><td class="hcenter blueborder padding1 ">2</td><td class="hcenter blueborder padding1 ">4</td><td class="hright blueborder padding1 ">221.25</td><td class="hcenter blueborder padding1 ">2</td><td class="hright blueborder padding1 "><a class="red" href="livedivesheet.php?divesheet=13172-7160-9-1794871236-4&amp;format=pc&amp;split=no" onclick="return smalldspopup(this,4)">264.45</a></td><td class="blueborder padding1 "><a href="profile.php?number=4" onclick="return profpopup(this,4)">Diver 4</a></td><td class="hright blueborder padding1 ">6.0</td><td class="hright blueborder padding1 ">5.89</td><td class="hright blueborder padding1 ">44.08</td><td class="hright blueborder padding1 ">16.90</td><td class="hright blueborder padding1 ">0.00</td><td class="hright blueborder padding1 ">0.00</td><td class="hright blueborder padding1 ">16.90</td></tr><tr><td class="hcenter blueborder padding1 backlightblue">*</td><td class="hcenter blueborder padding1 backlightblue">8</td><td class="hcenter blueborder padding1 backlightblue">1</td><td class="hright blueborder padding1 backlightblue">258.20</td><td class="hcenter blueborder padding1 backlightblue">3</td><td class="hright blueborder padding1 backlightblue"><a class="red" href="livedivesheet.php?divesheet=13172-7160-9-1794850440-5&amp;format=pc&amp;split=no" onclick="return smalldspopup(this,5)">258.20</a></td><td class="blueborder padding1 backlightblue"><a href="profile.php?number=5" onclick="return profpopup(this,5)">Diver 5</a></td><td class="hright blueborder padding1 backlightblue">5.2</td><td class="hright blueborder padding1 backlightblue">6.10</td><td class="hright blueborder padding1 backlightblue">51.64</td><td class="hright blueborder padding1 backlightblue">23.15</td><td class="hright blueborder padding1 backlightblue">6.25</td><td class="hright blueborder padding1 backlightblue">0.00</td><td class="hright blueborder padding1 backlightblue">6.25</td></tr><tr><td class="hcenter blueborder padding1 ">*</td><td class="hcenter blueborder padding1 ">13</td><td class="hcenter blueborder padding1 ">2</td><td class="hright blueborder padding1 ">248.60</td><td class="hcenter blueborder padding1 ">4</td><td class="hright blueborder padding1 "><a class="red" href="livedivesheet.php?divesheet=13172-7160-9-1794535138-6&amp;format=pc&amp;split=no" onclick="return smalldspopup(this,6)">248.60</a></td><td class="blueborder padding1 "><a href="profile.php?number=6" onclick="return profpopup(this,6)">Diver 6</a></td><td class="hright blueborder padding1 ">6.2</td><td class="hright blueborder padding1 ">5.93</td><td class="hright blueborder padding1 ">49.72</td><td class="hright blueborder padding1 ">32.75</td><td class="hright blueborder padding1 ">15.85</td><td class="hright blueborder padding1 ">9.60</td><td class="hright blueborder padding1 ">9.60</td></tr><tr><td class="hcenter blueborder padding1 backlightblue"></td><td class="hcenter blueborder padding1 backlightblue">3</td><td class="hcenter blueborder padding1 backlightblue">7</td><td class="hright blueborder padding1 backlightblue">200.60</td><td class="hcenter blueborder padding1 backlightblue">5</td><td class="hright blueborder padding1 backlightblue"><a class="red" href="livedivesheet.php?divesheet=13172-7160-9-1794973333-7&amp;format=pc&amp;split=no" onclick="return smalldspopup(this,7)">246.80</a></td><td class="blueborder padding1 backlightblue"><a href="profile.php?number=7" onclick="return profpopup(this,7)">Diver 7</a></td><td class="hright blueborder padding1 backlightblue">5.5</td><td class="hright blueborder padding1 backlightblue">5.47</td><td class="hright blueborder padding1 backlightblue">41.13</td><td class="hright blueborder padding1 backlightblue">34.55</td><td class="hright blueborder padding1 backlightblue">17.65</td><td class="hright blueborder padding1 backlightblue">11.40</td><td class="hright blueborder padding1 backlightblue">1.80</td></tr><tr><td class="hcenter blueborder padding1 "></td><td class="hcenter blueborder padding1 ">4</td><td class="hcenter blueborder padding1 ">9</td><td class="hright blueborder padding1 ">193.70</td><td class="hcenter blueborder padding1 ">6</td><td class="hright blueborder padding1 "><a class="red" href="livedivesheet.php?divesheet=13172-7160-9-1794930511-8&amp;format=pc&amp;split=no" onclick="return smalldspopup(this,8)">233.30</a></td><td class="blueborder padding1 "><a href="profile.php?number=8" onclick="return profpopup(this,8)">Diver 8</a></td><td class="hright blueborder padding1 ">5.5</td><td class="hright blueborder padding1 ">5.42</td><td class="hright blueborder padding1 ">38.88</td><td class="hright blueborder padding1 ">48.05</td><td class="hright blueborder padding1 ">31.15</td><td class="hright blueborder padding1 ">24.90</td><td class="hright blueborder padding1 ">13.50</td></tr><tr><td class="hcenter blueborder padding1 backlightblue">*</td><td class="hcenter blueborder padding1 backlightblue">12</td><td class="hcenter blueborder padding1 backlightblue">5</td><td class="hright blueborder padding1 backlightblue">212.50</td><td class="hcenter blueborder padding1 backlightblue">7</td><td class="hright blueborder padding1 backlightblue"><a class="red" href="livedivesheet.php?divesheet=13172-7160-9-1794612014-9&amp;format=pc&amp;split=no" onclick="return smalldspopup(this,9)">212.50</a></td><td class="blueborder padding1 backlightblue"><a href="profile.php?number=9" onclick="return profpopup(this,9)">Diver 9</a></td><td class="hright blueborder padding1 backlightblue">4.8</td><td class="hright blueborder padding1 backlightblue">5.53</td><td class="hright blueborder padding1 backlightblue">42.50</td><td class="hright blueborder padding1 backlightblue">68.85</td><td class="hright blueborder padding1 backlightblue">51.95</td><td class="hright blueborder padding1 backlightblue">45.70</td><td class="hright blueborder padding1 backlightblue">20.80</td></tr><tr><td class="hcenter blueborder padding1 ">*</td><td class="hcenter blueborder padding1 ">6</td><td class="hcenter blueborder padding1 ">6</td><td class="hright blueborder padding1 ">208.35</td><td class="hcenter blueborder padding1 ">8</td><td class="hright blueborder padding1 "><a class="red" href="livedivesheet.php?divesheet=13172-7160-9-1795106400-1&amp;format=pc&amp;split=no" onclick="return smalldspopup(this,1)">208.35</a></td><td class="blueborder padding1 "><a href="profile.php?number=1" onclick="return profpopup(this,1)">Diver 1</a></td><td class="hright blueborder padding1 ">5.3</td><td class="hright blueborder padding1 ">5.43</td><td class="hright blueborder padding1 ">41.67</td><td class="hright blueborder padding1 ">73.00</td><td class="hright blueborder padding1 ">56.10</td><td class="hright blueborder padding1 ">49.85</td><td class="hright blueborder padding1 ">4.15</td></tr><tr><td class="hcenter blueborder padding1 backlightblue"></td><td class="hcenter blueborder padding1 backlightblue">1</td><td class="hcenter blueborder padding1 backlightblue">10</td><td class="hright blueborder padding1 backlightblue">172.30</td><td class="hcenter blueborder padding1 backlightblue">9</td><td class="hright blueborder padding1 backlightblue"><a class="red" href="livedivesheet.php?divesheet=13172-7160-9-1794849365-10&amp;format=pc&amp;split=no" onclick="return smalldspopup(this,10)">202.30</a></td><td class="blueborder padding1 backlightblue"><a href="profile.php?number=10" onclick="return profpopup(this,10)">Diver 10</a></td><td class="hright blueborder padding1 backlightblue">4.2</td><td class="hright blueborder padding1 backlightblue">4.72</td><td class="hright blueborder padding1 backlightblue">33.72</td><td class="hright blueborder padding1 backlightblue">79.05</td><td class="hright blueborder padding1 backlightblue">62.15</td><td class="hright blueborder padding1 backlightblue">55.90</td><td class="hright blueborder padding1 backlightblue">6.05</td></tr><tr><td class="hcenter blueborder padding1 ">*</td><td class="hcenter blueborder padding1 ">7</td><td class="hcenter blueborder padding1 ">8</td><td class="hright blueborder padding1 ">199.95</td><td class="hcenter blueborder padding1 ">10</td><td class="hright blueborder padding1 "><a class="red" href="livedivesheet.php?divesheet=13172-7160-9-1794783840-2&amp;format=pc&amp;split=no" onclick="return smalldspopup(this,2)">199.95</a></td><td class="blueborder padding1 "><a href="profile.php?number=2" onclick="return profpopup(this,2)">Diver 2</a></td><td class="hright blueborder padding1 ">3.8</td><td class="hright blueborder padding1 ">5.37</td><td class="hright blueborder padding1 ">39.99</td><td class="hright blueborder padding1 ">81.40</td><td class="hright blueborder padding1 ">64.50</td><td class="hright blueborder padding1 ">58.25</td><td class="hright blueborder padding1 ">2.35</td></tr><tr><td class="hcenter blueborder padding1 backlightblue">*</td><td class="hcenter blueborder padding1 backlightblue">10</td><td class="hcenter blueborder padding1 backlightblue">11</td><td class="hright blueborder padding1 backlightblue">166.60</td><td class="hcenter blueborder padding1 backlightblue">11</td><td class="hright blueborder padding1 backlightblue"><a class="red" href="livedivesheet.php?divesheet=13172-7160-9-1794494444-11&amp;format=pc&amp;split=no" onclick="return smalldspopup(this,11)">166.60</a></td><td class="blueborder padding1 backlightblue"><a href="profile.php?number=11" onclick="return profpopup(this,11)">Diver 11</a></td><td class="hright blueborder padding1 backlightblue">5.3</td><td class="hright blueborder padding1 backlightblue">4.63</td><td class="hright blueborder padding1 backlightblue">33.32</td><td class="hright blueborder padding1 backlightblue">114.75</td><td class="hright blueborder padding1 backlightblue">97.85</td><td class="hright blueborder padding1 backlightblue">91.60</td><td class="hright blueborder padding1 backlightblue">33.35</td></tr><tr><td class="hcenter blueborder padding1 ">*</td><td class="hcenter blueborder padding1 ">14</td><td class="hcenter blueborder padding1 ">12</td><td class="hright blueborder padding1 ">158.05</td><td class="hcenter blueborder padding1 ">12</td><td class="hright blueborder padding1 "><a class="red" href="livedivesheet.php?divesheet=13172-7160-9-1794847901-12&amp;format=pc&amp;split=no" onclick="return smalldspopup(this,12)">158.05</a></td><td class="blueborder padding1 "><a href="profile.php?number=12" onclick="return profpopup(this,12)">Diver 12</a></td><td class="hright blueborder padding1 ">4.3</td><td class="hright blueborder padding1 ">4.17</td><td class="hright blueborder padding1 ">31.61</td><td class="hright blueborder padding1 ">123.30</td><td class="hright blueborder padding1 ">106.40</td><td class="hright blueborder padding1 ">100.15</td><td class="hright blueborder padding1 ">8.55</td></tr><tr><td class="hcenter blueborder padding1 backlightblue">*</td><td class="hcenter blueborder padding1 backlightblue">16</td><td class="hcenter blueborder padding1 backlightblue">13</td><td class="hright blueborder padding1 backlightblue">151.50</td><td class="hcenter blueborder padding1 backlightblue">13</td><td class="hright blueborder padding1 backlightblue"><a class="red" href="livedivesheet.php?divesheet=13172-7160-9-1794846548-13&amp;format=pc&amp;split=no" onclick="return smalldspopup(this,13)">151.50</a></td><td class="blueborder padding1 backlightblue"><a href="profile.php?number=13" onclick="return profpopup(this,13)">Diver 13</a></td><td class="hright blueborder padding1 backlightblue">4.0</td><td class="hright blueborder padding1 backlightblue">4.50</td><td class="hright blueborder padding1 backlightblue">30.30</td><td class="hright blueborder padding1 backlightblue">129.85</td><td class="hright blueborder padding1 backlightblue">112.95</td><td class="hright blueborder padding1 backlightblue">106.70</td><td class="hright blueborder padding1 backlightblue">6.55</td></tr><tr><td class="hcenter blueborder padding1 ">*</td><td class="hcenter blueborder padding1 ">11</td><td class="hcenter blueborder padding1 ">14</td><td class="hright blueborder padding1 ">144.55</td><td class="hcenter blueborder padding1 ">14</td><td class="hright blueborder padding1 "><a class="red" href="livedivesheet.php?divesheet=13172-7160-9-1794855372-14&amp;format=pc&amp;split=no" onclick="return smalldspopup(this,14)">144.55</a></td><td class="blueborder padding1 "><a href="profile.php?number=14" onclick="return profpopup(this,14)">Diver 14</a></td><td class="hright blueborder padding1 ">3.0</td><td class="hright blueborder padding1 ">3.83</td><td class="hright blueborder padding1 ">28.91</td><td class="hright blueborder padding1 ">136.80</td><td class="hright blueborder padding1 ">119.90</td><td class="hright blueborder padding1 ">113.65</td><td class="hright blueborder padding1 ">6.95</td></tr><tr><td class="hcenter blueborder padding1 backlightblue">*</td><td class="hcenter blueborder padding1 backlightblue">15</td><td class="hcenter blueborder padding1 backlightblue">15</td><td class="hright blueborder padding1 backlightblue">137.45</td><td class="hcenter blueborder padding1 backlightblue">15</td><td class="hright blueborder padding1 backlightblue"><a class="red" href="livedivesheet.php?divesheet=13172-7160-9-1794933496-15&amp;format=pc&amp;split=no" onclick="return smalldspopup(this,15)">137.45</a></td><td class="blueborder padding1 backlightblue"><a href="profile.php?number=15" onclick="return profpopup(this,15)">Diver 15</a></td><td class="hright blueborder padding1 backlightblue">2.3</td><td class="hright blueborder padding1 backlightblue">3.57</td><td class="hright blueborder padding1 backlightblue">27.49</td><td class="hright blueborder padding1 backlightblue">143.90</td><td class="hright blueborder padding1 backlightblue">127.00</td><td class="hright blueborder padding1 backlightblue">120.75</td><td class="hright blueborder padding1 backlightblue">7.10</td></tr><tr><td class="hcenter blueborder padding1 ">*</td><td class="hcenter blueborder padding1 ">17</td><td class="hcenter blueborder padding1 ">16</td><td class="hright blueborder padding1 ">131.85</td><td class="hcenter blueborder padding1 ">16</td><td class="hright blueborder padding1 "><a class="red" href="livedivesheet.php?divesheet=13172-7160-9-1794946296-16&amp;format=pc&amp;split=no" onclick="return smalldspopup(this,16)">131.85</a></td><td class="blueborder padding1 "><a href="profile.php?number=16" onclick="return profpopup(this,16)">Diver 16</a></td><td class="hright blueborder padding1 ">4.3</td><td class="hright blueborder padding1 ">5.07</td><td class="hright blueborder padding1 ">26.37</td><td class="hright blueborder padding1 ">149.50</td><td class="hright blueborder padding1 ">132.60</td><td class="hright blueborder padding1 ">126.35</td><td class="hright blueborder padding1 ">5.60</td></tr><tr><td class="hcenter blueborder padding1 backlightblue">*</td><td class="hcenter blueborder padding1 backlightblue">9</td><td class="hcenter blueborder padding1 backlightblue">17</td><td class="hright blueborder padding1 backlightblue">119.45</td><td class="hcenter blueborder padding1 backlightblue">17</td><td class="hright blueborder padding1 backlightblue"><a class="red" href="livedivesheet.php?divesheet=13172-7160-9-1794882549-17&amp;format=pc&amp;split=no" onclick="return smalldspopup(this,17)">119.45</a></td><td class="blueborder padding1 backlightblue"><a href="profile.php?number=17" onclick="return profpopup(this,17)">Diver 17</a></td><td class="hright blueborder padding1 backlightblue">3.0</td><td class="hright blueborder padding1 backlightblue">3.93</td><td class="hright blueborder padding1 backlightblue">23.89</td><td class="hright blueborder padding1 backlightblue">161.90</td><td class="hright blueborder padding1 backlightblue">145.00</td><td class="hright blueborder padding1 backlightblue">138.75</td><td class="hright blueborder padding1 backlightblue">12.40</td></tr>	
+	<tr>
+		<td colspan="14" class="hcenter border padding1">
+			<strong style="color:red">
+			Official scores for this event should be posted later in the day.<br>This page will refresh automatically.<br>Please do not hit the Refresh button.			</strong>
+			<br><br>
+			<a href="meetresultsext.php?meetnum=13172&amp;language=EN" target="_new">
+			Official Meet Results			</a><br><br>
+		</td>
+	</tr>
+</tbody></table>
+
+</div>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<script type="text/javascript">
+				//// Live Results List
+				ajax_refresh("ResultList","livestats_resultlist.php?meet=13172", 180);
+			</script>
+			<div id="ResultList">
+</div>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<table width="100%">
+				<tbody><tr>
+					<td class="border hcenter bold">
+						<br>
+						Brought to you by:<br><br>						<a href="http://www.divemeets.com"><img src="images/boxlogo1.jpg" border="0"></a><br><br>
+					</td>
+				</tr>
+			</tbody></table>
+		</td>
+	</tr>
+</tbody></table>
+
+<div class="hcenter width100percent">Click for <a href="livestats.php?event=stats-13172-7160-9-Started&amp;format=mobile">Mobile Version </a></div>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;451af2bc3e464a8780d38a7be1d24d61&quot;,&quot;spa&quot;:2}" crossorigin="anonymous"></script>
+
+<div></div></body></html>

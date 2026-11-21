@@ -8,11 +8,14 @@ description: Use when adding or fixing a parser that turns a saved DiveMeets pag
 Parsers live in `src/divemeets/parsers/`. They are pure functions from saved HTML to typed data
 (meet, event, diver, dive, judge awards), checked with Zod. Tests never call DiveMeets.
 
-1. **Get the page.** A person opens the DiveMeets page in a browser (for Claude Code, the browser
-   pane) and passes the Cloudflare check themselves. Never try to pass or skip the check. Save the
-   page's HTML from there to a folder outside the repo.
-2. **Remove real names.** Run `node scripts/anonymize.mjs <saved.html> <out.html>`. Open the output and
-   read it: diver names become `Diver 1`, `Diver 2`, ...; emails and phone numbers are removed. If any
+1. **Get the page.** The maintainer opens DiveMeets in a normal browser and passes the Cloudflare check
+   himself. (The check may not pass in an automated browser.) Never try to pass or skip the check.
+   Run a small relay on `127.0.0.1`: a Node script kept outside the repo that accepts a POST and writes
+   the body to a folder outside the repo. From the page in that browser, POST
+   `document.documentElement.outerHTML` to the relay. Load at most one page a minute. Raw pages stay
+   outside the repo.
+2. **Remove real names.** Run `node scripts/anonymize.mjs <saved.html> <out.html>`. Open every output and
+   read it for names: diver names become `Diver 1`, `Diver 2`, ...; emails and phone numbers are removed. If any
    real name is left (a judge, a coach, a club contact), extend `scripts/anonymize.mjs` with a test
    first, then run it again. Many divers are minors.
 3. **Add the fixture.** Put the output in `fixtures/divemeets/<page-type>/`, for example

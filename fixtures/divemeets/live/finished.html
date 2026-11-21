@@ -1,0 +1,266 @@
+<!-- anonymized: divedata -->
+<html><head><script type="text/javascript">
+		<!--
+		function profpopup(mylink, windowname)
+			{
+			if (! window.focus)return true;
+				var href;
+			if (typeof(mylink) == 'string')
+				href=mylink;
+			else
+				href=mylink.href;
+			window.open(href, windowname, 'width=400,height=600,scrollbars=yes');
+				return false;
+			}
+		//-->
+	</script>
+		<script type="text/javascript">
+		<!--
+
+		function smalldspopup(mylink, windowname)
+			{
+			if (! window.focus)return true;
+				var href;
+			if (typeof(mylink) == 'string')
+				href=mylink;
+			else
+				href=mylink.href;
+			window.open(href, windowname, 'width=700,height=300,scrollbars=yes,toolbar=no');
+			return false;
+			}
+		//-->
+	</script>
+		<script type="text/javascript">
+		function ajax_refresh($location,$url,$seconds)
+			{
+			var	$http, $milliseconds = $seconds * 1000;
+			if (window.XMLHttpRequest)
+				{
+				$http = new XMLHttpRequest();
+				}
+			else if (window.ActiveXObject)
+				{
+				try 
+					{
+					$http = new ActiveXObject('Msxml2.XMLHTTP');
+					}
+				catch(e) 
+					{
+					$http = new ActiveXObject('Microsoft.XMLHTTP');
+					}
+				}
+			if ($http)
+				{
+				$http.onreadystatechange = function()
+					{
+					if (/4|^complete$/.test($http.readyState))
+						{
+						document.getElementById($location).innerHTML = $http.responseText;
+						//setTimeout('ajax_refresh(' + $url + ',' + $seconds + ')', $milliseconds);
+						setTimeout(function() {ajax_refresh($location,$url,$seconds);}, $milliseconds);
+						}
+					};
+				$http.open('GET', $url , true);
+				$http.send(null);
+				}
+			}
+		</script>
+
+		<script type="text/javascript">
+		function ajax_refresh_new($location,$url,$seconds)
+			{
+			/// check to see it cookie set ///
+			$DMResults=getCookie('DMResults');
+			if ($DMResults == $url)
+				{
+				$milliseconds = $seconds * 1000;
+				RefreshTimer = setTimeout(function() {refresh_group($location,$url);}, $milliseconds);
+				}
+			else
+				{
+				}
+			}
+		
+		function refresh_group($location,$url)
+			{
+			/// check to see it cookie set ///
+			$DMResults=getCookie('DMResults');
+			if ($DMResults == $url)
+				{
+
+				var	$http;
+				if (window.XMLHttpRequest)
+					{
+					$http = new XMLHttpRequest();
+					}
+				else if (window.ActiveXObject)
+					{
+					try 
+						{
+						$http = new ActiveXObject('Msxml2.XMLHTTP');
+						}
+					catch(e) 
+						{
+						$http = new ActiveXObject('Microsoft.XMLHTTP');
+						}
+					}
+				if ($http)
+					{
+					$http.onreadystatechange = function()
+						{
+						if (/4|^complete$/.test($http.readyState))
+							{
+							document.getElementById($location).innerHTML = $http.responseText;
+							}
+						};
+					}
+				$http.open('GET', $url , true);
+				$http.send(null);
+				}
+			else
+				{
+				}
+			}			
+			
+		
+	</script>
+	
+
+		<script type="text/javascript">
+		function setCookie($name, $value, $expiredays)
+			{
+			var exdate=new Date();
+			exdate.setDate(exdate.getDate()+$expiredays);
+			document.cookie=$name+ "=" + escape($value)+ (($expiredays==null) ? "" : ";expires="+exdate.toGMTString());
+			}
+
+
+		function getCookie($name)
+			{
+			if (document.cookie.length>0)
+				{
+				c_start=document.cookie.indexOf($name + "=");
+				if (c_start!=-1)
+					{
+					c_start=c_start + $name.length+1;
+					c_end=document.cookie.indexOf(";",c_start);
+					if (c_end==-1) c_end=document.cookie.length;
+					return unescape(document.cookie.substring(c_start,c_end));
+					}
+				}
+			return "";
+			}
+
+		</script>
+
+	
+
+<noscript>
+<meta http-equiv="refresh" content="0;url=https://secure.meetcontrol.com/divemeets/system/noscript.php">
+</noscript>
+
+  
+    <title>::::::::::: MeetControl / DiveMeets :::::::::::</title>
+		<link rel="stylesheet" type="text/css" href="livestats.css" media="screen">
+	<meta http-equiv="refresh" content="43200">  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2016%2016%22%3E%3Cpath%20transform%3D%22translate(-.5%20-.5)%22%20fill%3D%22%23C6613F%22%20d%3D%22M2%201.5%2014.2%206.6a.7.7%200%200%201-.06%201.32L9.2%209.4a.7.7%200%200%200-.46.46l-1.5%204.9a.7.7%200%200%201-1.32.05z%22%2F%3E%3C%2Fsvg%3E"></head>
+
+<body marginheight="0" marginwidth="0" leftmargin="0" topmargin="0" bgcolor="ffffff">
+
+				<script type="text/javascript">
+					var screenWidth = window.screen.width,
+					screenHeight = window.screen.height;
+					if (screenWidth < 500 || screenHeight < 500)
+					document.write("<div class=\"hcenter largetext\">Click for <a href=\"livestats.php?event=stats-13501-7175-1-Finished&format=mobile\">Mobile Version</a></div>");
+				</script>
+<table class="center">
+	<tbody><tr>
+		<td>
+		<script type="text/javascript">
+			var	$http;
+			var $url = "livestats_results.php?event=stats-13501-7175-1-Finished";
+			setCookie('DMResults', $url, 1);
+			//$DMResults=getCookie('DMResults');
+			//document.write($DMResults);
+			//document.write("test");
+			if (window.XMLHttpRequest)
+				{
+				$http = new XMLHttpRequest();
+				}
+			else if (window.ActiveXObject)
+				{
+				try 
+					{
+					$http = new ActiveXObject('Msxml2.XMLHTTP');
+					}
+				catch(e) 
+					{
+					$http = new ActiveXObject('Microsoft.XMLHTTP');
+					}
+				}
+			if ($http)
+				{
+				$http.onreadystatechange = function()
+					{
+					if (/4|^complete$/.test($http.readyState))
+						{
+						document.getElementById("Results").innerHTML = $http.responseText;
+						}
+					};
+				$http.open('GET', $url , true);
+				$http.send(null);
+				}
+		</script>
+			<div id="Results">
+<table class="border" width="100%">	<tbody><tr>
+		<td colspan="5" class="hcenter">
+			<strong style="font-size:1.2em">Unofficial Statistics<br>Women Platform (5 Dives) (Prelim / Quarterfinal)</strong>		</td>
+	</tr>
+
+	<tr>
+					<td colspan="5" class="hcenter"><strong style="color:red">This event is now closed.</strong></td>
+				</tr>  <tr><td class="titlebar">Place</td>
+				<td class="titlebar">Score</td>
+				<td class="titlebar">Diver Name</td><td class="titlebar">Event<br>Avg<br>Score</td>
+					<td class="titlebar">Avg<br>Round<br>Score</td></tr><tr><td class="hcenter blueborder padding1 backlightblue">1</td><td class="hright blueborder padding1 backlightblue"><a class="red" href="livedivesheet.php?divesheet=13501-7175-1-1794493453-1&amp;format=pc&amp;split=no" onclick="return smalldspopup(this,1)">298.95</a></td><td class="blueborder padding1 backlightblue"><a href="profile.php?number=1" onclick="return profpopup(this,1)">Diver 1</a></td><td class="hright blueborder padding1 backlightblue">6.80</td><td class="hright blueborder padding1 backlightblue">59.79</td></tr><tr><td class="hcenter blueborder padding1 ">2</td><td class="hright blueborder padding1 "><a class="red" href="livedivesheet.php?divesheet=13501-7175-1-1794799195-2&amp;format=pc&amp;split=no" onclick="return smalldspopup(this,2)">273.25</a></td><td class="blueborder padding1 "><a href="profile.php?number=2" onclick="return profpopup(this,2)">Diver 2</a></td><td class="hright blueborder padding1 ">6.50</td><td class="hright blueborder padding1 ">54.65</td></tr><tr><td class="hcenter blueborder padding1 backlightblue">3</td><td class="hright blueborder padding1 backlightblue"><a class="red" href="livedivesheet.php?divesheet=13501-7175-1-1794422306-3&amp;format=pc&amp;split=no" onclick="return smalldspopup(this,3)">260.35</a></td><td class="blueborder padding1 backlightblue"><a href="profile.php?number=3" onclick="return profpopup(this,3)">Diver 3</a></td><td class="hright blueborder padding1 backlightblue">6.00</td><td class="hright blueborder padding1 backlightblue">52.07</td></tr><tr><td class="hcenter blueborder padding1 ">4</td><td class="hright blueborder padding1 "><a class="red" href="livedivesheet.php?divesheet=13501-7175-1-1794430963-4&amp;format=pc&amp;split=no" onclick="return smalldspopup(this,4)">240.10</a></td><td class="blueborder padding1 "><a href="profile.php?number=4" onclick="return profpopup(this,4)">Diver 4</a></td><td class="hright blueborder padding1 ">6.37</td><td class="hright blueborder padding1 ">48.02</td></tr><tr><td class="hcenter blueborder padding1 backlightblue">5</td><td class="hright blueborder padding1 backlightblue"><a class="red" href="livedivesheet.php?divesheet=13501-7175-1-1794688642-5&amp;format=pc&amp;split=no" onclick="return smalldspopup(this,5)">219.75</a></td><td class="blueborder padding1 backlightblue"><a href="profile.php?number=5" onclick="return profpopup(this,5)">Diver 5</a></td><td class="hright blueborder padding1 backlightblue">5.80</td><td class="hright blueborder padding1 backlightblue">43.95</td></tr><tr><td class="hcenter blueborder padding1 ">6</td><td class="hright blueborder padding1 "><a class="red" href="livedivesheet.php?divesheet=13501-7175-1-1794531690-6&amp;format=pc&amp;split=no" onclick="return smalldspopup(this,6)">217.50</a></td><td class="blueborder padding1 "><a href="profile.php?number=6" onclick="return profpopup(this,6)">Diver 6</a></td><td class="hright blueborder padding1 ">5.10</td><td class="hright blueborder padding1 ">43.50</td></tr><tr><td class="hcenter blueborder padding1 backlightblue">7</td><td class="hright blueborder padding1 backlightblue"><a class="red" href="livedivesheet.php?divesheet=13501-7175-1-1794524871-7&amp;format=pc&amp;split=no" onclick="return smalldspopup(this,7)">202.15</a></td><td class="blueborder padding1 backlightblue"><a href="profile.php?number=7" onclick="return profpopup(this,7)">Diver 7</a></td><td class="hright blueborder padding1 backlightblue">5.27</td><td class="hright blueborder padding1 backlightblue">40.43</td></tr><tr><td class="hcenter blueborder padding1 ">8</td><td class="hright blueborder padding1 "><a class="red" href="livedivesheet.php?divesheet=13501-7175-1-1794260713-8&amp;format=pc&amp;split=no" onclick="return smalldspopup(this,8)">197.85</a></td><td class="blueborder padding1 "><a href="profile.php?number=8" onclick="return profpopup(this,8)">Diver 8</a></td><td class="hright blueborder padding1 ">5.27</td><td class="hright blueborder padding1 ">39.57</td></tr><tr><td class="hcenter blueborder padding1 backlightblue">9</td><td class="hright blueborder padding1 backlightblue"><a class="red" href="livedivesheet.php?divesheet=13501-7175-1-1794241741-9&amp;format=pc&amp;split=no" onclick="return smalldspopup(this,9)">195.30</a></td><td class="blueborder padding1 backlightblue"><a href="profile.php?number=9" onclick="return profpopup(this,9)">Diver 9</a></td><td class="hright blueborder padding1 backlightblue">5.07</td><td class="hright blueborder padding1 backlightblue">39.06</td></tr><tr><td class="hcenter blueborder padding1 ">10</td><td class="hright blueborder padding1 "><a class="red" href="livedivesheet.php?divesheet=13501-7175-1-1794260920-10&amp;format=pc&amp;split=no" onclick="return smalldspopup(this,10)">193.20</a></td><td class="blueborder padding1 "><a href="profile.php?number=10" onclick="return profpopup(this,10)">Diver 10</a></td><td class="hright blueborder padding1 ">6.10</td><td class="hright blueborder padding1 ">38.64</td></tr><tr><td class="hcenter blueborder padding1 backlightblue">11</td><td class="hright blueborder padding1 backlightblue"><a class="red" href="livedivesheet.php?divesheet=13501-7175-1-1794778562-11&amp;format=pc&amp;split=no" onclick="return smalldspopup(this,11)">191.50</a></td><td class="blueborder padding1 backlightblue"><a href="profile.php?number=11" onclick="return profpopup(this,11)">Diver 11</a></td><td class="hright blueborder padding1 backlightblue">6.03</td><td class="hright blueborder padding1 backlightblue">38.30</td></tr><tr><td class="hcenter blueborder padding1 ">12</td><td class="hright blueborder padding1 "><a class="red" href="livedivesheet.php?divesheet=13501-7175-1-1794432093-12&amp;format=pc&amp;split=no" onclick="return smalldspopup(this,12)">188.20</a></td><td class="blueborder padding1 "><a href="profile.php?number=12" onclick="return profpopup(this,12)">Diver 12</a></td><td class="hright blueborder padding1 ">5.10</td><td class="hright blueborder padding1 ">37.64</td></tr><tr><td class="hcenter blueborder padding1 backlightblue">13</td><td class="hright blueborder padding1 backlightblue"><a class="red" href="livedivesheet.php?divesheet=13501-7175-1-1794690841-13&amp;format=pc&amp;split=no" onclick="return smalldspopup(this,13)">187.45</a></td><td class="blueborder padding1 backlightblue"><a href="profile.php?number=13" onclick="return profpopup(this,13)">Diver 13</a></td><td class="hright blueborder padding1 backlightblue">5.03</td><td class="hright blueborder padding1 backlightblue">37.49</td></tr><tr><td class="hcenter blueborder padding1 ">14</td><td class="hright blueborder padding1 "><a class="red" href="livedivesheet.php?divesheet=13501-7175-1-1794267342-14&amp;format=pc&amp;split=no" onclick="return smalldspopup(this,14)">184.50</a></td><td class="blueborder padding1 "><a href="profile.php?number=14" onclick="return profpopup(this,14)">Diver 14</a></td><td class="hright blueborder padding1 ">5.30</td><td class="hright blueborder padding1 ">36.90</td></tr><tr><td class="hcenter blueborder padding1 backlightblue">15</td><td class="hright blueborder padding1 backlightblue"><a class="red" href="livedivesheet.php?divesheet=13501-7175-1-1794261037-15&amp;format=pc&amp;split=no" onclick="return smalldspopup(this,15)">184.10</a></td><td class="blueborder padding1 backlightblue"><a href="profile.php?number=15" onclick="return profpopup(this,15)">Diver 15</a></td><td class="hright blueborder padding1 backlightblue">5.00</td><td class="hright blueborder padding1 backlightblue">36.82</td></tr><tr><td class="hcenter blueborder padding1 ">16</td><td class="hright blueborder padding1 "><a class="red" href="livedivesheet.php?divesheet=13501-7175-1-1794423165-16&amp;format=pc&amp;split=no" onclick="return smalldspopup(this,16)">176.40</a></td><td class="blueborder padding1 "><a href="profile.php?number=16" onclick="return profpopup(this,16)">Diver 16</a></td><td class="hright blueborder padding1 ">5.17</td><td class="hright blueborder padding1 ">35.28</td></tr><tr><td class="hcenter blueborder padding1 backlightblue">17</td><td class="hright blueborder padding1 backlightblue"><a class="red" href="livedivesheet.php?divesheet=13501-7175-1-1794760765-17&amp;format=pc&amp;split=no" onclick="return smalldspopup(this,17)">174.00</a></td><td class="blueborder padding1 backlightblue"><a href="profile.php?number=17" onclick="return profpopup(this,17)">Diver 17</a></td><td class="hright blueborder padding1 backlightblue">5.37</td><td class="hright blueborder padding1 backlightblue">34.80</td></tr><tr><td class="hcenter blueborder padding1 ">18</td><td class="hright blueborder padding1 "><a class="red" href="livedivesheet.php?divesheet=13501-7175-1-1794254859-18&amp;format=pc&amp;split=no" onclick="return smalldspopup(this,18)">164.45</a></td><td class="blueborder padding1 "><a href="profile.php?number=18" onclick="return profpopup(this,18)">Diver 18</a></td><td class="hright blueborder padding1 ">5.23</td><td class="hright blueborder padding1 ">32.89</td></tr><tr><td class="hcenter blueborder padding1 backlightblue">19</td><td class="hright blueborder padding1 backlightblue"><a class="red" href="livedivesheet.php?divesheet=13501-7175-1-1794260804-19&amp;format=pc&amp;split=no" onclick="return smalldspopup(this,19)">163.55</a></td><td class="blueborder padding1 backlightblue"><a href="profile.php?number=19" onclick="return profpopup(this,19)">Diver 19</a></td><td class="hright blueborder padding1 backlightblue">4.70</td><td class="hright blueborder padding1 backlightblue">32.71</td></tr><tr><td class="hcenter blueborder padding1 ">20</td><td class="hright blueborder padding1 "><a class="red" href="livedivesheet.php?divesheet=13501-7175-1-1794241674-20&amp;format=pc&amp;split=no" onclick="return smalldspopup(this,20)">162.65</a></td><td class="blueborder padding1 "><a href="profile.php?number=20" onclick="return profpopup(this,20)">Diver 20</a></td><td class="hright blueborder padding1 ">5.10</td><td class="hright blueborder padding1 ">32.53</td></tr><tr><td class="hcenter blueborder padding1 backlightblue">21</td><td class="hright blueborder padding1 backlightblue"><a class="red" href="livedivesheet.php?divesheet=13501-7175-1-1794533896-21&amp;format=pc&amp;split=no" onclick="return smalldspopup(this,21)">156.10</a></td><td class="blueborder padding1 backlightblue"><a href="profile.php?number=21" onclick="return profpopup(this,21)">Diver 21</a></td><td class="hright blueborder padding1 backlightblue">4.60</td><td class="hright blueborder padding1 backlightblue">31.22</td></tr><tr><td class="hcenter blueborder padding1 ">22</td><td class="hright blueborder padding1 "><a class="red" href="livedivesheet.php?divesheet=13501-7175-1-1794275386-22&amp;format=pc&amp;split=no" onclick="return smalldspopup(this,22)">156.05</a></td><td class="blueborder padding1 "><a href="profile.php?number=22" onclick="return profpopup(this,22)">Diver 22</a></td><td class="hright blueborder padding1 ">5.27</td><td class="hright blueborder padding1 ">31.21</td></tr><tr><td class="hcenter blueborder padding1 backlightblue">23</td><td class="hright blueborder padding1 backlightblue"><a class="red" href="livedivesheet.php?divesheet=13501-7175-1-1794502508-23&amp;format=pc&amp;split=no" onclick="return smalldspopup(this,23)">155.60</a></td><td class="blueborder padding1 backlightblue"><a href="profile.php?number=23" onclick="return profpopup(this,23)">Diver 23</a></td><td class="hright blueborder padding1 backlightblue">4.70</td><td class="hright blueborder padding1 backlightblue">31.12</td></tr><tr><td class="hcenter blueborder padding1 ">24</td><td class="hright blueborder padding1 "><a class="red" href="livedivesheet.php?divesheet=13501-7175-1-1794357914-24&amp;format=pc&amp;split=no" onclick="return smalldspopup(this,24)">152.90</a></td><td class="blueborder padding1 "><a href="profile.php?number=24" onclick="return profpopup(this,24)">Diver 24</a></td><td class="hright blueborder padding1 ">5.10</td><td class="hright blueborder padding1 ">30.58</td></tr><tr><td class="hcenter blueborder padding1 backlightblue">25</td><td class="hright blueborder padding1 backlightblue"><a class="red" href="livedivesheet.php?divesheet=13501-7175-1-1794330612-25&amp;format=pc&amp;split=no" onclick="return smalldspopup(this,25)">144.50</a></td><td class="blueborder padding1 backlightblue"><a href="profile.php?number=25" onclick="return profpopup(this,25)">Diver 25</a></td><td class="hright blueborder padding1 backlightblue">3.77</td><td class="hright blueborder padding1 backlightblue">28.90</td></tr><tr><td class="hcenter blueborder padding1 ">26</td><td class="hright blueborder padding1 "><a class="red" href="livedivesheet.php?divesheet=13501-7175-1-1794717827-26&amp;format=pc&amp;split=no" onclick="return smalldspopup(this,26)">137.95</a></td><td class="blueborder padding1 "><a href="profile.php?number=26" onclick="return profpopup(this,26)">Diver 26</a></td><td class="hright blueborder padding1 ">4.83</td><td class="hright blueborder padding1 ">27.59</td></tr><tr><td class="hcenter blueborder padding1 backlightblue">27</td><td class="hright blueborder padding1 backlightblue"><a class="red" href="livedivesheet.php?divesheet=13501-7175-1-1794782647-27&amp;format=pc&amp;split=no" onclick="return smalldspopup(this,27)">119.10</a></td><td class="blueborder padding1 backlightblue"><a href="profile.php?number=27" onclick="return profpopup(this,27)">Diver 27</a></td><td class="hright blueborder padding1 backlightblue">5.10</td><td class="hright blueborder padding1 backlightblue">23.82</td></tr>	
+	<tr>
+		<td colspan="5" class="hcenter border padding1">
+			<strong style="color:red">
+			Official scores for this event should be posted later in the day.<br>This page will refresh automatically.<br>Please do not hit the Refresh button.			</strong>
+			<br><br>
+			<a href="meetresultsext.php?meetnum=13501&amp;language=EN" target="_new">
+			Official Meet Results			</a><br><br>
+		</td>
+	</tr>
+</tbody></table>
+
+</div>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<script type="text/javascript">
+				//// Live Results List
+				ajax_refresh("ResultList","livestats_resultlist.php?meet=13501", 180);
+			</script>
+			<div id="ResultList">
+</div>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<table width="100%">
+				<tbody><tr>
+					<td class="border hcenter bold">
+						<br>
+						Brought to you by:<br><br>						<a href="http://www.divemeets.com"><img src="images/boxlogo1.jpg" border="0"></a><br><br>
+					</td>
+				</tr>
+			</tbody></table>
+		</td>
+	</tr>
+</tbody></table>
+
+<div class="hcenter width100percent">Click for <a href="livestats.php?event=stats-13501-7175-1-Finished&amp;format=mobile">Mobile Version </a></div>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;451af2bc3e464a8780d38a7be1d24d61&quot;,&quot;spa&quot;:2}" crossorigin="anonymous"></script>
+
+<div></div></body></html>
