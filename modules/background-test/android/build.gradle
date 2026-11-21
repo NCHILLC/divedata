@@ -1,0 +1,20 @@
+// Throwaway: milestone 2 background test. Never merged.
+plugins {
+  id 'com.android.library'
+  id 'expo-module-gradle-plugin'
+}
+
+group = 'org.divedata'
+version = '0.0.1'
+
+android {
+  namespace "org.divedata.backgroundtest"
+  defaultConfig {
+    versionCode 1
+    versionName "0.0.1"
+  }
+}
+
+dependencies {
+  implementation "androidx.core:core-ktx:1.13.1"
+}

@@ -82,6 +82,9 @@ export default function Home() {
           ));
         }}
       </PageView>
+
+      {/* Throwaway: milestone 2 background test, on the spike branch only. */}
+      <Button label="Background test" onPress={() => router.push('/background-test')} />
     </Screen>
   );
 }
