@@ -17,6 +17,12 @@ const PERSON_LINK = /(<a\b[^>]*profile([jc]?)\.php\?number=(\d+)[^>]*>)[\s\S]*?(
 // window a dive sheet opens in. In those window names and live board links it is the last number.
 const DIVER_NUMBER =
   /(dvrnum=|profilephotos\/|DiveMeets #: <\/strong>|_divmax|_divdiv|divesheetext\.php\?[^"#]*#|smalldspopup\(this,|divesheet=(?:\d+-){4}|target="_&quot;(?:\d+-){3})(\d+)/gi;
+// The home page news banner ("Update on <name> | DiveMeets Announces <link>") names real people in
+// its link text and file names; each link becomes "News item N" pointing at news-N.php.
+const NEWS_BANNER = /<strong>(?:(?!<\/strong>)[\s\S])*DiveMeets Announces(?:(?!<\/strong>)[\s\S])*<\/strong>/gi;
+const NEWS_LINK = /<a href="[\w-]+\.php">[^<]*<\/a>/gi;
+// The printable dive sheet window is named _ds<diver number><meet number>.
+const PRINT_WINDOW = /target="_ds(\d+)"/gi;
 const PROFILE_NAME = /(Name: <\/strong>)[^<]*/i;
 const PLAIN_DIVER = /(Diver: <strong>)([^<]*?)((?: - [^<]*)?<\/strong>)/gi;
 const HOME_TOWN =/(City\/State: <\/strong>)[^<]*/gi;
@@ -42,12 +48,22 @@ export function anonymize(html) {
   const sheet = body.match(/dvrnum=(\d+)/i);
   body = body.replace(PLAIN_DIVER, (_, label, name, team) =>
     `${label}Diver ${fake('Diver', sheet ? sheet[1] : `name:${name}`)}${team}`);
+  const meet = body.match(/meetnum=(\d+)/i)?.[1];
+  let news = 0;
   return `${MARKER}\n${body
+    .replace(NEWS_BANNER, (banner) =>
+      banner.replace(NEWS_LINK, () => `<a href="news-${++news}.php">News item ${news}</a>`))
     .replace(PERSON_LINK, (_, open, letter, number, close) => {
       const kind = KINDS[letter.toLowerCase()];
       const n = fake(kind, number);
       // The real number also sits in the popup call inside the same tag.
       return `${open.replace(new RegExp(`\\b${number}\\b`, 'g'), String(n))}${kind} ${n}${close}`;
+    })
+    // Keep the meet number when the digits end with it; otherwise the whole number becomes the fake.
+    .replace(PRINT_WINDOW, (_, digits) => {
+      const split = meet && digits.length > meet.length && digits.endsWith(meet);
+      const diver = split ? digits.slice(0, -meet.length) : digits;
+      return `target="_ds${fake('Diver', diver)}${split ? meet : ''}"`;
     })
     .replace(DIVER_NUMBER, (_, prefix, number) => `${prefix}${fake('Diver', number)}`)
     .replace(HOME_TOWN, (_, label) => `${label}Hometown`)

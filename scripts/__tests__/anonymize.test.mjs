@@ -120,3 +120,35 @@ test('blanks the Cloudflare request id left by the visit that saved the page', (
   expect(out).not.toMatch(/a5db216149a3e001|MTc5NTIxNTU3MA/);
   expect(out).toMatch(/__CF\$cv\$params=\{r:'',t:''\}/);
 });
+
+test('replaces the diver number inside the printable dive sheet window name, keeping the meet number', () => {
+  const out = anonymize(
+    '<a href="meetresultsext.php?meetnum=13501">Meet</a>' +
+      '<a href="profile.php?number=987654">Real Kid</a>' +
+      '<a href="printds.php" target="_ds98765413501">View printable DiveSheet</a>',
+  );
+  expect(out).not.toMatch(/987654/);
+  expect(out).toMatch(/target="_ds113501"/);
+});
+
+test('drops a dive sheet window number it cannot split, instead of keeping it', () => {
+  const out = anonymize('<a target="_ds55555599">x</a><a href="profile.php?number=555555">Real Kid</a>');
+  expect(out).not.toMatch(/5555/);
+  expect(out).toMatch(/target="_ds2"/);
+});
+
+test('replaces the names in home page news links with neutral text', () => {
+  const out = anonymize(
+    '<strong><a href="jane.php">Update on Jane Realname</a>&nbsp;|&nbsp;DiveMeets Announces <a href="jane1.php">Round Up for Jane</a></strong>' +
+      '<a href="meetresultsext.php?meetnum=1">A meet</a>',
+  );
+  expect(out).not.toMatch(/Jane|Realname/i);
+  expect(out).toContain('<a href="news-1.php">News item 1</a>');
+  expect(out).toContain('<a href="news-2.php">News item 2</a>');
+  expect(out).toContain('A meet');
+});
+
+test('is idempotent on the news links and printable sheet name', () => {
+  const once = anonymize('<a href="jane.php">Update on Jane</a>');
+  expect(anonymize(once)).toBe(once);
+});
