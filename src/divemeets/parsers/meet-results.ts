@@ -1,5 +1,6 @@
 import type { HTMLElement } from 'node-html-parser';
 import { checked, cleanText, load, numberFromHref, PageChangedError } from './common';
+import { splitStage } from './live-board';
 import { type MeetResults, MeetResultsSchema } from './types';
 
 /** Meet results page: "Meet: <name>", then one row per finished event: results link, entries, date. */
@@ -34,9 +35,18 @@ export function parseMeetResults(html: string): MeetResults {
     ];
   });
 
+  // A meet in progress links each running event's live board under its bold name: "Women 3m … (Final)".
+  const live = root.querySelectorAll('a[href^="livestats.php?event="]').map((a) => {
+    const { name: eventName, stage } = splitStage(cleanText(a.parentNode?.querySelector('strong')));
+    const path = a.getAttribute('href') ?? '';
+    // The address ends in -Started while the event runs and -Finished once it closes.
+    return { name: eventName, ...(stage ? { stage } : {}), path, running: /-Started$/.test(path) };
+  });
+
   return checked('meet-results', MeetResultsSchema, {
     meetNumber: numberFromHref(link.getAttribute('href'), 'meetnum'),
     name,
     events,
+    live,
   });
 }
