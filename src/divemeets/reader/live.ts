@@ -4,12 +4,22 @@ import { answered, isBotCheck, pageUrl } from './page';
 /** The fastest live mode reads a page (docs/divemeets.md "Polite use"). The service refuses anything faster. */
 const LIVE_SECONDS = 30;
 
+/**
+ * Pages whose content comes from their own script after loading: the service waits (up to 10 seconds) until
+ * this element is there before reading. The live board fills its table that way (docs/divemeets.md).
+ */
+const READY_WHEN: Record<string, string> = { 'livestats.php': '#Results table' };
+
 /** What live mode needs from the native module in modules/live-reader (an Android foreground service). */
 export type LiveNative = {
-  /** `referer` is '' when there is none. */
-  start(url: string, intervalSeconds: number, referer: string): void;
+  /** `referer` is '' when there is none; `readyWhen` is a CSS selector to wait for before reading, or ''. */
+  start(url: string, intervalSeconds: number, referer: string, readyWhen: string): void;
   reload(): void;
   stop(): void;
+  /** An "Up next" alert: a notification that sounds, on its own channel. */
+  notify(title: string, text: string): void;
+  /** The words on live mode's ongoing notification. */
+  setStatus(title: string, text: string): void;
   addListener(event: 'onTick' | 'onStopped', fn: () => void): { remove(): void };
   addListener(event: 'onPage', fn: (page: { title: string; html: string; status: number }) => void): { remove(): void };
   addListener(event: 'onFailed', fn: (e: { reason: string }) => void): { remove(): void };
@@ -72,7 +82,7 @@ export function createLive(native: LiveNative | null, from: () => string | undef
     };
 
     try {
-      native.start(url, LIVE_SECONDS, referer ?? '');
+      native.start(url, LIVE_SECONDS, referer ?? '', READY_WHEN[path.split('?')[0]] ?? '');
     } catch {
       // Android refuses to start the service while the app is off screen.
       end();

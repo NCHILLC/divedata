@@ -42,16 +42,27 @@ class LiveReaderModule : Module() {
     }
 
     // Starts the service, or points it at a new page. Android refuses while the app is off screen; that throws.
-    Function("start") { url: String, intervalSeconds: Int, referer: String ->
+    Function("start") { url: String, intervalSeconds: Int, referer: String, readyWhen: String ->
       val intent = Intent(context, LiveReaderService::class.java)
         .putExtra(LiveReaderService.EXTRA_URL, url)
         .putExtra(LiveReaderService.EXTRA_INTERVAL, intervalSeconds)
         .putExtra(LiveReaderService.EXTRA_REFERER, referer)
+        .putExtra(LiveReaderService.EXTRA_READY, readyWhen)
       ContextCompat.startForegroundService(context, intent)
     }
 
     Function("reload") {
       main.post { LiveReaderService.instance?.reload() }
+    }
+
+    // An "Up next" alert. Works whether or not the service runs; skipped without the notification permission.
+    Function("notify") { title: String, text: String ->
+      val ctx = context.applicationContext
+      main.post { LiveReaderService.alert(ctx, title, text) }
+    }
+
+    Function("setStatus") { title: String, text: String ->
+      main.post { LiveReaderService.instance?.setStatus(title, text) }
     }
 
     Function("stop") {

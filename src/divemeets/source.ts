@@ -44,11 +44,23 @@ export type FollowPage = (path: string, onUpdate: (u: LiveUpdate) => void) => ()
 
 export const LiveSourceContext = createContext<FollowPage | null>(null);
 
+/** Phone notifications from live mode: an "Up next" alert, and the words on its ongoing notification. */
+export type Notify = { alert(title: string, text: string): void; status(title: string, text: string): void };
+
+/** Null where the phone has no live mode (tests, iPhone). */
+export const NotifyContext = createContext<Notify | null>(null);
+
 /**
  * Follows a page live and reads each copy with a parser. `data` is the latest good page; `error` is the latest
  * problem since it, cleared by the next good page. Only one page is followed at a time. `path` undefined waits.
+ * `onData` gets each good page as it arrives, outside rendering, so it runs while React holds the screen.
+ * Pass the same `parse` and `onData` every render (module functions or useCallback), or the page is followed again.
  */
-export function useLivePage<T>(path: string | undefined, parse: (html: string) => T): { data?: T; error?: Error } {
+export function useLivePage<T>(
+  path: string | undefined,
+  parse: (html: string) => T,
+  onData?: (data: T) => void,
+): { data?: T; error?: Error } {
   const follow = useContext(LiveSourceContext);
   if (!follow) throw new Error('useLivePage needs a LiveSourceContext provider');
   const [state, setState] = useState<{ path?: string; data?: T; error?: Error }>({});
@@ -64,12 +76,13 @@ export function useLivePage<T>(path: string | undefined, parse: (html: string) =
         } catch (error) {
           next = { error: error as Error };
         }
+        if ('data' in next) onData?.(next.data as T);
       }
       setState((s) =>
         'data' in next ? { path, data: next.data } : { path, data: s.path === path ? s.data : undefined, error: next.error },
       );
     });
-  }, [follow, path, parse]);
+  }, [follow, path, parse, onData]);
 
   if (state.path !== path) return {};
   return state.error ? { data: state.data, error: state.error } : { data: state.data };

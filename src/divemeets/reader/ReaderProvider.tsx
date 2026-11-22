@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { WebView, type WebViewProps } from 'react-native-webview';
 import LiveReader from '../../../modules/live-reader';
-import { LiveSourceContext, PageSourceContext } from '../source';
+import { LiveSourceContext, NotifyContext, PageSourceContext, type Notify } from '../source';
 import { createLive } from './live';
 import { pageUrl } from './page';
 import { createQueue, type Request } from './queue';
@@ -12,6 +12,11 @@ type WebHandle = { injectJavaScript(script: string): void };
 const Web = WebView as unknown as React.ComponentType<WebViewProps & { ref?: React.Ref<WebHandle> }>;
 
 // Sends the page's title and HTML back to the app. Read only; it changes nothing on the page.
+const notify: Notify | null = LiveReader && {
+  alert: (title, text) => LiveReader?.notify(title, text),
+  status: (title, text) => LiveReader?.setStatus(title, text),
+};
+
 const READ_PAGE_JS = `window.ReactNativeWebView.postMessage(JSON.stringify({
   title: document.title || '',
   html: document.documentElement.outerHTML
@@ -31,7 +36,9 @@ export function ReaderProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <PageSourceContext.Provider value={reader.load}>
-      <LiveSourceContext.Provider value={follow}>{children}</LiveSourceContext.Provider>
+      <LiveSourceContext.Provider value={follow}>
+        <NotifyContext.Provider value={notify}>{children}</NotifyContext.Provider>
+      </LiveSourceContext.Provider>
       {current && (
         <View style={checking ? styles.check : styles.hidden} pointerEvents={checking ? 'auto' : 'none'}>
           {checking && (

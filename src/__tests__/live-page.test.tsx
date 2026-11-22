@@ -42,3 +42,12 @@ test('waits without following when there is no page yet', async () => {
   await renderHook(() => useLivePage(undefined, parse), { wrapper });
   expect(follow).not.toHaveBeenCalled();
 });
+
+test('hands each good page to onData as it comes, not errors', async () => {
+  const onData = jest.fn();
+  await renderHook(() => useLivePage('index.php', parse, onData), { wrapper });
+  await act(async () => send({ html: '<p>round 1' }));
+  await act(async () => send({ error: new CheckNeededError('check') }));
+  expect(onData).toHaveBeenCalledTimes(1);
+  expect(onData).toHaveBeenCalledWith('round 1');
+});
