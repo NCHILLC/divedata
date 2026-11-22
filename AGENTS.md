@@ -78,6 +78,7 @@ modules/live-reader/   live mode's Android service: its own browser re-reads a p
 src/divemeets/parsers/ pure functions from saved HTML to typed data
 src/scoring/           pure scoring math
 src/follows.tsx        followed divers, kept on the phone
+src/live.tsx           live mode above the screens: the board being followed and its "Up next" alerts
 src/ui.tsx             shared screen pieces built from docs/design.md
 ```
 
