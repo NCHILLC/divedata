@@ -4,23 +4,17 @@ import { WebView, type WebViewProps } from 'react-native-webview';
 import LiveReader from '../../../modules/live-reader';
 import { LiveSourceContext, NotifyContext, PageSourceContext, type Notify } from '../source';
 import { createLive } from './live';
-import { pageUrl } from './page';
+import { pageUrl, readPageScript, readyWhen } from './page';
 import { createQueue, type Request } from './queue';
 
 // react-native-webview 14's class type resolves its props to `never`; this gives it usable props.
 type WebHandle = { injectJavaScript(script: string): void };
 const Web = WebView as unknown as React.ComponentType<WebViewProps & { ref?: React.Ref<WebHandle> }>;
 
-// Sends the page's title and HTML back to the app. Read only; it changes nothing on the page.
 const notify: Notify | null = LiveReader && {
   alert: (title, text) => LiveReader?.notify(title, text),
   status: (title, text) => LiveReader?.setStatus(title, text),
 };
-
-const READ_PAGE_JS = `window.ReactNativeWebView.postMessage(JSON.stringify({
-  title: document.title || '',
-  html: document.documentElement.outerHTML
-})); true;`;
 
 /**
  * Loads DiveMeets pages one at a time in a hidden browser view, the way a person's browser would, and gives
@@ -60,7 +54,7 @@ export function ReaderProvider({ children }: { children: React.ReactNode }) {
             key={current.id}
             ref={web}
             source={{ uri: pageUrl(current.path), headers: current.from ? { Referer: current.from } : undefined }}
-            onLoadEnd={() => web.current?.injectJavaScript(READ_PAGE_JS)}
+            onLoadEnd={() => web.current?.injectJavaScript(readPageScript(readyWhen(current.path)))}
             onHttpError={(e) => reader.httpError(e.nativeEvent.statusCode)}
             onError={reader.failed}
             onMessage={(e) => reader.read(e.nativeEvent.data)}
