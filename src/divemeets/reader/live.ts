@@ -1,14 +1,9 @@
 import { CheckNeededError, LiveStoppedError, NotReachedError, type FollowPage } from '../source';
-import { answered, isBotCheck, pageUrl } from './page';
+import { answered, isBotCheck, pageUrl, readyWhen } from './page';
 
 /** The fastest live mode reads a page (docs/divemeets.md "Polite use"). The service refuses anything faster. */
 const LIVE_SECONDS = 30;
 
-/**
- * Pages whose content comes from their own script after loading: the service waits (up to 10 seconds) until
- * this element is there before reading. The live board fills its table that way (docs/divemeets.md).
- */
-const READY_WHEN: Record<string, string> = { 'livestats.php': '#Results table' };
 
 /** What live mode needs from the native module in modules/live-reader (an Android foreground service). */
 export type LiveNative = {
@@ -82,7 +77,7 @@ export function createLive(native: LiveNative | null, from: () => string | undef
     };
 
     try {
-      native.start(url, LIVE_SECONDS, referer ?? '', READY_WHEN[path.split('?')[0]] ?? '');
+      native.start(url, LIVE_SECONDS, referer ?? '', readyWhen(path));
     } catch {
       // Android refuses to start the service while the app is off screen.
       end();

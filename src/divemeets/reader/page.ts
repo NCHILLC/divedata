@@ -21,3 +21,36 @@ export function isBotCheck(page: { title: string; html: string }): boolean {
     /performing security verification|verify you are human|checking your browser/i.test(page.html)
   );
 }
+
+/**
+ * Pages whose content comes from their own script after loading: both readers wait (up to 10 seconds) until
+ * this element is there before reading. The live board fills its table that way (docs/divemeets.md).
+ */
+const READY_WHEN: Record<string, string> = { 'livestats.php': '#Results table' };
+
+/** The CSS selector to wait for before reading this page, or '' to read it as soon as it has loaded. */
+export function readyWhen(path: string): string {
+  return READY_WHEN[path.split('?')[0]] ?? '';
+}
+
+/**
+ * The script the hidden browser view runs once a page has loaded: it sends the page's title and HTML back to
+ * the app. Read only; it changes nothing on the page. With `ready`, it first waits up to 10 seconds for that
+ * element, unless DiveMeets' check is showing, which goes to the person at once.
+ */
+export function readPageScript(ready: string): string {
+  return `(function () {
+  var ready = ${JSON.stringify(ready)}, tries = 40;
+  function send() {
+    window.ReactNativeWebView.postMessage(JSON.stringify({
+      title: document.title || '',
+      html: document.documentElement.outerHTML
+    }));
+  }
+  function check() {
+    if (!ready || tries-- <= 0 || /just a moment/i.test(document.title || '') || document.querySelector(ready)) send();
+    else setTimeout(check, 250);
+  }
+  check();
+})(); true;`;
+}

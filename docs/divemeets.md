@@ -28,7 +28,7 @@ DiveMeets shows its check, live mode stops re-reading and tells the screen.
 
 The live board (`livestats.php`) refreshes itself every 22 seconds while a person has it open, so live mode's
 30 seconds is lighter than a person. Each reload of the board also fetches its table once, from the page's own
-script; the service waits up to 10 seconds for that table before reading (`READY_WHEN` in `live.ts`).
+script; both the screen reader and the service wait up to 10 seconds for that table before reading (`READY_WHEN` in `reader/page.ts`).
 
 - Load a page no more than once a minute normally, and no more than every 30 seconds in live mode.
 - Only load pages the person asked for (a meet they opened, an event they follow live).
