@@ -75,6 +75,22 @@ test("follows the board and alerts when a followed diver is close", async () => 
   );
 });
 
+test("names the followed diver closest to diving on the ongoing notification", async () => {
+  await AsyncStorage.setItem(
+    "follows",
+    JSON.stringify([
+      { diverNumber: 6, name: "Diver 6" },
+      { diverNumber: 5, name: "Diver 5" },
+    ]),
+  );
+  await following();
+  await act(async () => send(board));
+  expect(notify.status).toHaveBeenLastCalledWith(
+    "Following Diver 5",
+    "1 diver before them",
+  );
+});
+
 test("does not alert twice for the same board", async () => {
   await following();
   await act(async () => send(board));

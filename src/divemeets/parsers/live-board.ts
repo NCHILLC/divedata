@@ -32,7 +32,8 @@ export function parseLiveBoard(html: string): LiveBoard {
     nextBox && nextLink
       ? {
           diverNumber: numberFromHref(nextLink.getAttribute('href'), 'number'),
-          name: cleanText(nextLink),
+          // The box writes "Name(TEAM)"; the rows write "Name (TEAM)".
+          name: cleanText(nextLink).replace(/(\S)\(/, '$1 ('),
           order: toNumber(/Diver Order:\s*(\d+)/.exec(cleanText(nextBox))?.[1] ?? ''),
         }
       : undefined;
