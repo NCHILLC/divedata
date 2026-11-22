@@ -79,3 +79,16 @@ Plain words a parent uses. Examples:
 | Trim: high and low | Highest and lowest awards don't count |
 | Net differential | Points behind / ahead |
 | "What it takes" simulator | What they need |
+
+## App icon
+
+`assets/icon.png` is the maintainer's design as supplied: a teal diver in a heart-shaped arc over a
+target, on a dark rounded tile. Android masks its adaptive icon into its own shape (circle, squircle),
+so the Android layers carry the symbol alone:
+
+- `android-icon-foreground.png`: the diver, its glow and the two inner target rings, lifted off the
+  tile on a transparent 1024 square, scaled to fit the 66 dp safe circle of the 108 dp canvas.
+- `android-icon-monochrome.png`: the same shape in white, for Android 13+ themed icons.
+- The tile behind them is `backgroundColor` `#0e1417` in `app.json`, the screen background above.
+
+`src/__tests__/app-icon.test.ts` checks the sizes and that no background image overrides the color.
