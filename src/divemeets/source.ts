@@ -44,11 +44,23 @@ export type FollowPage = (path: string, onUpdate: (u: LiveUpdate) => void) => ()
 
 export const LiveSourceContext = createContext<FollowPage | null>(null);
 
+/** Phone notifications from live mode: an "Up next" alert, and the words on its ongoing notification. */
+export type Notify = { alert(title: string, text: string): void; status(title: string, text: string): void };
+
+/** Null where the phone has no live mode (tests, iPhone). */
+export const NotifyContext = createContext<Notify | null>(null);
+
 /**
  * Follows a page live and reads each copy with a parser. `data` is the latest good page; `error` is the latest
  * problem since it, cleared by the next good page. Only one page is followed at a time. `path` undefined waits.
+ * `on.onData` and `on.onError` get each good page and each problem as they arrive, outside rendering, so they
+ * run while React holds the screen. Pass the same `parse` and `on` every render (module values, useMemo).
  */
-export function useLivePage<T>(path: string | undefined, parse: (html: string) => T): { data?: T; error?: Error } {
+export function useLivePage<T>(
+  path: string | undefined,
+  parse: (html: string) => T,
+  on?: { onData?: (data: T) => void; onError?: (error: Error) => void },
+): { data?: T; error?: Error } {
   const follow = useContext(LiveSourceContext);
   if (!follow) throw new Error('useLivePage needs a LiveSourceContext provider');
   const [state, setState] = useState<{ path?: string; data?: T; error?: Error }>({});
@@ -65,11 +77,13 @@ export function useLivePage<T>(path: string | undefined, parse: (html: string) =
           next = { error: error as Error };
         }
       }
+      if ('data' in next) on?.onData?.(next.data as T);
+      else if (next.error) on?.onError?.(next.error);
       setState((s) =>
         'data' in next ? { path, data: next.data } : { path, data: s.path === path ? s.data : undefined, error: next.error },
       );
     });
-  }, [follow, path, parse]);
+  }, [follow, path, parse, on]);
 
   if (state.path !== path) return {};
   return state.error ? { data: state.data, error: state.error } : { data: state.data };

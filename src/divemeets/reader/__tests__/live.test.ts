@@ -6,6 +6,8 @@ function fakeNative() {
     start: jest.fn(),
     reload: jest.fn(),
     stop: jest.fn(),
+    notify: jest.fn(),
+    setStatus: jest.fn(),
     addListener: jest.fn((event: string, fn: (e: never) => void) => {
       listeners.set(event, fn);
       return { remove: () => listeners.delete(event) };
@@ -25,6 +27,7 @@ test('follows a page through the service browser every 30 seconds', () => {
     'https://secure.meetcontrol.com/divemeets/system/eventresultsext.php?eventnum=1',
     30,
     '',
+    '',
   );
 
   emit('onPage', page('<html>round 1</html>'));
@@ -32,6 +35,17 @@ test('follows a page through the service browser every 30 seconds', () => {
   expect(native.reload).toHaveBeenCalledTimes(1);
   emit('onPage', page('<html>round 2</html>'));
   expect(updates).toEqual([{ html: '<html>round 1</html>' }, { html: '<html>round 2</html>' }]);
+});
+
+test('tells the service to wait for the live board table before reading', () => {
+  const { native } = fakeNative();
+  createLive(native)('livestats.php?event=stats-1-2-9-Started', () => {});
+  expect(native.start).toHaveBeenCalledWith(
+    'https://secure.meetcontrol.com/divemeets/system/livestats.php?event=stats-1-2-9-Started',
+    30,
+    '',
+    '#Results table',
+  );
 });
 
 test('stops reloading while DiveMeets shows its check, and carries on if the check clears', () => {
@@ -69,7 +83,7 @@ test('sends the page the link came from as the Referer, and says when DiveMeets 
   const meet = 'https://secure.meetcontrol.com/divemeets/system/meetresultsext.php?meetnum=1';
   const errors: Error[] = [];
   createLive(native, () => meet)('eventresultsext.php?eventnum=1', (u) => 'error' in u && errors.push(u.error));
-  expect(native.start).toHaveBeenCalledWith(expect.any(String), 30, meet);
+  expect(native.start).toHaveBeenCalledWith(expect.any(String), 30, meet, '');
 
   emit('onPage', page('', 'Webpage not available', 403));
   expect(errors[0].name).toBe('RefusedError');

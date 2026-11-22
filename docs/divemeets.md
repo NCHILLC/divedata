@@ -26,6 +26,10 @@ Live mode (`live.ts`, through the Android service in `modules/live-reader/`) fol
 re-reads it every 30 seconds; the service refuses anything faster and stops itself after 4 hours. While
 DiveMeets shows its check, live mode stops re-reading and tells the screen.
 
+The live board (`livestats.php`) refreshes itself every 22 seconds while a person has it open, so live mode's
+30 seconds is lighter than a person. Each reload of the board also fetches its table once, from the page's own
+script; the service waits up to 10 seconds for that table before reading (`READY_WHEN` in `live.ts`).
+
 - Load a page no more than once a minute normally, and no more than every 30 seconds in live mode.
 - Only load pages the person asked for (a meet they opened, an event they follow live).
 - Cache every page, and serve the cache when it is fresh enough.
@@ -103,9 +107,20 @@ event links. Exhibition events show `EXHB` for the place and read as no place, w
 link to `profile.php?number=`. The count must match the rows read, so a layout change that drops rows
 is an error. Zero found is an empty list.
 
-### Live board: `livestats.php`, `livedivesheet.php`
+### Live board: `livestats.php?event=stats-<meet>-<id>-<n>-Started`
 
-Saved in `fixtures/divemeets/live/`, but not parsed yet. Milestone 5 does that.
+`parseLiveBoard`. The meet results page links each event's board ("Unofficial Live Statistics!") under its
+bold name with the stage in brackets; `parseMeetResults` gives them as `live`. The address ends in `-Started`
+while the event runs and `-Finished` after, and a finished meet still links its boards.
+
+The board's bold title is "Unofficial Statistics" and the event name with its stage. In progress: a "Next
+Diver" box (profile link, "Diver Order: 7"), "Current Round: 6 / 6", then one row per diver under a header
+of `titlebar` cells: Divers Left to Dive (`*` = not dived this round), Diver Order, Last Round Place, Last
+Round Score, Current Place, Current Score, Diver Name, and averages and catch-up points (not read). The row
+of the diver who just dived keeps its `*` until the score posts. Closed: "This event is now closed." and
+rows of Place, Score, Diver Name. The page fills its table with its own script after loading and refreshes
+it every 22 seconds; the saved pages are the filled page. `livedivesheet.php` (one diver's dives) is saved
+in no fixture and not read.
 
 ## Known gaps
 

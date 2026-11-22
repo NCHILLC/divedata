@@ -4,6 +4,7 @@ export { parseDiverProfile } from './diver-profile';
 export { parseDiverSearch } from './diver-search';
 export { parseEventResults } from './event-results';
 export { parseJudgeScores } from './judge-scores';
+export { parseLiveBoard } from './live-board';
 export { parseMeetInfo } from './meet-info';
 export { parseMeetList } from './meet-list';
 export { parseMeetLink } from './meet-link';
@@ -19,6 +20,10 @@ export {
   DiverProfileSchema,
   type DiverRef,
   DiverRefSchema,
+  type LiveBoard,
+  LiveBoardSchema,
+  type LiveBoardRow,
+  type LiveEvent,
   type JudgeScores,
   JudgeScoresSchema,
   type EventResults,

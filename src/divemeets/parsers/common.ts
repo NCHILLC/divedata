@@ -9,7 +9,8 @@ export type PageType =
   | 'dive-sheet'
   | 'judge-scores'
   | 'diver-profile'
-  | 'diver-search';
+  | 'diver-search'
+  | 'live-board';
 
 /** DiveMeets changed a page so a parser no longer recognises it. */
 export class PageChangedError extends Error {

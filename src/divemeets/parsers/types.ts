@@ -37,12 +37,47 @@ export type EventSummary = z.infer<typeof EventSummarySchema>;
 export const MeetSchema = MeetSummarySchema.extend({ events: z.array(EventSummarySchema) });
 export type Meet = z.infer<typeof MeetSchema>;
 
-/** The meet results page: the meet and the events that have results posted. */
+/** An event running now, with its live board: `livestats.php?event=stats-13172-7160-9-Started`. */
+export const LiveEventSchema = z.object({
+  name: z.string().min(1),
+  stage: z.string().min(1).optional(),
+  path: z.string().regex(/^livestats\.php\?event=/),
+  /** The address ends in -Started while the event runs, -Finished once it closed. */
+  running: z.boolean(),
+});
+export type LiveEvent = z.infer<typeof LiveEventSchema>;
+
+/** The meet results page: the meet, the events that have results posted, and the events running now. */
 export const MeetResultsSchema = z.object({
   meetNumber: z.number().int().positive(),
   name: z.string().min(1),
   events: z.array(EventSummarySchema),
+  live: z.array(LiveEventSchema),
 });
+
+/** One diver on the live board. `toDive`: not dived yet this round. Place and total are blank before a first score. */
+export const LiveBoardRowSchema = z.object({
+  diverNumber: z.number().int().positive(),
+  name: z.string().min(1),
+  order: z.number().int().positive().optional(),
+  toDive: z.boolean(),
+  place: z.number().int().positive().optional(),
+  total: z.number().optional(),
+});
+export type LiveBoardRow = z.infer<typeof LiveBoardRowSchema>;
+
+/** The live board of one event (`livestats.php`). `next` is DiveMeets' Next Diver box; a closed board has none. */
+export const LiveBoardSchema = z.object({
+  eventName: z.string().min(1),
+  stage: z.string().min(1).optional(),
+  round: z.object({ current: z.number().int().positive(), total: z.number().int().positive() }).optional(),
+  closed: z.boolean(),
+  next: z
+    .object({ diverNumber: z.number().int().positive(), name: z.string().min(1), order: z.number().int().positive() })
+    .optional(),
+  rows: z.array(LiveBoardRowSchema),
+});
+export type LiveBoard = z.infer<typeof LiveBoardSchema>;
 export type MeetResults = z.infer<typeof MeetResultsSchema>;
 
 export const ResultRowSchema = z.object({

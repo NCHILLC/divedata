@@ -29,7 +29,26 @@ describe('parseMeetResults', () => {
 
   it('parses a meet in progress with no results yet', () => {
     const r = parseMeetResults(fixture('meet-results/in-progress.html'));
-    expect(r).toEqual({ meetNumber: 13172, name: 'BUFF vs CORU vs ICB vs CAN', events: [] });
+    expect(r).toMatchObject({ meetNumber: 13172, name: 'BUFF vs CORU vs ICB vs CAN', events: [] });
+  });
+
+  it('lists the events running now with their live board links', () => {
+    const r = parseMeetResults(fixture('meet-results/in-progress.html'));
+    expect(r.live).toEqual([
+      { name: 'Men 1m Championship (6 Dives)', stage: 'Final', path: 'livestats.php?event=stats-13172-7180-9-Started', running: true },
+      { name: 'Women 3m Championship (6 Dives)', stage: 'Final', path: 'livestats.php?event=stats-13172-7160-9-Started', running: true },
+    ]);
+  });
+
+  it("keeps a finished meet's boards, marked as not running", () => {
+    const live = parseMeetResults(fixture('meet-results/finished.html')).live;
+    expect(live).toHaveLength(2);
+    expect(live[0]).toEqual({
+      name: 'Women Platform (5 Dives)',
+      stage: 'Prelim / Quarterfinal',
+      path: 'livestats.php?event=stats-13501-7175-1-Finished',
+      running: false,
+    });
   });
 
   it('throws PageChangedError on a different page', () => {
