@@ -47,12 +47,15 @@ SDK releases: check the versioned docs at `https://docs.expo.dev/versions/` befo
 | `npm run check:fixtures` | Fails when a file under `fixtures/` lacks the anonymized marker |
 | `npm run sync:skills` | Copies `.agents/skills` to `.claude/skills` |
 | `npm run check:skills` | Fails when `.claude/skills` differs from `.agents/skills` |
+| `node scripts/pretend-meet.mjs` | A pretend meet whose live board moves, for the emulator test build (`docs/testing-live-mode.md`) |
 
 The Android test build runs in CI (`.github/workflows/ci.yml`): `npx expo prebuild --platform android`,
 then Gradle `assembleRelease` for arm64 phones only, uploaded as artifact `divedata-test-apk`. A release build carries the app's
 JavaScript, so it opens on a phone with no dev server; a debug build shows "Unable to load script". Expo's
 template signs it with the debug keystore, so it is for testing only. The `android/` folder is generated
-and never committed.
+and never committed. A second workflow (`.github/workflows/emulator-build.yml`, on request) builds
+`divedata-emulator-apk` for the x86_64 emulator, reading the pretend meet instead of DiveMeets; it never goes on
+a parent's phone.
 
 ## Where things live
 
@@ -69,7 +72,8 @@ docs/superpowers/      approved designs (specs/) and build plans (plans/)
 docs/install.md        the parent-friendly install guide
 fixtures/divemeets/    saved DiveMeets pages, names replaced
 mockups/               design mockups, for reference only
-scripts/               repo checks and the anonymizer (run with node on Windows and Linux)
+scripts/               repo checks, the anonymizer and the pretend meet (run with node on Windows and Linux)
+docs/testing-live-mode.md  testing live mode on the emulator with the pretend meet
 index.js, src/root.tsx the app's entry: Expo Router's app with the reader around it
 src/app/               screens (Expo Router); every file here is a route, so tests go in src/__tests__/
 src/divemeets/source.ts how screens ask for a page (usePage) without importing the reader
