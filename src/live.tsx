@@ -35,14 +35,27 @@ type Live = {
 
 const LiveContext = createContext<Live | null>(null);
 
-/** The ongoing notification's words: the first followed diver on the board and how close they are. */
+/** How soon a followed diver dives, for picking the closest: divers before them, then dived, then waiting. */
+function soonness(board: LiveBoard, diverNumber: number): number {
+  const k = diversBefore(board, diverNumber);
+  return typeof k === "number" ? k : k === "dived" ? 1000 : 2000;
+}
+
+/** The ongoing notification's words: the followed diver closest to diving and how close they are. */
 function statusFor(
   board: LiveBoard,
   followed: { diverNumber: number; name: string }[],
 ): [string, string] {
-  const mine = followed.find((d) =>
-    board.rows.some((r) => r.diverNumber === d.diverNumber),
-  );
+  const mine = followed
+    .filter((d) => board.rows.some((r) => r.diverNumber === d.diverNumber))
+    .reduce<{ diverNumber: number; name: string } | undefined>(
+      (best, d) =>
+        best &&
+        soonness(board, best.diverNumber) <= soonness(board, d.diverNumber)
+          ? best
+          : d,
+      undefined,
+    );
   const round = board.round
     ? `Round ${board.round.current} of ${board.round.total}`
     : board.eventName;

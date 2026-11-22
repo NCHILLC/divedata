@@ -22,6 +22,11 @@ describe('parseLiveBoard', () => {
     expect(b.rows.find((r) => r.diverNumber === 3)?.toDive).toBe(false);
   });
 
+  it('puts a space before the team in the next diver box, as the rows have it', () => {
+    const html = fixture('live/in-progress.html').replace('profpopup(this,2)">Diver 2', 'profpopup(this,2)">Diver 2(TEAM)');
+    expect(parseLiveBoard(html).next?.name).toBe('Diver 2 (TEAM)');
+  });
+
   it('reads a closed board: places and scores, nobody left to dive', () => {
     const b = parseLiveBoard(fixture('live/finished.html'));
     expect(b.eventName).toBe('Women Platform (5 Dives)');
