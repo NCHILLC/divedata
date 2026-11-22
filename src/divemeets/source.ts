@@ -53,13 +53,13 @@ export const NotifyContext = createContext<Notify | null>(null);
 /**
  * Follows a page live and reads each copy with a parser. `data` is the latest good page; `error` is the latest
  * problem since it, cleared by the next good page. Only one page is followed at a time. `path` undefined waits.
- * `onData` gets each good page as it arrives, outside rendering, so it runs while React holds the screen.
- * Pass the same `parse` and `onData` every render (module functions or useCallback), or the page is followed again.
+ * `on.onData` and `on.onError` get each good page and each problem as they arrive, outside rendering, so they
+ * run while React holds the screen. Pass the same `parse` and `on` every render (module values, useMemo).
  */
 export function useLivePage<T>(
   path: string | undefined,
   parse: (html: string) => T,
-  onData?: (data: T) => void,
+  on?: { onData?: (data: T) => void; onError?: (error: Error) => void },
 ): { data?: T; error?: Error } {
   const follow = useContext(LiveSourceContext);
   if (!follow) throw new Error('useLivePage needs a LiveSourceContext provider');
@@ -76,13 +76,14 @@ export function useLivePage<T>(
         } catch (error) {
           next = { error: error as Error };
         }
-        if ('data' in next) onData?.(next.data as T);
       }
+      if ('data' in next) on?.onData?.(next.data as T);
+      else if (next.error) on?.onError?.(next.error);
       setState((s) =>
         'data' in next ? { path, data: next.data } : { path, data: s.path === path ? s.data : undefined, error: next.error },
       );
     });
-  }, [follow, path, parse, onData]);
+  }, [follow, path, parse, on]);
 
   if (state.path !== path) return {};
   return state.error ? { data: state.data, error: state.error } : { data: state.data };
