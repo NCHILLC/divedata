@@ -1,6 +1,7 @@
 import { NotReachedError, RefusedError } from '../source';
 
-export const DIVEMEETS = 'https://secure.meetcontrol.com/divemeets/system/';
+// Only the emulator test build sets EXPO_PUBLIC_DIVEMEETS, to read the pretend meet (docs/testing-live-mode.md).
+export const DIVEMEETS = process.env.EXPO_PUBLIC_DIVEMEETS || 'https://secure.meetcontrol.com/divemeets/system/';
 
 /** The error for a page DiveMeets answered with `status` (400 or more). `from` is the page the link came from. */
 export function answered(status: number, from: string | undefined): Error {

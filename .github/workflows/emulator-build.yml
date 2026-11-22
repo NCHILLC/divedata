@@ -1,0 +1,58 @@
+# A test APK for the Android emulator that reads the pretend meet (scripts/pretend-meet.mjs) instead of
+# DiveMeets. Never install it on a phone a parent uses. Steps: docs/testing-live-mode.md.
+# It runs on request (Actions tab or `gh workflow run emulator-build.yml --ref <branch>`), and on pull requests
+# that change it or the pretend meet, so normal pull requests don't wait for a second Android build.
+name: Emulator build
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - .github/workflows/emulator-build.yml
+      - scripts/pretend-meet.mjs
+
+permissions:
+  contents: read
+
+concurrency:
+  group: emulator-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  emulator-apk:
+    runs-on: ubuntu-latest
+    env:
+      # The emulator reaches the computer it runs on as 10.0.2.2. Metro bundles this into the app's JavaScript.
+      EXPO_PUBLIC_DIVEMEETS: http://10.0.2.2:8080/divemeets/system/
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 17
+      - run: npm ci
+      - run: npx expo prebuild --platform android --no-install
+      # The pretend meet is plain http, which release builds refuse. Allow it in this build only.
+      - name: Allow http
+        run: |
+          m=android/app/src/main/AndroidManifest.xml
+          if grep -q networkSecurityConfig "$m"; then echo "networkSecurityConfig would override this"; exit 1; fi
+          sed -i 's/ android:usesCleartextTraffic="[^"]*"//; s/<application /<application android:usesCleartextTraffic="true" /' "$m"
+          grep -o '<application [^>]*' "$m"
+          grep -q 'usesCleartextTraffic="true"' "$m"
+      - uses: gradle/actions/setup-gradle@v6
+        with:
+          cache-provider: basic
+          cache-read-only: true
+      # x86_64 is the emulator's chip type on a Windows or Linux computer.
+      - run: ./gradlew assembleRelease --no-daemon --build-cache -PreactNativeArchitectures=x86_64
+        working-directory: android
+      - uses: actions/upload-artifact@v4
+        with:
+          name: divedata-emulator-apk
+          path: android/app/build/outputs/apk/release/*.apk
+          if-no-files-found: error
