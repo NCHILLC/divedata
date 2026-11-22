@@ -31,3 +31,21 @@ test('says when a meet has no results yet', async () => {
   await render(withPages(<Meet />, pages));
   expect(await screen.findByText('No results yet. Check back once the meet starts.')).toBeTruthy();
 });
+
+test('shows the events running now and opens a live board', async () => {
+  jest.mocked(useLocalSearchParams).mockReturnValue({ meetNumber: '13172' });
+  await render(withPages(<Meet />, pages));
+  expect(await screen.findByText('Live now')).toBeTruthy();
+  await fireEvent.press(screen.getByLabelText('Open live board, Women 3m Championship (6 Dives), Final'));
+  expect(router.push).toHaveBeenCalledWith({
+    pathname: '/live',
+    params: { path: 'livestats.php?event=stats-13172-7160-9-Started' },
+  });
+});
+
+test('shows no live boards once a meet is over', async () => {
+  jest.mocked(useLocalSearchParams).mockReturnValue({ meetNumber: '13501' });
+  await render(withPages(<Meet />, pages));
+  expect(await screen.findByText('2026 Phil Hansel Invitational @Houston')).toBeTruthy();
+  expect(screen.queryByText('Live now')).toBeNull();
+});

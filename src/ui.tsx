@@ -54,15 +54,18 @@ export function Num({ children, big }: { children: React.ReactNode; big?: boolea
   return <Text style={[styles.num, big && styles.bigNum]}>{children}</Text>;
 }
 
-export function Button({ label, onPress, filled }: { label: string; onPress: () => void; filled?: boolean }) {
+/** `label` is what a screen reader says; `text`, when given, is the shorter word shown. `selected` fills it too. */
+export function Button(props: { label: string; text?: string; onPress: () => void; filled?: boolean; selected?: boolean }) {
+  const filled = props.filled || props.selected;
   return (
     <Pressable
       accessibilityRole="button"
-      accessibilityLabel={label}
-      onPress={onPress}
+      accessibilityLabel={props.label}
+      accessibilityState={props.selected === undefined ? undefined : { selected: props.selected }}
+      onPress={props.onPress}
       style={[styles.button, filled && styles.buttonFilled]}
     >
-      <Text style={[styles.buttonText, filled && styles.buttonTextFilled]}>{label}</Text>
+      <Text style={[styles.buttonText, filled && styles.buttonTextFilled]}>{props.text ?? props.label}</Text>
     </Pressable>
   );
 }

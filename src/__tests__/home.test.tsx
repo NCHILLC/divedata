@@ -1,8 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { fireEvent, render, screen } from '@testing-library/react-native';
+import { act, fireEvent, render, screen } from '@testing-library/react-native';
 import { router } from 'expo-router';
+import { useEffect } from 'react';
 import Home from '../app/index';
 import { parseMeetList } from '../divemeets/parsers';
+import type { FollowPage, LiveUpdate } from '../divemeets/source';
+import { useLive } from '../live';
 import { fixture, withPages } from './fixtures';
 
 jest.mock('expo-router', () => ({ router: { push: jest.fn() }, Stack: { Screen: () => null } }));
@@ -52,4 +55,27 @@ test('says so plainly when DiveMeets cannot be reached', async () => {
   await render(withPages(<Home />, {}));
   expect(await screen.findByText("Couldn't reach DiveMeets. Check your connection, then try again.")).toBeTruthy();
   expect(screen.getByLabelText('Try again')).toBeTruthy();
+});
+
+test('while following a live board, opens it or stops it', async () => {
+  const path = 'livestats.php?event=stats-13172-7160-9-Started';
+  let send: (u: LiveUpdate) => void = () => {};
+  const unfollow = jest.fn();
+  const follow: FollowPage = (_path, onUpdate) => {
+    send = onUpdate;
+    return unfollow;
+  };
+  function Following() {
+    const { start } = useLive();
+    useEffect(() => start(path), [start]);
+    return null;
+  }
+  await render(withPages(<><Following /><Home /></>, pages, follow));
+  await act(async () => send({ html: fixture('live/in-progress.html') }));
+  expect(screen.getByText('Following live: Women 3m Championship (6 Dives)')).toBeTruthy();
+  await fireEvent.press(screen.getByLabelText("Open the live board you're following"));
+  expect(router.push).toHaveBeenCalledWith({ pathname: '/live', params: { path } });
+  await fireEvent.press(screen.getByLabelText('Stop following live'));
+  expect(unfollow).toHaveBeenCalled();
+  expect(screen.queryByLabelText('Stop following live')).toBeNull();
 });

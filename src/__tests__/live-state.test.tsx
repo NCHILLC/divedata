@@ -139,3 +139,12 @@ test("keeps the alert distance between 1 and 5, on the phone", async () => {
   expect(result.current.away).toBe(5);
   expect(await AsyncStorage.getItem("alertAway")).toBe("5");
 });
+
+test("following the same board again (after DiveMeets' check) does not repeat alerts", async () => {
+  const { result } = await following();
+  await act(async () => send(board));
+  await act(async () => result.current.stop());
+  await act(async () => result.current.start(path));
+  await act(async () => send(board));
+  expect(notify.alert).toHaveBeenCalledTimes(1);
+});

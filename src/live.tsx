@@ -85,6 +85,8 @@ export function LiveProvider({ children }: { children: React.ReactNode }) {
     away,
     sent: [] as Sent,
     checkSent: false,
+    /** The board the alerts in `sent` belong to; following it again keeps them, so nothing repeats. */
+    sentFor: undefined as string | undefined,
   });
   useEffect(() => {
     latest.current.notify = notify;
@@ -135,7 +137,8 @@ export function LiveProvider({ children }: { children: React.ReactNode }) {
   const { data: board, error } = useLivePage(path, parseLiveBoard, on);
 
   const start = useCallback((next: string) => {
-    latest.current.sent = [];
+    if (latest.current.sentFor !== next) latest.current.sent = [];
+    latest.current.sentFor = next;
     latest.current.checkSent = false;
     setUpdatedAt(undefined);
     setPath(next);

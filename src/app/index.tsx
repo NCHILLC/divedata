@@ -4,6 +4,7 @@ import { TextInput, View } from 'react-native';
 import { parseDiverProfile, parseMeetLink, parseMeetList, type DiverRef } from '../divemeets/parsers';
 import { usePage } from '../divemeets/source';
 import { useFollows } from '../follows';
+import { useLive } from '../live';
 import { Body, Button, Card, color, Heading, Num, PageView, placeWords, points, Screen, styles, Title } from '../ui';
 
 const openMeet = (meetNumber: number) =>
@@ -36,6 +37,26 @@ function FollowedDiver({ diver }: { diver: DiverRef }) {
   );
 }
 
+/** While live mode follows a board: a way back to it, and Stop. */
+function FollowingLive() {
+  const live = useLive();
+  const path = live.path;
+  if (!path) return null;
+  return (
+    <>
+      <Card
+        label="Open the live board you're following"
+        highlight
+        onPress={() => router.push({ pathname: '/live', params: { path } })}
+      >
+        <Body>{`Following live: ${live.board?.eventName ?? 'a live board'}`}</Body>
+        {live.error && <Body muted>Trying again</Body>}
+      </Card>
+      <Button label="Stop following live" onPress={live.stop} />
+    </>
+  );
+}
+
 export default function Home() {
   const { divers } = useFollows();
   const [query, setQuery] = useState('');
@@ -46,6 +67,7 @@ export default function Home() {
   return (
     <Screen title="DiveData">
       <Title>DiveData</Title>
+      <FollowingLive />
 
       <Heading>My divers</Heading>
       {divers.length === 0 ? (

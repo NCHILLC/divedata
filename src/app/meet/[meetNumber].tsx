@@ -1,7 +1,7 @@
 import { router, useLocalSearchParams } from 'expo-router';
 import { parseMeetResults } from '../../divemeets/parsers';
 import { usePage } from '../../divemeets/source';
-import { Body, Card, PageView, Screen, Title } from '../../ui';
+import { Body, Card, Heading, PageView, Screen, Title } from '../../ui';
 
 export default function Meet() {
   const { meetNumber } = useLocalSearchParams<{ meetNumber: string }>();
@@ -13,6 +13,20 @@ export default function Meet() {
         {(meet) => (
           <>
             <Title>{meet.name}</Title>
+            {meet.live.some((e) => e.running) && <Heading>Live now</Heading>}
+            {meet.live
+              .filter((e) => e.running)
+              .map((e) => (
+                <Card
+                  key={e.path}
+                  label={`Open live board, ${[e.name, e.stage].filter(Boolean).join(', ')}`}
+                  highlight
+                  onPress={() => router.push({ pathname: '/live', params: { path: e.path } })}
+                >
+                  <Body>{e.name}</Body>
+                  {e.stage && <Body muted>{e.stage}</Body>}
+                </Card>
+              ))}
             {meet.events.length === 0 && <Body muted>No results yet. Check back once the meet starts.</Body>}
             {meet.events.map((e) => {
               const path = e.resultsPath;
