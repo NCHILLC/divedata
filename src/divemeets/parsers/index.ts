@@ -38,4 +38,6 @@ export {
   MeetSummarySchema,
   type ResultRow,
   ResultRowSchema,
+  type ScheduledEvent,
+  ScheduledEventSchema,
 } from './types';

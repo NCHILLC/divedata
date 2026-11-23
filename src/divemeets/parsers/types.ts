@@ -34,7 +34,11 @@ export const EventSummarySchema = z.object({
 });
 export type EventSummary = z.infer<typeof EventSummarySchema>;
 
-export const MeetSchema = MeetSummarySchema.extend({ events: z.array(EventSummarySchema) });
+/** One event on a meet's schedule (meet info page). Some meets link only its rule set, which has no event type. */
+export const ScheduledEventSchema = EventSummarySchema.partial({ eventType: true });
+export type ScheduledEvent = z.infer<typeof ScheduledEventSchema>;
+
+export const MeetSchema = MeetSummarySchema.extend({ events: z.array(ScheduledEventSchema) });
 export type Meet = z.infer<typeof MeetSchema>;
 
 /** An event running now, with its live board: `livestats.php?event=stats-13172-7160-9-Started`. */

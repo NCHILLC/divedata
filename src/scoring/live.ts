@@ -1,5 +1,25 @@
 // Live board math: how many divers go before a followed diver this round, and which "Up next" alerts are due.
-import type { LiveBoard } from '../divemeets/parsers';
+import type { LiveBoard, LiveEvent, ScheduledEvent } from '../divemeets/parsers';
+
+/**
+ * The boards to show under "Live now": still marked Started, and not on another day's schedule. DiveMeets can leave
+ * a board that stopped mid-event marked Started (UChicago's Saturday boards on Sunday), so the meet's schedule
+ * decides. A board the schedule cannot place (no schedule, event not on it, no day) stays: better a frozen board than
+ * a hidden running one. `today` is the phone's date, `YYYY-MM-DD`. The board's address carries the event's number
+ * and type: `livestats.php?event=stats-<meet>-<event>-<type>-Started`.
+ */
+export function liveNow(live: LiveEvent[], schedule: ScheduledEvent[] | undefined, today: string): LiveEvent[] {
+  return live.filter((board) => {
+    if (!board.running) return false;
+    const m = /stats-\d+-(\d+)-(\d+)-/.exec(board.path);
+    if (!m) return true;
+    const [eventNumber, eventType] = [Number(m[1]), Number(m[2])];
+    const day = schedule?.find(
+      (e) => e.eventNumber === eventNumber && (e.eventType === undefined || e.eventType === eventType),
+    )?.date;
+    return !day || day === today;
+  });
+}
 
 /**
  * Divers still to dive this round from DiveMeets' Next Diver up to mine; 0 means up next. `'dived'`: dived
