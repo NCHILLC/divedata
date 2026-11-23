@@ -1,7 +1,7 @@
 import { readFileSync } from 'fs';
 import { join } from 'path';
-import { parseLiveBoard } from '../../divemeets/parsers';
-import { alertsDue, diversBefore } from '../live';
+import { parseLiveBoard, parseMeetInfo, parseMeetResults } from '../../divemeets/parsers';
+import { alertsDue, diversBefore, liveNow } from '../live';
 
 const board = parseLiveBoard(
   readFileSync(join(__dirname, '..', '..', '..', 'fixtures', 'divemeets', 'live', 'in-progress.html'), 'utf8'),
@@ -69,5 +69,38 @@ describe('alertsDue', () => {
   it('sends nothing for a closed board or a diver not on it', () => {
     expect(alertsDue([], finished, [{ diverNumber: 1, name: 'Diver 1' }], 3).alerts).toEqual([]);
     expect(alertsDue([], board, [{ diverNumber: 999, name: 'Someone' }], 3).alerts).toEqual([]);
+  });
+});
+
+describe('liveNow', () => {
+  const page = (path: string) => readFileSync(join(__dirname, '..', '..', '..', 'fixtures', 'divemeets', path), 'utf8');
+  // UChicago on Sunday night: Saturday's two boards and Sunday's one all still end in -Started.
+  const { live } = parseMeetResults(page('meet-results/stale-boards.html'));
+  const schedule = parseMeetInfo(page('meet-info/two-days.html')).events;
+  const names = (boards: { name: string }[]) => boards.map((b) => b.name);
+
+  it("keeps only the boards on today's schedule", () => {
+    expect(names(liveNow(live, schedule, '2026-11-22'))).toEqual(['Women 3m Championship (11Div Vol 1st.)']);
+    expect(names(liveNow(live, schedule, '2026-11-21'))).toEqual([
+      'Men 3m Championship (11Div Vol 1st.)',
+      'Women 1m Championship (11Div Vol 1st.)',
+    ]);
+  });
+
+  it('keeps a board the schedule cannot place: no schedule, event not on it, or no day', () => {
+    expect(liveNow(live, undefined, '2026-11-23')).toHaveLength(3);
+    expect(liveNow(live, [], '2026-11-23')).toHaveLength(3);
+    expect(liveNow(live, schedule.map(({ date: _, ...e }) => e), '2026-11-23')).toHaveLength(3);
+  });
+
+  it('matches the event type too when the schedule has one', () => {
+    const prelim = { eventNumber: 7320, eventType: 1, name: 'W3m', date: '2026-11-22' };
+    const final = { eventNumber: 7320, eventType: 9, name: 'W3m', date: '2026-11-21' };
+    expect(names(liveNow(live, [prelim, final], '2026-11-22'))).not.toContain('Women 3m Championship (11Div Vol 1st.)');
+  });
+
+  it('leaves out boards that closed', () => {
+    const closed = { name: 'Women 1m', path: 'livestats.php?event=stats-1-2-9-Finished', running: false };
+    expect(liveNow([closed], undefined, '2026-11-22')).toEqual([]);
   });
 });

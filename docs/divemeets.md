@@ -60,7 +60,8 @@ per meet with a link to `meetresultsext.php?meetnum=`: name, start date, end dat
 `parseMeetInfo`. A details table with label cells ("Name:", "Start Date:", "End date:", "Pool:"), each
 followed by its value. The pool address gives city and state. The schedule is a flat run of cells: a
 date cell, then one cell per event with a link to `qualrule.php?` that carries `event=` and
-`eventtype=`. The page links to entries (`divesheetext.php`), never to results.
+`eventtype=`. Some meets (UChicago's NCAA meet, 13418) link only `eventrule.php?ruleset=&event=`, with no
+event type; those events read without one. The page links to entries (`divesheetext.php`), never to results.
 
 ### Meet results: `meetresultsext.php?meetnum=`
 
@@ -111,7 +112,14 @@ is an error. Zero found is an empty list.
 
 `parseLiveBoard`. The meet results page links each event's board ("Unofficial Live Statistics!") under its
 bold name with the stage in brackets; `parseMeetResults` gives them as `live`. The address ends in `-Started`
-while the event runs and `-Finished` after, and a finished meet still links its boards.
+while the event runs and `-Finished` after, and a finished meet still links its boards. `<id>` is the event's
+number and `<n>` its type, the same `event=` and `eventtype=` as the meet info schedule.
+
+`-Started` does not prove a board is running: a board that stopped mid-event can stay `-Started` for days
+(UChicago's Saturday boards, frozen at round 6, were still `-Started` on Sunday night). So the meet screen reads
+the schedule too and shows under "Live now" only boards scheduled for today (`liveNow` in `src/scoring/live.ts`).
+A board the schedule can't place stays (the maintainer's rule, 2026-11-22: better a frozen board than a hidden
+running one). Today's frozen board still shows.
 
 The board's bold title is "Unofficial Statistics" and the event name with its stage. In progress: a "Next
 Diver" box (profile link, "Diver Order: 7"), "Current Round: 6 / 6", then one row per diver under a header

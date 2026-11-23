@@ -37,13 +37,14 @@ export function parseMeetInfo(html: string): Meet {
     if (td.querySelector('table')) continue;
     const day = parseDay(cleanText(td.querySelector('strong')));
     if (day && cleanText(td) === cleanText(td.querySelector('strong'))) date = day;
-    // Every event row has a qualification-rule link; the entries link is missing until someone signs up.
-    const rule = td.querySelector('a[href*="qualrule.php?"]');
+    // Every event row has a qualifying-rule link (`qualrule.php?meet=&event=&eventtype=`) or, on some meets, only a
+    // rule-set link (`eventrule.php?ruleset=&event=`, no event type). The entries link is missing until someone signs up.
+    const rule = td.querySelector('a[href*="qualrule.php?"]') ?? td.querySelector('a[href*="eventrule.php?"]');
     if (rule) {
       const href = rule.getAttribute('href') ?? '';
       events.push({
         eventNumber: numberFromHref(href, 'event'),
-        eventType: numberFromHref(href, 'eventtype'),
+        ...(/[?&]eventtype=/.test(href) ? { eventType: numberFromHref(href, 'eventtype') } : {}),
         ...splitStage(cleanText(td.childNodes[0] as HTMLElement)),
         ...(date ? { date } : {}),
       });

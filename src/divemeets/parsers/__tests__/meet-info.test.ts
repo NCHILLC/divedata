@@ -45,6 +45,17 @@ describe('parseMeetInfo', () => {
     expect(meet.events.every((e) => e.resultsPath === undefined)).toBe(true);
   });
 
+  it('reads a schedule whose events link a rule set, which has no event type', () => {
+    // UChicago's NCAA meet links eventrule.php?ruleset=1&event=7315 where others link qualrule.php.
+    const twoDays = parseMeetInfo(fixture('meet-info/two-days.html'));
+    expect(twoDays.events).toEqual([
+      { eventNumber: 7315, name: 'Women 1m Championship (11Div Vol 1st.)', date: '2026-11-21' },
+      { eventNumber: 7330, name: 'Men 3m Championship (11Div Vol 1st.)', date: '2026-11-21' },
+      { eventNumber: 7320, name: 'Women 3m Championship (11Div Vol 1st.)', date: '2026-11-22' },
+      { eventNumber: 7325, name: 'Men 1m Championship (11Div Vol 1st.)', date: '2026-11-22' },
+    ]);
+  });
+
   it('throws PageChangedError on a different page', () => {
     const run = () => parseMeetInfo(fixture('meet-list/past.html'));
     expect(run).toThrow(PageChangedError);
